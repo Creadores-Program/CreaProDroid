@@ -1,0 +1,2 @@
+JSEngineNK:
+hace que nukkit de minecraft pueda ejecutar Javascript y el sucesor del plugin ModLoader de Nukkit, el plugin usa el motor nashorn de java con scripting mode y es6 mode, el link del plugin: https://cloudburstmc.org/resources/jsenginenk.939/
