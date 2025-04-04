@@ -1,9 +1,15 @@
 var apiKey;
 var userName;
 var filesI = "";
+if (!String.prototype.startsWith) {
+    String.prototype.startsWith = function(search, pos) {
+        pos = pos || 0;
+        return this.substring(pos, pos + search.length) === search;
+    };
+}
 if(localStorage.getItem("apiKey") == null){
     apiKey = prompt("Escribe tu API key:");
-    if(apiKey == null || apiKey == ""){
+    if(apiKey == null || apiKey.trim() == ""){
         alert("No se puede continuar sin la API key.");
         Android.finish();
     }
@@ -20,7 +26,7 @@ if(localStorage.getItem("apiKey") == null){
 }
 if(localStorage.getItem("userName") == null){
     userName = prompt("Escribe tu nombre:");
-    if(userName == null || userName == ""){
+    if(userName == null || userName.trim() == ""){
         alert("No se puede continuar sin el nombre.");
         Android.finish();
     }
@@ -30,7 +36,70 @@ if(localStorage.getItem("userName") == null){
     userName = localStorage.getItem("userName");
     Android.setUserName(userName);
 }
-function sendMessage(msg) {
+function sendMessage(msg, isSpeak) {
+    sendToHtmlUser(msg);
+    var prompIAJson = Android.promptGemini(msg, apiKey);
+    var subPrompIAJson;
+    try{
+        subPrompIAJson = JSON.parse(prompIAJson);
+    }catch(e){
+        if(prompIAJson.startsWith("{")){
+            sendToHtml("Hubo un error al procesar la respuesta de la IA, porfavor intenta de nuevo.");
+        }else{
+            sendToHtml(prompIAJson);
+        }
+        return;
+    }
+    var responMSGIA = Android.mdToHtml(subPrompIAJson.message);
+    if(subPrompIAJson.genImg != null && subPrompIAJson.genImg.trim() != ""){
+        try{
+            responMSGIA += "<br/><img src='"+Android.genImg(subPrompIAJson.genImg)+"' alt='Imagen Generada'/>";
+        }catch(e){
+            responMSGIA += "<br/>Error al generar la imagen";
+        }
+    }
+    sendToHtml(responMSGIA);
+    if(isSpeak){
+        Android.speak(responMSGIA);
+    }
+    if(subPrompIAJson.openApp != null && subPrompIAJson.openApp.trim() != ""){
+        try{
+            Android.openApp(subPrompIAJson.openApp);
+            sendToHtml("Abriendo la app...");
+        }catch(e){
+            sendToHtml("Error al abrir la app!");
+        }
+    }
+    if(subPrompIAJson.openUrl != null && subPrompIAJson.openUrl.trim() != ""){
+        if(confirm("Quieres abrir la url "+subPrompIAJson.openUrl+"?")){
+            Android.openUrl(subPrompIAJson.openUrl);
+            sendToHtml("Abriendo la url...");
+        }
+    }
+    function sendToHtml(msg){
+        var chatfj = document.getElementById("Chat");
+        var chatIAd = document.createElement("div");
+        chatIAd.classList.add("message", "bot", "clearfix");
+        var IAavatar = document.createElement("img");
+        IAavatar.src = "./resources/AvatarIA.jpeg";
+        IAavatar.classList.add("avatar");
+        chatIAd.appendChild(IAavatar);
+        var chatIAdText = document.createElement("div");
+        chatIAdText.classList.add("bubble");
+        chatIAdText.innerHTML = msg;
+        chatIAd.appendChild(chatIAdText);
+        chatfj.appendChild(chatIAd);
+    }
+    function sendToHtmlUser(msg){
+        var chatfj = document.getElementById("Chat");
+        var chatUserd = document.createElement("div");
+        chatUserd.classList.add("message", "user", "clearfix");
+        var chatUserdText = document.createElement("div");
+        chatUserdText.classList.add("bubble");
+        chatUserdText.innerHTML = msg;
+        chatUserd.appendChild(chatUserdText);
+        chatfj.appendChild(chatUserd);
+    }
 }
 function handleFileChange(event) {
     alert("Procesando archivos...");
