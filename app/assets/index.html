@@ -8,7 +8,19 @@
     <script src="./main.js"></script>
 </head>
 <body>
-    <div id="Chat" class="InterfaceH">
+    <div id="Home" class="InterfaceH">
+        <div class="chat-header">
+            <h1>CreaProDroid</h1>
+            <div id="configBtn" style="width: 24px; height: 24px; background: url('./resources/settings.png') 50% 50% no-repeat; background-size: contain;" onclick="document.getElementById('Home').style.display = 'none'; document.getElementById('Config').style.display = 'block';"></div>
+        </div>
+        <div class="chat-container" id="Chat"></div>
+        <div class="input-container">
+            <input type="file" hidden id="filesTextExtra" accept="text/*" onchange="handleFileChange(event)" />
+            <button id="upFile" onclick="document.getElementById('filesTextExtra').click()" style="font-size: 24px;">+</button>
+            <input type="text" id="inputChat" placeholder="Escribe un mensaje..." />
+            <button id="sendBtn" style="width: 24px; height: 24px; background: url('./resources/send.png') 50% 50% no-repeat; background-size: contain;" onclick="if(document.getElementById('inputChat').value != null && document.getElementById('inputChat').value != ''){ sendMessage(document.getElementById('inputChat').value +filesI); document.getElementById('inputChat').value = ''; filesI = ''; document.getElementById('filesTextExtra').value = ''; }"></button>
+            <button id="habla" style="width: 24px; height: 24px; background: url('./resources/mic.png') 50% 50% no-repeat; background-size: contain;"></button>
+        </div>
     </div>
     <div id="Config" class="InterfaceH HideDef">
     </div>
