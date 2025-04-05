@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.pm.ApplicationInfo;
 import java.util.List;
+import java.io.IOException;
 
 public class MaxIaManager{
     public PegDownProcessor procesorMD;
@@ -48,12 +49,16 @@ public class MaxIaManager{
                 continue;
             }
             JSONObject jsonObj = new JSONObject();
-            jsonObj.put("name", appInfo.getApplicationLabel(appInfo).toString());
-            jsonObj.put("package", appInfo.packageName);
-            this.apps.put(jsonObj);
+            try{
+              jsonObj.put("name", pm.getApplicationLabel(appInfo).toString());
+              jsonObj.put("package", appInfo.packageName);
+              this.apps.put(jsonObj);
+            }catch (Exception e){
+                continue;
+            }
         }
     }
-    public String promptGemini(String prompt, String key){
+    public String promptGemini(String prompt, String key) throws Exception{
         JSONObject promptJson = new JSONObject();
         //Añadir historial y pregunta
         JSONObject actualPromp = new JSONObject();
@@ -139,7 +144,7 @@ public class MaxIaManager{
         return repuest;
     }
 
-    public String genImg(String prompt, String key){
+    public String genImg(String prompt, String key) throws Exception{
         JSONObject promptJson = new JSONObject();
         JSONArray contents = new JSONArray();
         JSONObject content = new JSONObject();
@@ -187,6 +192,7 @@ public class MaxIaManager{
     }
 
     private String fetch(String url, String data) {
+        try{
         return Jsoup.connect(url)
             .userAgent("Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0 Mobile Safari/537.36")
             .header("Content-Type", "application/json")
@@ -194,5 +200,8 @@ public class MaxIaManager{
             .method(Connection.Method.POST)
             .ignoreContentType(true)
             .execute().body();
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
     }
 }

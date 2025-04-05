@@ -44,6 +44,7 @@ public class JSInterface{
     }
     @JavascriptInterface
     public String fetch(String url, String method, String data) {
+        try{
         if(method == "POST"){
             return Jsoup.connect(url)
                 .userAgent("Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0 Mobile Safari/537.36")
@@ -59,10 +60,17 @@ public class JSInterface{
                 .ignoreContentType(true)
                 .execute().body();
         }
+        }catch (IOException e){
+            throw new RuntimeException("Error: " + e.getMessage());
+        }
     }
     @JavascriptInterface
     public String promptGemini(String prompt, String key){
-        return mMaxIaManager.promptGemini(prompt, key);
+        try{
+          return mMaxIaManager.promptGemini(prompt, key);
+        }catch (Exception e){
+            throw new RuntimeException("Error: " + e.getMessage());
+        }
     }
     @JavascriptInterface
     public void clearChat(){
@@ -70,7 +78,11 @@ public class JSInterface{
     }
     @JavascriptInterface
     public String genImg(String prompt, String key){
-        return mMaxIaManager.genImg(prompt, key);
+        try{
+          return mMaxIaManager.genImg(prompt, key);
+        }catch (Exception e){
+            throw new RuntimeException("Error: " + e.getMessage());
+        }
     }
     @JavascriptInterface
     public void setUserName(String name){
@@ -84,7 +96,7 @@ public class JSInterface{
         CustomTabsIntent customTabsIntent = builder.build();
         customTabsIntent.intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         customTabsIntent.intent.setData(Uri.parse(url));
-        mContext.startActivityForResult(customTabsIntent.intent, 200);
+        mContext.startActivity(customTabsIntent.intent);
     }
     @JavascriptInterface
     public void openApp(String packageApp){
