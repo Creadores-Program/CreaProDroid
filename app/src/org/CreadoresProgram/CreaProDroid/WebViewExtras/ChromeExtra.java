@@ -48,6 +48,7 @@ public class ChromeExtra extends WebChromeClient {
         new AlertDialog.Builder(context, android.R.style.Theme_Holo_Light_Dialog)
             .setTitle("CreaProDroid")
             .setMessage(message)
+            .setView(input)
             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     result.confirm(input.getText().toString());

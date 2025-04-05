@@ -126,8 +126,4 @@ public class JSInterface{
             tts.stop();
         }
     }
-    @JavascriptInterface
-    public String mdToHtml(String md){
-        return mMaxIaManager.procesorMD.markdownToHtml(md);
-    }
 }

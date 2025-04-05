@@ -4,7 +4,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import org.pegdown.PegDownProcessor;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import android.content.Context;
@@ -19,7 +18,6 @@ import java.util.List;
 import java.io.IOException;
 
 public class MaxIaManager{
-    public PegDownProcessor procesorMD;
     private String BaseDataIA = "";
     private String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=";
     private String urlGenimg = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:streamGenerateContent?key=";
@@ -29,7 +27,6 @@ public class MaxIaManager{
     private OkHttpClient clientHt = new OkHttpClient();
     private static final MediaType JSONHt = MediaType.parse("application/json; charset=utf-8");
     public MaxIaManager(Context context) {
-        this.procesorMD = new PegDownProcessor();
         AssetManager assetManager = context.getAssets();
         try{
             String[] files = assetManager.list("IA/MaxIA/");

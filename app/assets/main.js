@@ -12,6 +12,7 @@ if(localStorage.getItem("apiKey") == null){
     if(apiKey == null || apiKey.trim() == ""){
         alert("No se puede continuar sin la API key.");
         Android.finish();
+        throw new Error("No se puede continuar sin la API key.");
     }
     try{
         Android.promptGemini("Este Es Un Test de ti porfavor responde un Saludo!", apiKey);
@@ -50,7 +51,7 @@ function sendMessage(msg, isSpeak) {
         }
         return;
     }
-    var responMSGIA = Android.mdToHtml(subPrompIAJson.message);
+    var responMSGIA = DOMPurify.sanitize(marked.parse(subPrompIAJson.message));
     if(subPrompIAJson.genImg != null && subPrompIAJson.genImg.trim() != ""){
         try{
             responMSGIA += "<br/><img src='"+Android.genImg(subPrompIAJson.genImg)+"' alt='Imagen Generada'/>";
@@ -96,7 +97,7 @@ function sendMessage(msg, isSpeak) {
         chatUserd.classList.add("message", "user", "clearfix");
         var chatUserdText = document.createElement("div");
         chatUserdText.classList.add("bubble");
-        chatUserdText.innerHTML = msg;
+        chatUserdText.textContent = msg;
         chatUserd.appendChild(chatUserdText);
         chatfj.appendChild(chatUserd);
     }
