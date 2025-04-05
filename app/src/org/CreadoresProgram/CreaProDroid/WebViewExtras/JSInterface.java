@@ -15,16 +15,17 @@ import java.util.Locale;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.customtabs.CustomTabsIntent;
+import org.CreadoresProgram.CreaProDroid.MainActivity;
 
 public class JSInterface{
-    private Context mContext;
+    private MainActivity mContext;
     private MaxIaManager mMaxIaManager;
     private TextToSpeech tts;
     private WebView mWebView;
-    public JSInterface(Context c, WebView webView) {
+    public JSInterface(MainActivity c, WebView webView) {
         mContext = c;
         mWebView = webView;
-        mMaxIaManager = new MaxIaManager(c);
+        mMaxIaManager = new MaxIaManager((Context) c);
         tts = new TextToSpeech(c, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
