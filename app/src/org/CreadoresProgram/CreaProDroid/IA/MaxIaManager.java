@@ -1,6 +1,9 @@
 package org.CreadoresProgram.CreaProDroid.IA;
-import org.jsoup.Jsoup;
-import org.jsoup.Connection;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import org.pegdown.PegDownProcessor;
 import org.json.JSONObject;
 import org.json.JSONArray;
@@ -23,6 +26,8 @@ public class MaxIaManager{
     private JSONArray history = new JSONArray();
     private String UserName = "Maxi";
     private JSONArray apps = new JSONArray();
+    private OkHttpClient clientHt = new OkHttpClient();
+    private static final MediaType JSONHt = MediaType.parse("application/json; charset=utf-8");
     public MaxIaManager(Context context) {
         this.procesorMD = new PegDownProcessor();
         AssetManager assetManager = context.getAssets();
@@ -191,17 +196,15 @@ public class MaxIaManager{
         this.UserName = name;
     }
 
-    private String fetch(String url, String data) {
-        try{
-        return Jsoup.connect(url)
-            .userAgent("Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0 Mobile Safari/537.36")
-            .header("Content-Type", "application/json")
-            .requestBody(data)
-            .method(Connection.Method.POST)
-            .ignoreContentType(true)
-            .execute().body();
-        }catch (IOException e){
-            throw new RuntimeException(e);
+    private String fetch(String url, String data) throws Exception{
+        RequestBody body = RequestBody.create(JSONHt, data);
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build(); 
+        try(Response response = clientHt.newCall(request).execute()){
+            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+            return response.body().string();
         }
     }
 }

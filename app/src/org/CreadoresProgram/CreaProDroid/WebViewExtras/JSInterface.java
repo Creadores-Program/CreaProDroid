@@ -3,8 +3,11 @@ import android.webkit.JavascriptInterface;
 import android.content.Context;
 import android.webkit.WebView;
 import android.net.Uri;
-import org.jsoup.Jsoup;
-import org.jsoup.Connection;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,6 +25,8 @@ public class JSInterface{
     private MaxIaManager mMaxIaManager;
     private TextToSpeech tts;
     private WebView mWebView;
+    private OkHttpClient clientHt = new OkHttpClient();
+    private static final MediaType JSONHt = MediaType.parse("application/json; charset=utf-8");
     public JSInterface(MainActivity c, WebView webView) {
         mContext = c;
         mWebView = webView;
@@ -47,19 +52,24 @@ public class JSInterface{
     public String fetch(String url, String method, String data) {
         try{
         if(method == "POST"){
-            return Jsoup.connect(url)
-                .userAgent("Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0 Mobile Safari/537.36")
-                .header("Content-Type", "application/json")
-                .requestBody(data)
-                .method(Connection.Method.POST)
-                .ignoreContentType(true)
-                .execute().body();
+            RequestBody body = RequestBody.create(JSONHt, data);
+            Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build(); 
+            try(Response response = clientHt.newCall(request).execute()){
+                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+                return response.body().string();
+            }
         }else{
-            return Jsoup.connect(url)
-                .userAgent("Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0 Mobile Safari/537.36")
-                .method(Connection.Method.GET)
-                .ignoreContentType(true)
-                .execute().body();
+            Request request = new Request.Builder()
+                .url(url)
+                .get()
+                .build();
+            try(Response response = clientHt.newCall(request).execute()){
+                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+                return response.body().string();
+            }
         }
         }catch (IOException e){
             throw new RuntimeException("Error: " + e.getMessage());
