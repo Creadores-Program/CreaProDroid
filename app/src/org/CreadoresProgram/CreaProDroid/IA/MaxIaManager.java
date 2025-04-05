@@ -1,9 +1,7 @@
 package org.CreadoresProgram.CreaProDroid.IA;
 import org.jsoup.Jsoup;
 import org.jsoup.Connection;
-import com.vladsch.flexmark.html.HtmlRenderer;
-import com.vladsch.flexmark.parser.Parser;
-import com.vladsch.flexmark.util.data.MutableDataSet;
+import org.pegdown.PegDownProcessor;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import android.content.Context;
@@ -17,8 +15,7 @@ import android.content.pm.ApplicationInfo;
 import java.util.List;
 
 public class MaxIaManager{
-    public Parser parserMD;
-    public HtmlRenderer rendererMD;
+    public PegDownProcessor procesorMD;
     private String BaseDataIA = "";
     private String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=";
     private String urlGenimg = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:streamGenerateContent?key=";
@@ -26,9 +23,7 @@ public class MaxIaManager{
     private String UserName = "Maxi";
     private JSONArray apps = new JSONArray();
     public MaxIaManager(Context context) {
-        MutableDataSet options = new MutableDataSet();
-        this.parserMD = Parser.builder(options).build();
-        this.rendererMD = HtmlRenderer.builder(options).build();
+        this.procesorMD = new PegDownProcessor();
         AssetManager assetManager = context.getAssets();
         try{
             String[] files = assetManager.list("IA/MaxIA/");

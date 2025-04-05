@@ -107,6 +107,6 @@ public class JSInterface{
     }
     @JavascriptInterface
     public String mdToHtml(String md){
-        return mMaxIaManager.rendererMD.render(mMaxIaManager.parserMD.parse(md));
+        return mMaxIaManager.procesorMD.markdownToHtml(md);
     }
 }
