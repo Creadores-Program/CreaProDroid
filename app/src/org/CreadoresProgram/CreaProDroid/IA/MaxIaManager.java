@@ -41,7 +41,12 @@ public class MaxIaManager{
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         List<ResolveInfo> activities = pm.queryIntentActivities(intent, 0);
         for (ResolveInfo pkg : activities) {
-            ApplicationInfo appInfo = pkg.applicationInfo;
+            ApplicationInfo appInfo;
+            try {
+                appInfo = pm.getApplicationInfo(pkg.activityInfo.packageName, 0);
+            } catch (PackageManager.NameNotFoundException e) {
+                continue;
+            }
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("name", appInfo.getApplicationLabel(appInfo).toString());
             jsonObj.put("package", appInfo.packageName);
