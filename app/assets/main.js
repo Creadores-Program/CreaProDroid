@@ -55,7 +55,7 @@ function sendMessage(msg, isSpeak) {
         try{
             responMSGIA += "<br/><img src='"+Android.genImg(subPrompIAJson.genImg)+"' alt='Imagen Generada'/>";
         }catch(e){
-            responMSGIA += "<br/>Error al generar la imagen";
+            responMSGIA += "<br/>Error al generar la imagen.";
         }
     }
     sendToHtml(responMSGIA);

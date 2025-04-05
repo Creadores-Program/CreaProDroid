@@ -1,6 +1,7 @@
 package org.CreadoresProgram.CreaProDroid.WebViewExtras;
 import android.webkit.JavascriptInterface;
-import android.context.Context;
+import android.content.Context;
+import android.webkit.WebView;
 import android.net.Uri;
 import org.jsoup.Jsoup;
 import org.jsoup.Connection;

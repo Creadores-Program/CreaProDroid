@@ -1,7 +1,6 @@
 package org.CreadoresProgram.CreaProDroid.IA;
 import org.jsoup.Jsoup;
 import org.jsoup.Connection;
-import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
 import com.vladsch.flexmark.util.data.MutableDataSet;
@@ -35,7 +34,7 @@ public class MaxIaManager{
             String[] files = assetManager.list("IA/MaxIA/");
             if(files != null) {
                 for (String file : files) {
-                    this.BaseDataIA += " . " new String(assetManager.open("IA/MaxIA/" + file).readAllBytes());
+                    this.BaseDataIA += " . " + new String(assetManager.open("IA/MaxIA/" + file).readAllBytes());
                 }
             }
         }catch (IOException e) {
@@ -123,7 +122,7 @@ public class MaxIaManager{
           response = fetch(this.url+key, promptJson.toString());
         }catch (Exception e){
             e.printStackTrace();
-            return this.promptMax(prompt, key);
+            return this.promptMax(prompt);
         }
         //Parsear respuesta
         JSONObject responseJson = new JSONObject(response);
