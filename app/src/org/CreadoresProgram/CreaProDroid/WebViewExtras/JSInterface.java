@@ -105,9 +105,7 @@ public class JSInterface{
         builder.setShowTitle(true);
         builder.setToolbarColor(Color.parseColor("#FF6200EE"));
         CustomTabsIntent customTabsIntent = builder.build();
-        customTabsIntent.intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        customTabsIntent.intent.setData(Uri.parse(url));
-        mContext.startActivity(customTabsIntent.intent);
+        customTabsIntent.launchUrl(mContext, Uri.parse(url));
     }
     @JavascriptInterface
     public void openApp(String packageApp){
