@@ -8,6 +8,8 @@ import android.webkit.WebViewClient;
 import android.webkit.WebSettings;
 import org.CreadoresProgram.CreaProDroid.WebViewExtras.ChromeExtra;
 import org.CreadoresProgram.CreaProDroid.WebViewExtras.JSInterface;
+import android.database.Cursor;
+import android.provider.OpenableColumns;
 
 public class MainActivity extends Activity {
     public static final int FILE_UPLOAD_REQUEST_CODE = 1;
@@ -40,7 +42,7 @@ public class MainActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == FILE_UPLOAD_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             Uri resultUri = data.getData();
-            String jsCallback = "handleFileChange("+org.json.JSONObject.quote(resultUri.toString())+", "+org.json.JSONObject.quote(resultUri)+");";
+            String jsCallback = "handleFileChange("+org.json.JSONObject.quote(resultUri.toString())+", "+org.json.JSONObject.quote(getFileName(resultUri))+");";
             webview.evaluateJavascript(jsCallback, null);
         }
     }

@@ -7,7 +7,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.widget.EditText;
 import android.webkit.JsPromptResult;
-import android.content.ContextThemeWrapper;
+import android.graphics.Color;
 public class ChromeExtra extends WebChromeClient {
     private Context context;
     public ChromeExtra(Context context) {
@@ -44,8 +44,9 @@ public class ChromeExtra extends WebChromeClient {
     }
     @Override
     public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, JsPromptResult result) {
-        final EditText input = new EditText(new ContextThemeWrapper(context, android.R.style.Theme_Holo_Light));
+        final EditText input = new EditText(context);
         input.setText(defaultValue);
+        input.setTextColor(Color.BLACK);
         new AlertDialog.Builder(context, android.R.style.Theme_Holo_Light_Dialog)
             .setTitle("CreaProDroid")
             .setMessage(message)
