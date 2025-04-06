@@ -15,10 +15,11 @@ if(localStorage.getItem("apiKey") == null){
         throw new Error("No se puede continuar sin la API key.");
     }
     try{
-        Android.promptGemini("Este Es Un Test de ti porfavor responde un Saludo!", apiKey);
+        if(Android.promptGemini("Este Es Un Test de ti porfavor responde un Saludo!", apiKey) == "{{KeyInvalidTest74284}}") throw new Error("Error Key Invalida!");
     }catch(e){
         alert("Error Key Invalida!");
         Android.finish();
+        throw new Error("Error Key Invalida!");
     }
     Android.clearChat();
     localStorage.setItem("apiKey", apiKey);
@@ -30,6 +31,7 @@ if(localStorage.getItem("userName") == null){
     if(userName == null || userName.trim() == ""){
         alert("No se puede continuar sin el nombre.");
         Android.finish();
+        throw new Error("No se puede continuar sin el nombre.");
     }
     Android.setUserName(userName);
     localStorage.setItem("userName", userName);
@@ -102,21 +104,8 @@ function sendMessage(msg, isSpeak) {
         chatfj.appendChild(chatUserd);
     }
 }
-function handleFileChange(event) {
-    alert("Procesando archivos...");
-    for(var i = 0; i < event.target.files.length; i++){
-        var file = event.target.files[i];
-        if(!file) continue;
-        filesI += "[File:"+file.name + "]\n";
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            var fileContent = e.target.result;
-            filesI += fileContent + "\n[/File:"+file.name+"]\n";
-        }
-        reader.onerror = function(e) {
-            alert("Error leyendo el archivo"+file.name, e);
-        }
-        reader.readAsText(file);
-    }
-    alert("Archivos procesados, puedes enviar el mensaje ahora.");
+function handleFileChange(Str, name) {
+    alert("Procesando archivo...");
+    filesI = "[File:"+name + "]\n"+Str + "\n[/File:"+name+"]\n";
+    alert("Archivo procesado, puedes enviar el mensaje ahora.");
 }

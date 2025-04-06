@@ -17,8 +17,7 @@
         </div>
         <div class="chat-container" id="Chat"></div>
         <div class="input-container">
-            <input type="file" hidden id="filesTextExtra" accept="text/*" onchange="handleFileChange(event)" />
-            <button id="upFile" onclick="document.getElementById('filesTextExtra').click()" style="font-size: 24px;">+</button>
+            <button id="upFile" onclick="Android.openFileUploader()" style="width: 24px; height: 24px; background: url('./resources/addCircle.png') 50% 50% no-repeat; background-size: contain;">+</button>
             <input type="text" id="inputChat" placeholder="Escribe un mensaje..." />
             <button id="sendBtn" style="width: 24px; height: 24px; background: url('./resources/send.png') 50% 50% no-repeat; background-size: contain;" onclick="if(document.getElementById('inputChat').value != null && document.getElementById('inputChat').value.trim() != ''){ Android.stopSpeak(); sendMessage(document.getElementById('inputChat').value +filesI); document.getElementById('inputChat').value = ''; filesI = ''; document.getElementById('filesTextExtra').value = ''; }"></button>
             <button id="habla" style="width: 24px; height: 24px; background: url('./resources/mic.png') 50% 50% no-repeat; background-size: contain;"></button>

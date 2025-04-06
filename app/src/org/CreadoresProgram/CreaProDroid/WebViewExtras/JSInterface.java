@@ -126,4 +126,11 @@ public class JSInterface{
             tts.stop();
         }
     }
+    @JavascriptInterface
+    public void openFileUploader(){
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("text/*");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        mContext.startActivityForResult(Intent.createChooser(intent, "Selecciona un archivo"), MainActivity.FILE_UPLOAD_REQUEST_CODE); 
+    }
 }
