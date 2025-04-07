@@ -2,6 +2,8 @@ package org.CreadoresProgram.CreaProDroid.Listener;
 import android.speech.RecognitionListener;
 import android.speech.SpeechRecognizer;
 import android.webkit.WebView;
+import android.os.Bundle;
+import java.util.ArrayList;
 public class RecognitionSpeakListener implements RecognitionListener {
     private WebView mWebView;
     public RecognitionSpeakListener(WebView mWebView) {

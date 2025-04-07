@@ -60,6 +60,9 @@ public class MainActivity extends Activity {
     protected void onDestroy() {
         webview.evaluateJavascript("Android.finish();", null);
         webview.destroy();
+        if(speechRecognizer != null) {
+            speechRecognizer.destroy();
+        }
         super.onDestroy();
     }
     private String getFileName(Uri uri) {

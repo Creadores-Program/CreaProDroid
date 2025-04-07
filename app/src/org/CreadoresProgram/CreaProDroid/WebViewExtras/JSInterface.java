@@ -48,9 +48,6 @@ public class JSInterface{
             tts.stop();
             tts.shutdown();
         }
-        if(speechRecognizer != null) {
-            speechRecognizer.destroy();
-        }
         mContext.finish();
     }
     @JavascriptInterface
