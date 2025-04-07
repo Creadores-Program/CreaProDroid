@@ -32,6 +32,10 @@ if(localStorage.getItem("userName") == null){
         alert("No se puede continuar sin el nombre.");
         Android.finish();
         throw new Error("No se puede continuar sin el nombre.");
+    }else if(userName.length < 5 || userName.length > 20){
+        alert("El nombre debe tener entre 5 y 20 caracteres.");
+        Android.finish();
+        throw new Error("El nombre debe tener entre 5 y 20 caracteres.");
     }
     Android.setUserName(userName);
     localStorage.setItem("userName", userName);
@@ -40,7 +44,8 @@ if(localStorage.getItem("userName") == null){
     Android.setUserName(userName);
 }
 function sendMessage(msg, isSpeak) {
-    sendToHtmlUser(msg);
+    Android.stopSpeak();
+    sendToHtmlUser(msg.split("[File:")[0]);
     var prompIAJson = Android.promptGemini(msg, apiKey);
     var subPrompIAJson;
     try{
@@ -109,3 +114,13 @@ function handleFileChange(Str, name) {
     filesI = "[File:"+name + "]\n"+Str + "\n[/File:"+name+"]\n";
     alert("Archivo procesado, puedes enviar el mensaje ahora.");
 }
+window.speechSynthesisAndroid = {};
+window.speechSynthesisAndroid.onListeningReady = function() {
+    alert("El reconocimiento de voz está listo para escuchar.\nPreciona Aceptar antes de hablar.");
+};
+window.speechSynthesisAndroid.onSpeechResult = function(result) {
+    sendMessage(result + filesI, true);
+};
+window.speechSynthesisAndroid.onSpeechError = function(error) {
+    alert("Error en el reconocimiento de voz: "+ error);
+};

@@ -10,6 +10,7 @@ import org.CreadoresProgram.CreaProDroid.WebViewExtras.ChromeExtra;
 import org.CreadoresProgram.CreaProDroid.WebViewExtras.JSInterface;
 import android.database.Cursor;
 import android.provider.OpenableColumns;
+import android.graphics.Color;
 
 public class MainActivity extends Activity {
     public static final int FILE_UPLOAD_REQUEST_CODE = 1;
@@ -33,6 +34,7 @@ public class MainActivity extends Activity {
         webSettings.setSupportZoom(false);
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
+        webView.setBackgroundColor(Color.BLACK);
         webView.addJavascriptInterface(new JSInterface(this, webView), "Android");
         webView.loadUrl("file:///android_asset/index.html");
         this.webview = webView;
@@ -45,6 +47,12 @@ public class MainActivity extends Activity {
             String jsCallback = "handleFileChange("+org.json.JSONObject.quote(resultUri.toString())+", "+org.json.JSONObject.quote(getFileName(resultUri))+");";
             webview.evaluateJavascript(jsCallback, null);
         }
+    }
+    @Override
+    protected void onDestroy() {
+        webview.evaluateJavascript("Android.finish();", null);
+        webview.destroy();
+        super.onDestroy();
     }
     private String getFileName(Uri uri) {
         String result = null;

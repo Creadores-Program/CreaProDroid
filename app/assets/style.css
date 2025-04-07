@@ -60,6 +60,31 @@ body{
     height: 100%;
     overflow: scroll;
 }
+#config-container {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    padding: 15px;
+    border: 1px solid #333333;
+}
+#config-container button {
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #444444;
+    padding: 10px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+#config-container button:hover {
+    background-color: #444444;
+}
 .HideDef{
     display: none;
+}
+.chat-header h1,
+#configBtn, #config-header h1, #backConfBtn {
+    display: inline-block;
+    vertical-align: middle;
+}
+#configBtn, #backConfBtn {
+    float: right;
 }

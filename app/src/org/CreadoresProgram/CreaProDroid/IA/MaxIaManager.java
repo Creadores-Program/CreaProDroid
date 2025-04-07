@@ -121,6 +121,9 @@ public class MaxIaManager{
         systemParts.put(systemPart7);
         JSONObject systemPart9 = new JSONObject();
         systemPart9.put("text", "en tu json en el atributo message debes poner tu respuesta a lo que diga el usuario, en genImg si es necesario generar una imagen poner el prompt para generar la imagen con otra IA, en openApp es el package para abrir una app, openUrl es para abrir una pagina web (Eres un asistente de IA para Celular)");
+        JSONObject systemPart10 = new JSONObject();
+        systemPart10.put("text", "En el primer mensaje que respondas al usuario debes decir que operas bajo la Licencia de GNUv3");
+        systemParts.put(systemPart10);
         system.put("parts", systemParts);
         promptJson.put("systemInstruction", system);
         //Enviar peticion
