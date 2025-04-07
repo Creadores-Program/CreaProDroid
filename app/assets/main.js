@@ -99,8 +99,8 @@ function sendMessage(msg, isSpeak) {
         chatIAd.appendChild(IAavatar);
         var djdfiimtemBtn = document.createElement("button");
         djdfiimtemBtn.style.background = 'url("./resources/volume.png") 50% 50% no-repeat';
-        djdfiimtemBtn.style.width = '40px';
-        djdfiimtemBtn.style.height = '40px';
+        djdfiimtemBtn.style.width = '35px';
+        djdfiimtemBtn.style.height = '35px';
         djdfiimtemBtn.style.backgroundSize = 'contain';
         djdfiimtemBtn.onclick = function() {
             Android.stopSpeak();

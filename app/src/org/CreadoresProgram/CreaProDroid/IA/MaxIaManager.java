@@ -188,7 +188,7 @@ public class MaxIaManager{
     }
 
     public String promptMax(String prompt){
-        return "";
+        return "Hola xd";
     }
 
     public void clearChat(){
@@ -204,6 +204,7 @@ public class MaxIaManager{
         Request request = new Request.Builder()
                 .url(url)
                 .post(body)
+                .addHeader("Content-Type", "application/json")
                 .build(); 
         try(Response response = clientHt.newCall(request).execute()){
             if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
