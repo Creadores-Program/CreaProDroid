@@ -11,10 +11,17 @@ import org.CreadoresProgram.CreaProDroid.WebViewExtras.JSInterface;
 import android.database.Cursor;
 import android.provider.OpenableColumns;
 import android.graphics.Color;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
+import org.CreadoresProgram.CreaProDroid.Listener.RecognitionSpeakListener;
+import android.content.Context;
+import java.util.Locale;
 
 public class MainActivity extends Activity {
     public static final int FILE_UPLOAD_REQUEST_CODE = 1;
     private WebView webview;
+    private SpeechRecognizer speechRecognizer;
+    private Intent speechRecognizerIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +43,9 @@ public class MainActivity extends Activity {
         webSettings.setLoadWithOverviewMode(true);
         webView.setBackgroundColor(Color.BLACK);
         webView.addJavascriptInterface(new JSInterface(this, webView), "Android");
-        webView.loadUrl("file:///android_asset/index.html");
         this.webview = webView;
+        startingRecogniser(this);
+        webView.loadUrl("file:///android_asset/index.html");
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -76,5 +84,19 @@ public class MainActivity extends Activity {
             }
         }
         return result;
+    }
+    private void startingRecogniser(Context mCon){
+        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(mCon);
+        speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        speechRecognizer.setRecognitionListener(new RecognitionSpeakListener(webview));
+    }
+    public void startSpeechRecognition() {
+        if (speechRecognizer != null) {
+            speechRecognizer.startListening(speechRecognizerIntent);
+        }else{
+            webview.evaluateJavascript("window.speechSynthesisAndroid.onSpeechError('No existe un Reconocimiento de Voz o Aun no esta Cargado!');", null);
+        }
     }
 }

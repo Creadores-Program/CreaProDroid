@@ -68,7 +68,7 @@ function sendMessage(msg, isSpeak) {
     }
     sendToHtml(responMSGIA);
     if(isSpeak){
-        Android.speak(responMSGIA);
+        Android.speak(stripHtml(responMSGIA));
     }
     if(subPrompIAJson.openApp != null && subPrompIAJson.openApp.trim() != ""){
         try{
@@ -84,6 +84,11 @@ function sendMessage(msg, isSpeak) {
             sendToHtml("Abriendo la url...");
         }
     }
+    function stripHtml(html) {
+        var tempDiv = document.createElement("div");
+        tempDiv.innerHTML = html;
+        return tempDiv.innerText || tempDiv.textContent;
+    }
     function sendToHtml(msg){
         var chatfj = document.getElementById("Chat");
         var chatIAd = document.createElement("div");
@@ -92,9 +97,20 @@ function sendMessage(msg, isSpeak) {
         IAavatar.src = "./resources/AvatarIA.jpeg";
         IAavatar.classList.add("avatar");
         chatIAd.appendChild(IAavatar);
+        var djdfiimtemBtn = document.createElement("button");
+        djdfiimtemBtn.style.background = 'url("./resources/volume.png") 50% 50% no-repeat';
+        djdfiimtemBtn.style.width = '40px';
+        djdfiimtemBtn.style.height = '40px';
+        djdfiimtemBtn.style.backgroundSize = 'contain';
+        djdfiimtemBtn.onclick = function() {
+            Android.stopSpeak();
+            Android.speak(this.textChat);
+        }.bind(djdfiimtemBtn);
+        chatIAd.appendChild(djdfiimtemBtn);
         var chatIAdText = document.createElement("div");
         chatIAdText.classList.add("bubble");
         chatIAdText.innerHTML = msg;
+        djdfiimtemBtn.textChat = stripHtml(msg);
         chatIAd.appendChild(chatIAdText);
         chatfj.appendChild(chatIAd);
     }
