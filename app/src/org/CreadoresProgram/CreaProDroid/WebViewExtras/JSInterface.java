@@ -46,26 +46,26 @@ public class JSInterface{
                 }
             }
         });
-        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(c);
+        speechRecognizer = SpeechRecognizer.createSpeechRecognizer((Context) c);
         speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
         speechRecognizer.setRecognitionListener(new RecognitionListener() {
             @Override
             public void onReadyForSpeech(Bundle params) {
-                mWebView.evaluateJavascript("window.speechSynthesisAndroid.onListeningReady()", null);
+                mWebView.evaluateJavascript("window.speechSynthesisAndroid.onListeningReady();", null);
             }
             @Override
             public void onResults(Bundle results) {
                 ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
                 if (matches != null && !matches.isEmpty()) {
                     String result = matches.get(0);
-                    mWebView.evaluateJavascript("window.speechSynthesisAndroid.onSpeechResult("+org.json.JSONObject.quote(result)+")", null);
+                    mWebView.evaluateJavascript("window.speechSynthesisAndroid.onSpeechResult("+org.json.JSONObject.quote(result)+");", null);
                 }
             }
             @Override
             public void onError(int error) {
-                mWebView.evaluateJavascript("window.speechSynthesisAndroid.onSpeechError("+error+")", null);
+                mWebView.evaluateJavascript("window.speechSynthesisAndroid.onSpeechError("+error+");", null);
             }
             @Override
             public void onBeginningOfSpeech() {}
@@ -182,7 +182,7 @@ public class JSInterface{
         if(speechRecognizer != null) {
             speechRecognizer.startListening(speechRecognizerIntent);
         }else{
-            mWebView.evaluateJavascript("window.speechSynthesisAndroid.onSpeechError('No existe un Reconocimiento de Voz o Aun no esta Cargado!')", null);
+            mWebView.evaluateJavascript("window.speechSynthesisAndroid.onSpeechError('No existe un Reconocimiento de Voz o Aun no esta Cargado!');", null);
         }
     }
     @JavascriptInterface

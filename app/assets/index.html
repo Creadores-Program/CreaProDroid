@@ -17,7 +17,7 @@
         </div>
         <div class="chat-container" id="Chat"></div>
         <div class="input-container">
-            <button id="upFile" onclick="Android.openFileUploader()" style="width: 40px; height: 40px; background: url('./resources/addCircle.png') 50% 50% no-repeat; background-size: contain;">+</button>
+            <button id="upFile" onclick="Android.openFileUploader()" style="width: 40px; height: 40px; background: url('./resources/addCircle.png') 50% 50% no-repeat; background-size: contain;"></button>
             <input type="text" id="inputChat" placeholder="Escribe un mensaje..." />
             <button id="sendBtn" style="width: 40px; height: 40px; background: url('./resources/send.png') 50% 50% no-repeat; background-size: contain;" onclick="if(document.getElementById('inputChat').value != null && document.getElementById('inputChat').value.trim() != ''){ sendMessage(document.getElementById('inputChat').value +filesI); document.getElementById('inputChat').value = ''; filesI = ''; document.getElementById('filesTextExtra').value = ''; }"></button>
             <button id="habla" onclick="Android.startSpeechRecognition()" style="width: 40px; height: 40px; background: url('./resources/mic.png') 50% 50% no-repeat; background-size: contain;"></button>
@@ -31,7 +31,7 @@
         <div id="config-container">
             <button onclick="subApiKey = prompt('Escribe tu API key:'); if(subApiKey == null || subApiKey.trim() == ''){ alert('No se puede continuar sin la API key.'); throw new Error('No se puede continuar sin la API key.'); } try{ if(Android.promptGemini('Este Es Un Test de ti porfavor responde un Saludo!', subApiKey) == '{{KeyInvalidTest74284}}') throw new Error('Error Key Invalida!'); }catch(e){ alert('Error Key Invalida!'); throw new Error('Error Key Invalida!'); } Android.clearChat(); localStorage.setItem('apiKey', subApiKey); apiKey = subApiKey; delete subApiKey;">Actualizar API Key de Gemini</button><br/>
             <button onclick="var subUserName = prompt('Escribe tu nombre:'); if(subUserName == null || subUserName.trim() == ''){ alert('No se puede continuar sin el nombre.'); throw new Error('No se puede continuar sin el nombre.'); }else if(subUserName.length < 5 || subUserName.length > 20){ alert('El nombre debe tener entre 5 y 20 caracteres.'); throw new Error('El nombre debe tener entre 5 y 20 caracteres.'); } Android.setUserName(subUserName); localStorage.setItem('userName', userName); userName = subUserName; delete subUserName;">Actualizar Nombre</button><br/>
-            <button onclick="Android.clearCache()">Borrar Cache</button>
+            <button onclick="Android.clearCache(); alert('Cache Borrada!');">Borrar Cache</button>
         </div>
     </div>
 </body>
