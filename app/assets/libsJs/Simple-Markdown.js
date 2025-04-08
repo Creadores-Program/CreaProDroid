@@ -18,45 +18,59 @@ var
     exports,
 
     /**
-     * An array of parse rule descriptor objects. Each object has two keys;
-     * pattern (the RegExp to match), and replace (the replacement string or
+     * An array of parse rule descriptor objects. Each object has dos keys;
+     * pattern (the RegExp to match), and replace (the replacement string o
      * function to execute).
      * @type {Array}
      */
     parseMap = [
         {
-            // <h1> - <h6>
-            // # - ######
-            pattern: /(#{1,6})([^\n]+)/g,
-            replace: "<h$1>$2</h$1>",
+            // <code block>
+            // ``` Code Block ```
+            pattern: /```([^`]+)```/g,
+            replace: "<pre><code>$1</code></pre>",
             type: BLOCK,
         },
         {
-            // <p>
-            // Paragraph
-            pattern: /\n(?!<\/?\w+>|\s?\*|\s?[0-9]+|>|\&gt;|-{5,})([^\n]+)/g,
-            replace: "<p>$1</p>",
+            // <h1> - <h6>
+            // # - ######
+            pattern: /^(#{1,6})\s*(.*)$/gm,
+            replace: "<h$L1>$2</h$L1>",
+            type: BLOCK,
+        },
+        {
+            // <hr>
+            // ----- Horizontal Rule
+            pattern: /^-{3,}$/gm,
+            replace: "<hr />",
             type: BLOCK,
         },
         {
             // <blockquote>
             // > Blockquote
-            pattern: /\n(?:&gt;|\>)\W*(.*)/g,
+            pattern: /^>\s*(.*)$/gm,
             replace: "<blockquote><p>$1</p></blockquote>",
             type: BLOCK,
         },
         {
             // <ul>
             // * Unordered List
-            pattern: /\n\s?\*\s*(.*)/g,
+            pattern: /^\*\s+(.*)$/gm,
             replace: "<ul>\n\t<li>$1</li>\n</ul>",
             type: BLOCK,
         },
         {
             // <ol>
             // 1. Ordered List
-            pattern: /\n\s?[0-9]+\.\s*(.*)/g,
+            pattern: /^[0-9]+\.\s+(.*)$/gm,
             replace: "<ol>\n\t<li>$1</li>\n</ol>",
+            type: BLOCK,
+        },
+        {
+            // <p>
+            // Paragraph
+            pattern: /^(?!<\/?\w+>|\s?\*|\s?[0-9]+|>|\&gt;|-{3,})([^\n]+)$/gm,
+            replace: "<p>$1</p>",
             type: BLOCK,
         },
         {
@@ -97,34 +111,13 @@ var
         {
             // <code>
             // `Inline Code`
-            pattern: /`(.*?)`/g,
+            pattern: /`([^`]+)`/g,
             replace: "<code>$1</code>",
             type: INLINE,
         },
         {
-            // <hr>
-            // ----- Horizontal Rule
-            pattern: /\n-{5,}\n/g,
-            replace: "<hr />",
-            type: BLOCK,
-        },
-        {
-            // <code block>
-            // ``` Code Block ```
-            pattern: /```([^```]+)```/g,
-            replace: "<pre><code>$1</code></pre>",
-            type: BLOCK,
-        },
-        {
-            // <pre>
-            // Indented Code Block
-            pattern: /(?:\n\n|^)(( {4}|\t).*\n+)/g,
-            replace: "<pre><code>$1</code></pre>",
-            type: BLOCK,
-        },
-        {
             // <br>
-            // Line Break (two spaces)
+            // Line Break (dos espacios)
             pattern: / {2,}\n/g,
             replace: "<br />",
             type: INLINE,
@@ -196,11 +189,9 @@ function parse(string) {
     // Pad with newlines for compatibility.
     output = "\n" + string + "\n";
 
+    // Process each pattern in parseMap
     parseMap.forEach(function(p) {
-        // Replace all matches of provided RegExp pattern with either the
-        // replacement string or callback function.
         output = output.replace(p.pattern, function() {
-            // console.log(this, arguments);
             return replace.call(this, arguments, p.replace, p.type);
         });
     });
@@ -215,12 +206,10 @@ function parse(string) {
 }
 
 function replace(matchList, replacement, type) {
-    var
-        i,
-    $$;
+    var i, $$;
 
-    for(i in matchList) {
-        if(!matchList.hasOwnProperty(i)) {
+    for (i in matchList) {
+        if (!matchList.hasOwnProperty(i)) {
             continue;
         }
 
@@ -230,7 +219,7 @@ function replace(matchList, replacement, type) {
         replacement = replacement.split("$L" + i).join(matchList[i].length);
     }
 
-    if(type === BLOCK) {
+    if (type === BLOCK) {
         replacement = replacement.trim() + "\n";
     }
 
