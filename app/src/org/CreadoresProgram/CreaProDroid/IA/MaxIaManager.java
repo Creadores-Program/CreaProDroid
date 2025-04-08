@@ -69,6 +69,7 @@ public class MaxIaManager{
         JSONObject part = new JSONObject();
         part.put("text", prompt);
         parts.put(part);
+        actualPromp.put("parts", parts);
         this.history.put(actualPromp);
         promptJson.put("contents", this.history);
         //Añadir Configuracion
