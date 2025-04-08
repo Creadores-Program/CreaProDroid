@@ -37,7 +37,10 @@ public class JSInterface{
             @Override
             public void onInit(int status) {
                 if (status == TextToSpeech.SUCCESS) {
-                    tts.setLanguage(Locale.getDefault());
+                    int result = tts.setLanguage(Locale.getDefault());
+                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        tts.setLanguage(new Locale("es"));
+                    }
                 }
             }
         });

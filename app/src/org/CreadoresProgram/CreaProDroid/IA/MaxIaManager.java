@@ -205,6 +205,7 @@ public class MaxIaManager{
                 .url(url)
                 .post(body)
                 .addHeader("Content-Type", "application/json")
+                .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Mobile Safari/537.36")
                 .build(); 
         try(Response response = clientHt.newCall(request).execute()){
             if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
