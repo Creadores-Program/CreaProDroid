@@ -58,7 +58,7 @@ function sendMessage(msg, isSpeak) {
         }
         return;
     }
-    var responMSGIA = DOMPurify.sanitize(marked.parse(subPrompIAJson.message));
+    var responMSGIA = MarkdownToHtml.parse(subPrompIAJson.message);
     if(subPrompIAJson.genImg != null && subPrompIAJson.genImg.trim() != ""){
         try{
             responMSGIA += "<br/><img src='"+Android.genImg(subPrompIAJson.genImg)+"' alt='Imagen Generada'/>";
