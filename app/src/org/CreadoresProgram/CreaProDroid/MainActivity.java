@@ -41,7 +41,7 @@ public class MainActivity extends Activity {
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
         webView.setBackgroundColor(Color.BLACK);
-        webView.setWebContentsDebuggingEnabled(true);
+        //webView.setWebContentsDebuggingEnabled(true);
         webView.addJavascriptInterface(new JSInterface(this, webView), "Android");
         this.webview = webView;
         webView.loadUrl("file:///android_asset/index.html");

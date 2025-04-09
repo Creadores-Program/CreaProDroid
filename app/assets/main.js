@@ -52,7 +52,7 @@ function sendMessage(msg, isSpeak) {
     Android.stopSpeak();
     sendToHtmlUser(msg.split("[File:")[0]);
     var prompIAJson = Android.promptGemini(msg, apiKey);
-    var subPrompIAJson;
+    var subPrompIAJson = "";
     try{
         subPrompIAJson = JSON.parse(prompIAJson);
     }catch(e){
