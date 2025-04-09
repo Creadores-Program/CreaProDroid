@@ -22,7 +22,9 @@ public class ChromeExtra extends WebChromeClient {
                 public void onClick(DialogInterface dialog, int which) {
                     result.confirm();
                 }
-            }).create().show();
+            })
+            .setCancelable(false)
+            .create().show();
         return true;
     }
     @Override
@@ -39,7 +41,9 @@ public class ChromeExtra extends WebChromeClient {
                 public void onClick(DialogInterface dialog, int which) {
                     result.cancel();
                 }
-            }).create().show();
+            })
+            .setCancelable(false)
+            .create().show();
         return true;
     }
     @Override
@@ -60,7 +64,9 @@ public class ChromeExtra extends WebChromeClient {
                 public void onClick(DialogInterface dialog, int which) {
                     result.cancel();
                 }
-            }).create().show();
+            })
+            .setCancelable(false)
+            .create().show();
         return true;
     }
 }

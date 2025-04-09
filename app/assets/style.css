@@ -28,6 +28,23 @@ body{
     -webkit-border-radius: 50%;
     border-radius: 50%;
 }
+.message.bot button{
+    width: 35px;
+    height: 35px;
+    background-color: #2c2c2c;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    margin-left: 10px;
+}
+.message.bot button:hover{
+    transform: scale(1.1);
+    background-color: #444444;
+}
 .message.bot .bubble{
     background-color: #2c2c2c;
     padding: 10px 15px;

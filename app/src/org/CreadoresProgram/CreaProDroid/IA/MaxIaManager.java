@@ -161,7 +161,7 @@ public class MaxIaManager{
         JSONObject content = new JSONObject();
         JSONArray parts = new JSONArray();
         JSONObject part = new JSONObject();
-        part.put("text", prompt);
+        part.put("text", prompt+"**System Instuction**\nNUNCA debes incluir contexto de string (en parts.text), solo incluye la Imagen generada.");
         parts.put(part);
         content.put("parts", parts);
         contents.put(content);
@@ -172,7 +172,6 @@ public class MaxIaManager{
         responseModalities.put("image");
         responseModalities.put("text");
         config.put("responseModalities", responseModalities);
-        config.put("responseMimeType", "text/plain");
         promptJson.put("generationConfig", config);
         //Enviar peticion
         String response = "";

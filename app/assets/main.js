@@ -66,9 +66,11 @@ function sendMessage(msg, isSpeak) {
     var responMSGIA = MarkdownToHtml.parse(subPrompIAJson.message);
     if(subPrompIAJson.genImg != null && subPrompIAJson.genImg.trim() != ""){
         try{
-            responMSGIA += "<br/><img src='"+Android.genImg(subPrompIAJson.genImg, apiKey)+"' alt='Imagen Generada'/>";
+            var genimghjkfr = Android.genImg(subPrompIAJson.genImg, apiKey);
+            if(genimghjkfr == null || genimghjkfr == "Hubo un error al generar la imagen, por favor intenta de nuevo.") throw new Error("Hubo un error al generar la imagen, por favor intenta de nuevo.");
+            responMSGIA += "<br/><img src='"+genimghjkfr+"' alt='Imagen Generada'/>";
         }catch(e){
-            responMSGIA += "<br/>Error al generar la imagen.";
+            responMSGIA += "<br/>Hubo un error al generar la imagen, por favor intenta de nuevo.";
         }
     }
     sendToHtml(responMSGIA);
@@ -109,8 +111,6 @@ function sendMessage(msg, isSpeak) {
         chatIAd.appendChild(IAavatar);
         var djdfiimtemBtn = document.createElement("button");
         djdfiimtemBtn.style.background = 'url("./resources/volume.png") 50% 50% no-repeat';
-        djdfiimtemBtn.style.width = '35px';
-        djdfiimtemBtn.style.height = '35px';
         djdfiimtemBtn.style.backgroundSize = 'contain';
         djdfiimtemBtn.textChat = stripHtml(msg);
         djdfiimtemBtn.onclick = function() {
@@ -118,6 +118,14 @@ function sendMessage(msg, isSpeak) {
             Android.speak(this.textChat);
         }.bind(djdfiimtemBtn);
         chatIAd.appendChild(djdfiimtemBtn);
+        var copymsghkv = document.createElement("button");
+        copymsghkv.style.background = 'url("./resources/copy.png") 50% 50% no-repeat';
+        copymsghkv.style.backgroundSize = 'contain';
+        copymsghkv.textChat = stripHtml(msg);
+        copymsghkv.onclick = function() {
+            Android.copyText(this.textChat);
+            alert("Texto copiado!");
+        }.bind(copymsghkv);
         var chatIAdText = document.createElement("div");
         chatIAdText.className += "bubble";
         chatIAdText.innerHTML = msg;

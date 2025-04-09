@@ -122,8 +122,14 @@ public class JSInterface{
     @JavascriptInterface
     public void speak(String text){
         if(tts != null) {
-            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
+            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
         }
+    }
+    @JavascriptInterface
+    public void copyText(String text){
+        android.content.ClipboardManager clipboard = (android.content.ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
+        android.content.ClipData clip = android.content.ClipData.newPlainText("Texto Copiado", text);
+        clipboard.setPrimaryClip(clip);
     }
     @JavascriptInterface
     public void stopSpeak(){
