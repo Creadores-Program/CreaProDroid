@@ -29,10 +29,19 @@ public class MaxIaManager{
     public MaxIaManager(Context context) {
         AssetManager assetManager = context.getAssets();
         try{
-            String[] files = assetManager.list("IA/MaxIA/");
+            String[] files = assetManager.list("IA/MaxIA");
             if(files != null) {
                 for (String file : files) {
-                    this.BaseDataIA += " . " + new String(assetManager.open("IA/MaxIA/" + file).readAllBytes());
+                    try(InputStream inputStream = assetManager.open("IA/MaxIA/" + file)){
+                        byte[] buff = new byte[inputStream.available()];
+                        int bytesRea;
+                        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                        while ((bytesRea = inputStream.read(buff)) != -1) {
+                          outputStream.write(buff, 0, bytesRea);
+                        }
+                        byte[] fileBytes = outputStream.toByteArray();
+                        this.BaseDataIA += " . " + new String(fileBytes, StandardCharsets.UTF_8);
+                    }
                 }
             }
         }catch (IOException e) {
