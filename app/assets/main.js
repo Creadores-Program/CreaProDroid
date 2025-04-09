@@ -94,18 +94,18 @@ function sendMessage(msg, isSpeak) {
         var tempDiv = document.createElement("div");
         tempDiv.innerHTML = html;
         var codeElements = tempDiv.querySelectorAll("code");
-        codeElements.forEach(function(codeElement) {
-            codeElement.remove();
-        });
-        return tempDiv.innerText || tempDiv.textContent;
+        for(var i = 0; i < codeElements.length; i++){
+            codeElements[i].remove();
+        }
+        return tempDiv.textContent;
     }
     function sendToHtml(msg){
         var chatfj = document.getElementById("Chat");
         var chatIAd = document.createElement("div");
-        chatIAd.classList.add("message", "bot", "clearfix");
+        chatIAd.className += "message bot clearfix";
         var IAavatar = document.createElement("img");
         IAavatar.src = "./resources/AvatarIA.jpeg";
-        IAavatar.classList.add("avatar");
+        IAavatar.className += "avatar";
         chatIAd.appendChild(IAavatar);
         var djdfiimtemBtn = document.createElement("button");
         djdfiimtemBtn.style.background = 'url("./resources/volume.png") 50% 50% no-repeat';
@@ -119,7 +119,7 @@ function sendMessage(msg, isSpeak) {
         }.bind(djdfiimtemBtn);
         chatIAd.appendChild(djdfiimtemBtn);
         var chatIAdText = document.createElement("div");
-        chatIAdText.classList.add("bubble");
+        chatIAdText.className += "bubble";
         chatIAdText.innerHTML = msg;
         chatIAd.appendChild(chatIAdText);
         chatfj.appendChild(chatIAd);
@@ -127,9 +127,9 @@ function sendMessage(msg, isSpeak) {
     function sendToHtmlUser(msg){
         var chatfj = document.getElementById("Chat");
         var chatUserd = document.createElement("div");
-        chatUserd.classList.add("message", "user", "clearfix");
+        chatUserd.className += "message user clearfix";
         var chatUserdText = document.createElement("div");
-        chatUserdText.classList.add("bubble");
+        chatUserdText.className += "bubble";
         chatUserdText.textContent = msg;
         chatUserd.appendChild(chatUserdText);
         chatfj.appendChild(chatUserd);

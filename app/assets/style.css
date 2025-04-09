@@ -13,6 +13,7 @@ body{
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
+    overflow: hidden;
 }
 .message{
     margin-bottom: 15px;
@@ -35,6 +36,7 @@ body{
     -webkit-border-radius: 15px;
     border-radius: 15px;
     max-width: 80%;
+    word-wrap: break-word;
 }
 .message.user{
     text-align: right;
@@ -46,6 +48,7 @@ body{
     -webkit-border-radius: 15px;
     border-radius: 15px;
     max-width: 80%;
+    word-wrap: break-word;
 }
 .clearfix::after{
     content: "";
