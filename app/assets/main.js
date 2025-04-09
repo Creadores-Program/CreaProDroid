@@ -66,7 +66,7 @@ function sendMessage(msg, isSpeak) {
     var responMSGIA = MarkdownToHtml.parse(subPrompIAJson.message);
     if(subPrompIAJson.genImg != null && subPrompIAJson.genImg.trim() != ""){
         try{
-            responMSGIA += "<br/><img src='"+Android.genImg(subPrompIAJson.genImg)+"' alt='Imagen Generada'/>";
+            responMSGIA += "<br/><img src='"+Android.genImg(subPrompIAJson.genImg, apiKey)+"' alt='Imagen Generada'/>";
         }catch(e){
             responMSGIA += "<br/>Error al generar la imagen.";
         }
