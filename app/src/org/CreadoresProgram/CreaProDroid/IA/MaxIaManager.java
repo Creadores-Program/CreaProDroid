@@ -16,6 +16,9 @@ import android.content.pm.ResolveInfo;
 import android.content.pm.ApplicationInfo;
 import java.util.List;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ByteArrayOutputStream;
+import java.nio.charset.StandardCharsets;
 
 public class MaxIaManager{
     private String BaseDataIA = "";
