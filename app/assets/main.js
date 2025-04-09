@@ -68,6 +68,7 @@ function sendMessage(msg, isSpeak) {
     }
     sendToHtml(responMSGIA);
     if(isSpeak){
+        Android.stopSpeak();
         Android.speak(stripHtml(responMSGIA));
     }
     if(subPrompIAJson.openApp != null && subPrompIAJson.openApp.trim() != ""){
@@ -87,6 +88,10 @@ function sendMessage(msg, isSpeak) {
     function stripHtml(html) {
         var tempDiv = document.createElement("div");
         tempDiv.innerHTML = html;
+        var codeElements = tempDiv.querySelectorAll("code");
+        codeElements.forEach(function(codeElement) {
+            codeElement.remove();
+        });
         return tempDiv.innerText || tempDiv.textContent;
     }
     function sendToHtml(msg){
@@ -102,6 +107,7 @@ function sendMessage(msg, isSpeak) {
         djdfiimtemBtn.style.width = '35px';
         djdfiimtemBtn.style.height = '35px';
         djdfiimtemBtn.style.backgroundSize = 'contain';
+        djdfiimtemBtn.textChat = stripHtml(msg);
         djdfiimtemBtn.onclick = function() {
             Android.stopSpeak();
             Android.speak(this.textChat);
@@ -110,7 +116,6 @@ function sendMessage(msg, isSpeak) {
         var chatIAdText = document.createElement("div");
         chatIAdText.classList.add("bubble");
         chatIAdText.innerHTML = msg;
-        djdfiimtemBtn.textChat = stripHtml(msg);
         chatIAd.appendChild(chatIAdText);
         chatfj.appendChild(chatIAd);
     }
@@ -130,13 +135,9 @@ function handleFileChange(Str, name) {
     filesI = "[File:"+name + "]\n"+Str + "\n[/File:"+name+"]\n";
     alert("Archivo procesado, puedes enviar el mensaje ahora.");
 }
-window.speechSynthesisAndroid = {};
-window.speechSynthesisAndroid.onListeningReady = function() {
-    alert("El reconocimiento de voz está listo para escuchar.\nPreciona Aceptar antes de hablar.");
-};
-window.speechSynthesisAndroid.onSpeechResult = function(result) {
+function onSpeechResult(result) {
     sendMessage(result + filesI, true);
-};
-window.speechSynthesisAndroid.onSpeechError = function(error) {
+}
+function onSpeechError(error) {
     alert("Error en el reconocimiento de voz: "+ error);
-};
+}

@@ -12,16 +12,15 @@ import android.database.Cursor;
 import android.provider.OpenableColumns;
 import android.graphics.Color;
 import android.speech.RecognizerIntent;
-import android.speech.SpeechRecognizer;
-import org.CreadoresProgram.CreaProDroid.Listener.RecognitionSpeakListener;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import java.util.Locale;
+import java.util.ArrayList;
 
 public class MainActivity extends Activity {
     public static final int FILE_UPLOAD_REQUEST_CODE = 1;
+    public static final int RECOGNIZE_SPEECH_ACTIVITY = 282;
     private WebView webview;
-    private SpeechRecognizer speechRecognizer;
-    private Intent speechRecognizerIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +43,6 @@ public class MainActivity extends Activity {
         webView.setBackgroundColor(Color.BLACK);
         webView.addJavascriptInterface(new JSInterface(this, webView), "Android");
         this.webview = webView;
-        startingRecogniser(this);
         webView.loadUrl("file:///android_asset/index.html");
     }
     @Override
@@ -54,6 +52,10 @@ public class MainActivity extends Activity {
             Uri resultUri = data.getData();
             String jsCallback = "handleFileChange("+org.json.JSONObject.quote(resultUri.toString())+", "+org.json.JSONObject.quote(getFileName(resultUri))+");";
             webview.evaluateJavascript(jsCallback, null);
+        }else if(requestCode == RECOGNIZE_SPEECH_ACTIVITY && resultCode == RESULT_OK && data != null) {
+            ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            if(result != null && !result.isEmpty()) {
+                webview.evaluateJavascript("onSpeechResult("+org.json.JSONObject.quote(result.get(0))+");", null);
         }
     }
     @Override
@@ -88,18 +90,15 @@ public class MainActivity extends Activity {
         }
         return result;
     }
-    private void startingRecogniser(Context mCon){
-        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(mCon);
-        speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-        speechRecognizer.setRecognitionListener(new RecognitionSpeakListener(webview));
-    }
     public void startSpeechRecognition() {
-        if (speechRecognizer != null) {
-            speechRecognizer.startListening(speechRecognizerIntent);
-        }else{
-            webview.evaluateJavascript("window.speechSynthesisAndroid.onSpeechError('No existe un Reconocimiento de Voz o Aun no esta Cargado!');", null);
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        try{
+            startActivityForResult(intent, RECOGNIZE_SPEECH_ACTIVITY);
+        }catch(ActivityNotFoundException e) {
+            e.printStackTrace();
+            webview.evaluateJavascript("onSpeechError('Tu dispositivo no soporta el reconocimiento por voz!');", null);
         }
     }
 }

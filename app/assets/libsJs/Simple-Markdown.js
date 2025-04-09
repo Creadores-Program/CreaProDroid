@@ -32,6 +32,13 @@ var
             type: BLOCK,
         },
         {
+            // <sub>
+            // -# Subscript Discord
+            pattern: /^-\#\s*(.*)$/gm,
+            replace: "<sub>$1</sub>",
+            type: INLINE,
+        },
+        {
             // <h1> - <h6>
             // # - ######
             pattern: /^(#{1,6})\s*(.*)$/gm,
@@ -43,6 +50,13 @@ var
             // ----- Horizontal Rule
             pattern: /^-{3,}$/gm,
             replace: "<hr />",
+            type: BLOCK,
+        },
+        {
+            // blockquote Block
+            // >>> Blockquote >>>
+            pattern: /^>>>[ \t]*([\s\S]*?)^[ \t]*<<</gm,
+            replace: "<blockquote><p>$1</p></blockquote>",
             type: BLOCK,
         },
         {

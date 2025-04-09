@@ -77,6 +77,50 @@ body{
 #config-container button:hover {
     background-color: #444444;
 }
+.input-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #1e1e1e; /* Fondo oscuro */
+    border-top: 1px solid #333333; /* Línea superior */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5); /* Sombra superior */
+}
+
+.input-container button {
+    width: 50px;
+    height: 50px;
+    background-color: #2c2c2c; /* Fondo oscuro para el botón */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    border-radius: 50%; /* Botones redondeados */
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s; /* Animación al pasar el cursor */
+}
+
+.input-container button:hover {
+    transform: scale(1.1); /* Efecto de zoom al pasar el cursor */
+    background-color: #444444; /* Cambio de color al pasar el cursor */
+}
+
+.input-container input {
+    flex: 1; /* Ocupa el espacio restante */
+    margin: 0 10px;
+    padding: 10px 15px;
+    background-color: #2c2c2c; /* Fondo oscuro */
+    color: #ffffff; /* Texto blanco */
+    border: 1px solid #444444; /* Borde oscuro */
+    border-radius: 25px; /* Bordes redondeados */
+    font-size: 16px;
+    outline: none; /* Quita el borde azul al seleccionar */
+    transition: border-color 0.2s; /* Animación al enfocar */
+}
+
+.input-container input:focus {
+    border-color: #6200ee; /* Color del borde al enfocar */
+}
 .HideDef{
     display: none;
 }
