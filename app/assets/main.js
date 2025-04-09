@@ -7,6 +7,11 @@ if (!String.prototype.startsWith) {
         return this.substring(pos, pos + search.length) === search;
     };
 }
+if (!String.prototype.trim) {
+    String.prototype.trim = function() {
+        return this.replace(/^\s+|\s+$/g, '');
+    };
+}
 if(localStorage.getItem("apiKey") == null){
     apiKey = prompt("Escribe tu API key:");
     if(apiKey == null || apiKey.trim() == ""){

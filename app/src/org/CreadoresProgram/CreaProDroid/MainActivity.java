@@ -41,6 +41,7 @@ public class MainActivity extends Activity {
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
         webView.setBackgroundColor(Color.BLACK);
+        webView.setWebContentsDebuggingEnabled(true);
         webView.addJavascriptInterface(new JSInterface(this, webView), "Android");
         this.webview = webView;
         webView.loadUrl("file:///android_asset/index.html");
@@ -56,15 +57,13 @@ public class MainActivity extends Activity {
             ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             if(result != null && !result.isEmpty()) {
                 webview.evaluateJavascript("onSpeechResult("+org.json.JSONObject.quote(result.get(0))+");", null);
+            }
         }
     }
     @Override
     protected void onDestroy() {
         webview.evaluateJavascript("Android.finish();", null);
         webview.destroy();
-        if(speechRecognizer != null) {
-            speechRecognizer.destroy();
-        }
         super.onDestroy();
     }
     private String getFileName(Uri uri) {

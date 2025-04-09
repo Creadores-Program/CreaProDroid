@@ -85,6 +85,9 @@ body{
     background-color: #1e1e1e; /* Fondo oscuro */
     border-top: 1px solid #333333; /* Línea superior */
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5); /* Sombra superior */
+    max-width: 100%; /* No permite que el contenedor exceda el 100% del ancho */
+    box-sizing: border-box; /* Incluye padding y borde en el ancho total */
+    overflow: hidden; /* Evita que el contenido desborde */
 }
 
 .input-container button {

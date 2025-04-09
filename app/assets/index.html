@@ -16,11 +16,11 @@
         </div>
         <div class="chat-container" id="Chat"></div>
         <div class="input-container">
-            <button id="upFile" onclick="Android.openFileUploader()" style="width: 40px; height: 40px; background: url('./resources/addCircle.png') 50% 50% no-repeat; background-size: contain;"></button>
+            <button id="upFile" onclick="Android.openFileUploader()" style="background: url('./resources/addCircle.png') 50% 50% no-repeat; background-size: contain;"></button>
             <input type="text" id="inputChat" placeholder="Escribe un mensaje..." />
-            <button id="sendBtn" style="width: 40px; height: 40px; background: url('./resources/send.png') 50% 50% no-repeat; background-size: contain;" onclick="if(document.getElementById('inputChat').value != null && document.getElementById('inputChat').value.trim() != ''){ sendMessage(document.getElementById('inputChat').value +filesI); document.getElementById('inputChat').value = ''; filesI = ''; document.getElementById('filesTextExtra').value = ''; }"></button>
-            <button onclick="Android.stopSpeak(); alert('Al poner aceptar empezare a escuchar!'); Android.startSpeechRecognition();" style="width: 40px; height: 40px; background: url('./resources/mic.png') 50% 50% no-repeat; background-size: contain;"></button>
-            <button onclick="if(confirm('Quieres Borrar la conversacion?')){ Android.clearChat(); document.getElementById('Chat').innerHTML = ''; }" style="width: 40px; height: 40px; background: url('./resources/chat_error.png') 50% 50% no-repeat; background-size: contain;"></button>
+            <button id="sendBtn" style="background: url('./resources/send.png') 50% 50% no-repeat; background-size: contain;" onclick="if(document.getElementById('inputChat').value != null && document.getElementById('inputChat').value.trim() != ''){ sendMessage(document.getElementById('inputChat').value +filesI); document.getElementById('inputChat').value = ''; filesI = ''; document.getElementById('filesTextExtra').value = ''; }"></button>
+            <button onclick="Android.stopSpeak(); Android.startSpeechRecognition();" style="background: url('./resources/mic.png') 50% 50% no-repeat;"></button>
+            <button onclick="if(confirm('Quieres Borrar la conversacion?')){ Android.clearChat(); document.getElementById('Chat').innerHTML = ''; }" style="background: url('./resources/chat_error.png') 50% 50% no-repeat;"></button>
         </div>
     </div>
     <div id="Config" class="InterfaceH HideDef">
