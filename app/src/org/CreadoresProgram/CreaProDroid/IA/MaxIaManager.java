@@ -168,13 +168,11 @@ public class MaxIaManager{
         promptJson.put("contents", contents);
         //Añadir Configuracion
         JSONObject config = new JSONObject();
-        config.put("temperature", 1);
-        config.put("topP", 0.95);
-        config.put("topK", 40);
         JSONArray responseModalities = new JSONArray();
         responseModalities.put("image");
         responseModalities.put("text");
         config.put("responseModalities", responseModalities);
+        config.put("responseMimeType", "text/plain");
         promptJson.put("generationConfig", config);
         //Enviar peticion
         String response = "";
