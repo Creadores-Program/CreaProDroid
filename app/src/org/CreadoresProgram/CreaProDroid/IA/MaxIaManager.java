@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Random;
 
 public class MaxIaManager{
     private String BaseDataIA = "";
@@ -29,6 +30,8 @@ public class MaxIaManager{
     private JSONArray apps = new JSONArray();
     private OkHttpClient clientHt = new OkHttpClient();
     private static final MediaType JSONHt = MediaType.parse("application/json; charset=utf-8");
+    private JSONArray maxBotPrompts;
+    private JSONArray maxNoSeBotPrompts;
     public MaxIaManager(Context context) {
         AssetManager assetManager = context.getAssets();
         try{
@@ -46,6 +49,25 @@ public class MaxIaManager{
                         this.BaseDataIA += " . " + new String(fileBytes, StandardCharsets.UTF_8);
                     }
                 }
+            }
+            try(InputStream inputS = assetManager.open("IA/Data/MaxIA/BotPrompts.json");
+                InputStream inputS2 = assetManager.open("IA/Data/MaxIA/NoSeBot.json")){
+                byte[] buff = new byte[inputS.available()];
+                int bytesRea;
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                while ((bytesRea = inputS.read(buff)) != -1) {
+                    outputStream.write(buff, 0, bytesRea);
+                }
+                byte[] fileBytes = outputStream.toByteArray();
+                this.maxBotPrompts = new JSONArray(new String(fileBytes, StandardCharsets.UTF_8));
+                byte[] buff2 = new byte[inputS2.available()];
+                int bytesRea2;
+                ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
+                while ((bytesRea2 = inputS2.read(buff2)) != -1) {
+                    outputStream2.write(buff2, 0, bytesRea2);
+                }
+                byte[] fileBytes2 = outputStream2.toByteArray();
+                this.maxNoSeBotPrompts = new JSONArray(new String(fileBytes2, StandardCharsets.UTF_8));
             }
         }catch (IOException e) {
             e.printStackTrace();
@@ -188,7 +210,33 @@ public class MaxIaManager{
     }
 
     public String promptMax(String prompt){
-        return "Hola xd";
+      String promptToMax = clearPalabra(prompt.split("[File:")[0].replaceAll(this.UserName, "%UserName")).toLowerCase().trim().replaceAll("creaprodroid", "%BotName").replaceAll("[^a-zA-Z ]", "");
+      try{
+        for(int i = 0; i < this.maxBotPrompts.length(); i++){
+            JSONArray prompts = this.maxBotPrompts.getJSONArray(i).getJSONArray(0);
+            for(int j = 0; j < prompts.length(); j++){
+                String promptUser = prompts.getString(j);
+                if(promptToMax.equals(promptUser)){
+                    int elecRespon = new Random().nextInt(this.maxBotPrompts.getJSONArray(i).getJSONArray(1).length());
+                    return this.maxBotPrompts.getJSONArray(i).getJSONArray(1).getString(elecRespon).replaceAll("%UserName", this.UserName).replaceAll("%BotName", "CreaPro Droid").replaceAll("%emoji.avatar", "🤖");
+                }
+            }
+        }
+      }catch (Exception e){
+        //Nada
+      }
+      return this.maxNoSeBotPrompts.getString(new Random().nextInt(this.maxNoSeBotPrompts.length())).replaceAll("%UserName", this.UserName).replaceAll("%BotName", "CreaPro Droid").replaceAll("%emoji.avatar", "🤖");
+    }
+    public String clearPalabra(String promp){
+        String[] acento = {
+            "🇦","🅰️","À","Á","Â","Ã","Ä","Å","Æ","Ç","È","É","Ê","Ë","Ì","Í","Î","Ï","Ð","Ò","Ó","Ô","Õ","Ö","Ø","Ù","Ú","Û","Ü","Ý","ß","à","á","â","ã","ä","å","æ","ç","è","é","ê","ë","ì","í","î","ï","ð","ò","ó","ô","õ","ö","ø","ù","ú","û","ü","ý","ÿ", "🅱️", "🇧", "🇨", "🇩", "ℹ️","🅾️","Ⓜ️","🅿️","5️⃣","💤","*️⃣","♏","🆚","🆕","🆙","🔝","🔛","♑","🆖","🆘","📴","💯","🏧","®️","©️","™️","🔙","❌","❎","🆑","🆎","🔡","3️⃣","🔚","#️⃣","🔤","🔟","♍","🔢","🚾","🔜","1️⃣","🆒", "🇵", "🇹", "🇴", "🇺", "🇮", "🇼", "🇪", "🇾"
+        };
+        String[] limpio = {
+            "A","A","A","A","A","A","A","A","A","C","E","E","E","E","I","I","I","I","D",,"O","O","O","O","O","O","U","U","U","U","Y","B","a","a","a","a","a","a","a","c","e","e","e","e","i","i","i","i","o","o","o","o","o","o","o","u","u","u","u","y","y", "B", "B", "C", "D", "i", "O", "M","P","5","Z","*","m","VS","NEW","UP!","TOP","ON!","n","NG","SOS","OFF","100","ATM","R","C","TM","BACK","X","X","CL","AB","abcd","3","END","#","abc","10","m","1234","WC","SOON","1","COOL", "P", "T", "O", "U", "I", "W", "E", "Y"
+        };
+        for(int i = 0; i < acento.length; i++){
+            promp = promp.replaceAll(acento[i], limpio[i]);
+        }
     }
 
     public void clearChat(){

@@ -126,6 +126,7 @@ function sendMessage(msg, isSpeak) {
             Android.copyText(this.textChat);
             alert("Texto copiado!");
         }.bind(copymsghkv);
+        chatIAd.appendChild(copymsghkv);
         var chatIAdText = document.createElement("div");
         chatIAdText.className += "bubble";
         chatIAdText.innerHTML = msg;
@@ -145,7 +146,7 @@ function sendMessage(msg, isSpeak) {
 }
 function handleFileChange(Str, name) {
     alert("Procesando archivo...");
-    filesI = "[File:"+name + "]\n"+Str + "\n[/File:"+name+"]\n";
+    filesI += "[File:"+name + "]\n"+Android.readFile(Str) + "\n[/File:"+name+"]\n";
     alert("Archivo procesado, puedes enviar el mensaje ahora.");
 }
 function onSpeechResult(result) {

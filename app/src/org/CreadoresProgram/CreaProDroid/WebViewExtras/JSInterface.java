@@ -12,6 +12,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.File;
+import java.io.FileInputStream;
 import org.CreadoresProgram.CreaProDroid.IA.MaxIaManager;
 import android.speech.tts.TextToSpeech;
 import java.util.Locale;
@@ -143,6 +145,30 @@ public class JSInterface{
         intent.setType("text/*");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         mContext.startActivityForResult(Intent.createChooser(intent, "Selecciona un archivo"), MainActivity.FILE_UPLOAD_REQUEST_CODE); 
+    }
+    @JavascriptInterface
+    public String readFile(String filePath) {
+        try {
+            InputStream fis;
+            if(filePath.startsWith("content://")){
+                Uri uri = Uri.parse(filePath);
+                fis = mContext.getContentResolver().openInputStream(uri);
+            }else{
+                File file = new File(filePath);
+                fis = new FileInputStream(file);
+            }
+            BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line).append("\n");
+            }
+            reader.close();
+            return stringBuilder.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "Error al leer el archivo.";
+        }
     }
     @JavascriptInterface
     public void startSpeechRecognition(){

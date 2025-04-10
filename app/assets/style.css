@@ -54,6 +54,16 @@ body{
     border-radius: 15px;
     max-width: 80%;
     word-wrap: break-word;
+    overflow-wrap: break-word;
+    overflow: hidden;
+}
+.message.bot .bubble img{
+    max-width: 100%;
+    height: auto;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    display: block;
+    margin-top: 10px;
 }
 .message.user{
     text-align: right;
@@ -66,6 +76,8 @@ body{
     border-radius: 15px;
     max-width: 80%;
     word-wrap: break-word;
+    overflow-wrap: break-word;
+    overflow: hidden;
 }
 .clearfix::after{
     content: "";

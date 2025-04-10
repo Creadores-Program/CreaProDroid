@@ -26,7 +26,17 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_main);
         WebView webView = findViewById(R.id.webview);
-        webView.setWebViewClient(new WebViewClient());
+        webView.setWebViewClient(new WebViewClient(){
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (url.startsWith("file:///android_asset/")){
+                    return false;
+                }else{
+                    view.evaluateJavascript("Android.openUrl("+org.json.JSONObject.quote(url)+");", null);
+                    return true;
+                }
+            }
+        });
         webView.setWebChromeClient(new ChromeExtra(this));
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
