@@ -69,7 +69,7 @@ public class MaxIaManager{
                 byte[] fileBytes2 = outputStream2.toByteArray();
                 this.maxNoSeBotPrompts = new JSONArray(new String(fileBytes2, StandardCharsets.UTF_8));
             }
-        }catch (IOException e) {
+        }catch (Exception e) {
             e.printStackTrace();
         }
         //Cargar Apps para abrir
@@ -222,21 +222,22 @@ public class MaxIaManager{
                 }
             }
         }
+        return this.maxNoSeBotPrompts.getString(new Random().nextInt(this.maxNoSeBotPrompts.length())).replaceAll("%UserName", this.UserName).replaceAll("%BotName", "CreaPro Droid").replaceAll("%emoji.avatar", "🤖");
       }catch (Exception e){
-        //Nada
+        return "No se que responderte, lo siento. Pero estoy aprendiendo y pronto podre ayudarte con eso.";
       }
-      return this.maxNoSeBotPrompts.getString(new Random().nextInt(this.maxNoSeBotPrompts.length())).replaceAll("%UserName", this.UserName).replaceAll("%BotName", "CreaPro Droid").replaceAll("%emoji.avatar", "🤖");
     }
     public String clearPalabra(String promp){
         String[] acento = {
             "🇦","🅰️","À","Á","Â","Ã","Ä","Å","Æ","Ç","È","É","Ê","Ë","Ì","Í","Î","Ï","Ð","Ò","Ó","Ô","Õ","Ö","Ø","Ù","Ú","Û","Ü","Ý","ß","à","á","â","ã","ä","å","æ","ç","è","é","ê","ë","ì","í","î","ï","ð","ò","ó","ô","õ","ö","ø","ù","ú","û","ü","ý","ÿ", "🅱️", "🇧", "🇨", "🇩", "ℹ️","🅾️","Ⓜ️","🅿️","5️⃣","💤","*️⃣","♏","🆚","🆕","🆙","🔝","🔛","♑","🆖","🆘","📴","💯","🏧","®️","©️","™️","🔙","❌","❎","🆑","🆎","🔡","3️⃣","🔚","#️⃣","🔤","🔟","♍","🔢","🚾","🔜","1️⃣","🆒", "🇵", "🇹", "🇴", "🇺", "🇮", "🇼", "🇪", "🇾"
         };
         String[] limpio = {
-            "A","A","A","A","A","A","A","A","A","C","E","E","E","E","I","I","I","I","D",,"O","O","O","O","O","O","U","U","U","U","Y","B","a","a","a","a","a","a","a","c","e","e","e","e","i","i","i","i","o","o","o","o","o","o","o","u","u","u","u","y","y", "B", "B", "C", "D", "i", "O", "M","P","5","Z","*","m","VS","NEW","UP!","TOP","ON!","n","NG","SOS","OFF","100","ATM","R","C","TM","BACK","X","X","CL","AB","abcd","3","END","#","abc","10","m","1234","WC","SOON","1","COOL", "P", "T", "O", "U", "I", "W", "E", "Y"
+            "A","A","A","A","A","A","A","A","A","C","E","E","E","E","I","I","I","I","D","O","O","O","O","O","O","U","U","U","U","Y","B","a","a","a","a","a","a","a","c","e","e","e","e","i","i","i","i","o","o","o","o","o","o","o","u","u","u","u","y","y", "B", "B", "C", "D", "i", "O", "M","P","5","Z","*","m","VS","NEW","UP!","TOP","ON!","n","NG","SOS","OFF","100","ATM","R","C","TM","BACK","X","X","CL","AB","abcd","3","END","#","abc","10","m","1234","WC","SOON","1","COOL", "P", "T", "O", "U", "I", "W", "E", "Y"
         };
         for(int i = 0; i < acento.length; i++){
             promp = promp.replaceAll(acento[i], limpio[i]);
         }
+        return promp;
     }
 
     public void clearChat(){
