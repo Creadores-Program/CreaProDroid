@@ -68,7 +68,7 @@ function sendMessage(msg, isSpeak) {
         try{
             var genimghjkfr = Android.genImg(subPrompIAJson.genImg, apiKey);
             if(genimghjkfr == null || genimghjkfr == "Hubo un error al generar la imagen, por favor intenta de nuevo.") throw new Error("Hubo un error al generar la imagen, por favor intenta de nuevo.");
-            responMSGIA += "<br/><button style='background: url(\"./resources/download.png\") 50% 50% no-repeat; background-size: contain;' onclick='Android.openUrl(\""+genimghjkfr+"\");'></button><img src='"+genimghjkfr+"' alt='Imagen Generada'/>";
+            responMSGIA += "<br/><button style='background: url(\"./resources/download.png\") 50% 50% no-repeat; background-size: contain;' onclick='Android.saveImageGen(\""+genimghjkfr+"\");'></button><img src='"+genimghjkfr+"' alt='Imagen Generada'/>";
         }catch(e){
             responMSGIA += "<br/>Hubo un error al generar la imagen, por favor intenta de nuevo.";
         }

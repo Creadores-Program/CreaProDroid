@@ -178,4 +178,18 @@ public class JSInterface{
     public void clearCache(){
         mWebView.clearCache(true);
     }
+    @JavascriptInterface
+    public void saveImageGen(String base64data){
+        try{
+            byte[] decodedBytes = android.util.Base64.decode(base64data.split(",")[1], android.util.Base64.DEFAULT);
+            File file = new File(android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_DOWNLOADS, "GenImg_"+System.currentTimeMillis()+".png"));
+            java.io.FileOutputStream fos = new java.io.FileOutputStream(file);
+            fos.write(decodedBytes);
+            fos.close();
+            mWebView.evaluateJavascript("alert('Imagen guardada en: '+" + org.json.JSONObject.quote(file.getAbsolutePath()) + ");", null);
+        }catch(Exception e){
+            e.printStackTrace();
+            mWebView.evaluateJavascript("alert('Error al guardar la imagen: '+" + org.json.JSONObject.quote(e.getMessage()) + ");", null);
+        }
+    }
 }
