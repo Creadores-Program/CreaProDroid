@@ -20,7 +20,6 @@ import java.io.InputStream;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
-import java.util.regex.Pattern;
 
 public class MaxIaManager{
     private String BaseDataIA = "";
@@ -211,7 +210,7 @@ public class MaxIaManager{
     }
 
     public String promptMax(String prompt){
-      String promptToMax = clearPalabra(Pattern.quote(prompt).split("\\[File:")[0]).toLowerCase().replaceAll("[\\p{Z}\\s]+", " ").trim().replaceAll("[^a-zA-Z]", "").replaceAll("creaprodroid", "%BotName").replaceAll(clearPalabra(Pattern.quote(this.UserName)).trim().replaceAll("[^a-zA-Z]", ""), "%UserName");
+      String promptToMax = clearPalabra(prompt.split("\\[File:")[0]).toLowerCase().replaceAll("[\\p{Z}\\s]+", " ").trim().replaceAll("[^a-zA-Z]", "").replaceAll("creaprodroid", "%BotName").replaceAll(clearPalabra(this.UserName).trim().toLowerCase().replaceAll("[^a-zA-Z]", ""), "%UserName");
       try{
         for(int i = 0; i < this.maxBotPrompts.length(); i++){
             JSONArray prompts = this.maxBotPrompts.getJSONArray(i).getJSONArray(0);
@@ -219,11 +218,11 @@ public class MaxIaManager{
                 String promptUser = prompts.getString(j);
                 if(promptToMax.equals(promptUser)){
                     int elecRespon = new Random().nextInt(this.maxBotPrompts.getJSONArray(i).getJSONArray(1).length());
-                    return this.maxBotPrompts.getJSONArray(i).getJSONArray(1).getString(elecRespon).replaceAll("%UserName", Pattern.quote(this.UserName)).replaceAll("%BotName", "CreaPro Droid").replaceAll("%emoji.avatar", "🤖");
+                    return this.maxBotPrompts.getJSONArray(i).getJSONArray(1).getString(elecRespon).replaceAll("%UserName", this.UserName).replaceAll("%BotName", "CreaPro Droid").replaceAll("%emoji.avatar", "🤖");
                 }
             }
         }
-        return this.maxNoSeBotPrompts.getString(new Random().nextInt(this.maxNoSeBotPrompts.length())).replaceAll("%UserName", Pattern.quote(this.UserName)).replaceAll("%BotName", "CreaPro Droid").replaceAll("%emoji.avatar", "🤖");
+        return this.maxNoSeBotPrompts.getString(new Random().nextInt(this.maxNoSeBotPrompts.length())).replaceAll("%UserName", this.UserName).replaceAll("%BotName", "CreaPro Droid").replaceAll("%emoji.avatar", "🤖");
       }catch (Exception e){
         return "No se que responderte, lo siento. Pero estoy aprendiendo y pronto podre ayudarte con eso.";
       }
