@@ -219,7 +219,7 @@ function parse(string) {
         });
     });
     // Escape any HTML in the code blocks.
-    output = output.replace(/ESCAPEDCODE(.+?)<\/code>/g, function(match, code) {
+    output = output.replace(/ESCAPEDCODE([\s\S]*?)<\/code>/g, function(match, code) {
         return escapeHtml(code) + "</code>";
     });
 
