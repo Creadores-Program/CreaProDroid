@@ -27,8 +27,8 @@ var
         {
             // <code block>
             // ``` Code Block ```
-            pattern: /```([^`]+)```/g,
-            replace: "<pre><code>$1</code></pre>",
+            pattern: /```(?:\w+)?\n([\s\S]*?)```/g,
+            replace: "<button onclick='copyMDcode(this);' style='background: url(\"./resources/copy.png\") 50% 50% no-repeat; background-size: contain;'></button><br/><pre><code>ESCAPED_CODE_$1</code></pre>",
             type: BLOCK,
         },
         {
@@ -126,7 +126,7 @@ var
             // <code>
             // `Inline Code`
             pattern: /`([^`]+)`/g,
-            replace: "<code>$1</code>",
+            replace: "<button onclick='copyMDcode(this);' style='background: url(\"./resources/copy.png\") 50% 50% no-repeat; background-size: contain;'></button><br/><code>ESCAPED_CODE_$1</code>",
             type: INLINE,
         },
         {
@@ -193,6 +193,15 @@ var
     exports.parse = parse;
 })();
 
+function escapeHtml(string){
+    return string
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
 /**
  * Parses a provided Markdown string into valid HTML.
  *
@@ -208,6 +217,10 @@ function parse(string) {
         output = output.replace(p.pattern, function() {
             return replace.call(this, arguments, p.replace, p.type);
         });
+    });
+    // Escape any HTML in the code blocks.
+    output = output.replace(/ESCAPED_CODE_(.+?)<\/code>/g, function(match, code) {
+        return escapeHtml(code) + "</code>";
     });
 
     // Perform any post-processing required.

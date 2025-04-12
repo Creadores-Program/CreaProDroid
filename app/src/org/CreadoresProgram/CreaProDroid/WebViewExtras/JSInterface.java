@@ -189,7 +189,7 @@ public class JSInterface{
             mWebView.post(new Runnable(){
                 @Override
                 public void run(){
-                    mWebView.evaluateJavascript("alert('Imagen guardada en: '+" + org.json.JSONObject.quote(file.getAbsolutePath()) + ");", null);
+                    mWebView.loadUrl("javascript:alert('Imagen guardada en: '+" + org.json.JSONObject.quote(file.getAbsolutePath()) + ");");
                 }
             });
         }catch(Exception e){
@@ -197,7 +197,7 @@ public class JSInterface{
             mWebView.post(new Runnable(){
                 @Override
                 public void run(){
-                    mWebView.evaluateJavascript("alert('Error al guardar la imagen: '+" + org.json.JSONObject.quote(e.getMessage()) + ");", null);
+                    mWebView.loadUrl("javascript:alert('Error al guardar la imagen: '+" + org.json.JSONObject.quote(e.getMessage()) + ");");
                 }
             });
         }

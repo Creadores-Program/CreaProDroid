@@ -29,13 +29,13 @@ public class MainActivity extends Activity {
         webView.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (url.startsWith("file:///android_asset/")){
+                if (url.startsWith("file:///android_asset/") || url.startsWith("javascript:")) {
                     return false;
                 }else{
                     view.post(new Runnable(){
                         @Override
                         public void run(){
-                            view.evaluateJavascript("Android.openUrl("+org.json.JSONObject.quote(url)+");", null);
+                            view.loadUrl("javascript:Android.openUrl("+org.json.JSONObject.quote(url)+");");
                         }
                     });
                     return true;
@@ -70,7 +70,7 @@ public class MainActivity extends Activity {
             webview.post(new Runnable(){
                 @Override
                 public void run(){
-                    webview.evaluateJavascript(jsCallback, null);
+                    webview.loadUrl("javascript:"+jsCallback);
                 }
             });
         }else if(requestCode == RECOGNIZE_SPEECH_ACTIVITY && resultCode == RESULT_OK && data != null) {
@@ -79,7 +79,7 @@ public class MainActivity extends Activity {
                 webview.post(new Runnable(){
                     @Override
                     public void run(){
-                        webview.evaluateJavascript("onSpeechResult("+org.json.JSONObject.quote(result.get(0))+");", null);
+                        webview.loadUrl("javascript:onSpeechResult("+org.json.JSONObject.quote(result.get(0))+");");
                     }
                 });
             }
@@ -90,7 +90,7 @@ public class MainActivity extends Activity {
         webview.post(new Runnable(){
             @Override
             public void run(){
-                webview.evaluateJavascript("Android.finish();", null);
+                webview.loadUrl("javascript:Android.finish();");
             }
         });
         webview.destroy();
@@ -130,7 +130,7 @@ public class MainActivity extends Activity {
             webview.post(new Runnable(){
                 @Override
                 public void run(){
-                    webview.evaluateJavascript("onSpeechError('Tu dispositivo no soporta el reconocimiento por voz!');", null);
+                    webview.loadUrl("javascript:onSpeechError('Tu dispositivo no soporta el reconocimiento por voz!');");
                 }
             });
         }

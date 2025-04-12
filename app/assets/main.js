@@ -155,3 +155,10 @@ function onSpeechResult(result) {
 function onSpeechError(error) {
     alert("Error en el reconocimiento de voz: "+ error);
 }
+function copyMDcode(button) {
+    var codeBlockrgfgbf = button.nextElementSibling.querySelector("code");
+    if(codeBlockrgfgbf != null){
+        Android.copyText(codeBlockrgfgbf.textContent);
+        alert("Texto copiado!");
+    }
+}
