@@ -28,7 +28,7 @@ var
             // <code block>
             // ``` Code Block ```
             pattern: /```(?:\w+)?\n([\s\S]*?)```/g,
-            replace: "<button onclick='copyMDcode(this);' style='background: url(\"./resources/copy.png\") 50% 50% no-repeat; background-size: contain;'></button><br/><pre><code>ESCAPED_CODE_$1</code></pre>",
+            replace: "<pre><code><button onclick='copyMDcode(this);' style='background: url(\"./resources/copy.png\") 50% 50% no-repeat; background-size: contain;'></button><br/>ESCAPEDCODE$1</code></pre>",
             type: BLOCK,
         },
         {
@@ -126,7 +126,7 @@ var
             // <code>
             // `Inline Code`
             pattern: /`([^`]+)`/g,
-            replace: "<button onclick='copyMDcode(this);' style='background: url(\"./resources/copy.png\") 50% 50% no-repeat; background-size: contain;'></button><br/><code>ESCAPED_CODE_$1</code>",
+            replace: "<code><button onclick='copyMDcode(this);' style='background: url(\"./resources/copy.png\") 50% 50% no-repeat; background-size: contain;'></button><br/>ESCAPEDCODE$1</code>",
             type: INLINE,
         },
         {
@@ -219,7 +219,7 @@ function parse(string) {
         });
     });
     // Escape any HTML in the code blocks.
-    output = output.replace(/ESCAPED_CODE_(.+?)<\/code>/g, function(match, code) {
+    output = output.replace(/ESCAPEDCODE(.+?)<\/code>/g, function(match, code) {
         return escapeHtml(code) + "</code>";
     });
 
