@@ -10,12 +10,12 @@
 </head>
 <body>
     <div id="Home" class="InterfaceH">
-        <div class="chat-header" style="position: sticky; top: 0;">
+        <div class="chat-header" style="position: -webkit-sticky; position: sticky; top: 0;">
             <h1>CreaProDroid</h1>
             <div id="configBtn" style="width: 40px; height: 40px; background: url('./resources/settings.png') 50% 50% no-repeat; background-size: contain;" onclick="document.getElementById('Home').style.display = 'none'; document.getElementById('Config').style.display = 'block';"></div>
         </div>
         <div class="chat-container" id="Chat"></div>
-        <div class="input-container" style="position: sticky; bottom: 0;">
+        <div class="input-container" style="position: -webkit-sticky; position: sticky; bottom: 0;">
             <button id="upFile" onclick="Android.openFileUploader()" style="background: url('./resources/addCircle.png') 50% 50% no-repeat; background-size: contain;"></button>
             <input type="text" id="inputChat" placeholder="Escribe un mensaje..." />
             <button id="sendBtn" style="background: url('./resources/send.png') 50% 50% no-repeat; background-size: contain;" onclick="if(document.getElementById('inputChat').value != null && document.getElementById('inputChat').value.trim() != ''){ sendMessage(document.getElementById('inputChat').value +filesI, false); document.getElementById('inputChat').value = ''; filesI = ''; }"></button>
@@ -24,7 +24,7 @@
         </div>
     </div>
     <div id="Config" class="InterfaceH HideDef">
-        <div id="config-header" style="position: sticky; top: 0;">
+        <div id="config-header" style="position: -webkit-sticky; position: sticky; top: 0;">
             <div id="backConfBtn" style="width: 40px; height: 40px; background: url('./resources/close.png') 50% 50% no-repeat; background-size: contain;" onclick="document.getElementById('Config').style.display = 'none'; document.getElementById('Home').style.display = 'block';"></div>
             <h1>Configuración</h1>
         </div>
