@@ -186,10 +186,10 @@ public class JSInterface{
             java.io.FileOutputStream fos = new java.io.FileOutputStream(file);
             fos.write(decodedBytes);
             fos.close();
-            mWebView.evaluateJavascript("alert('Imagen guardada en: '+" + org.json.JSONObject.quote(file.getAbsolutePath()) + ");", null);
+            mWebView.post(() -> mWebView.evaluateJavascript("alert('Imagen guardada en: '+" + org.json.JSONObject.quote(file.getAbsolutePath()) + ");", null));
         }catch(Exception e){
             e.printStackTrace();
-            mWebView.evaluateJavascript("alert('Error al guardar la imagen: '+" + org.json.JSONObject.quote(e.getMessage()) + ");", null);
+            mWebView.post(() -> mWebView.evaluateJavascript("alert('Error al guardar la imagen: '+" + org.json.JSONObject.quote(e.getMessage()) + ");", null));
         }
     }
 }

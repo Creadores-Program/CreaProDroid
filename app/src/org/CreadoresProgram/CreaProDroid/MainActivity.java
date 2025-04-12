@@ -32,7 +32,7 @@ public class MainActivity extends Activity {
                 if (url.startsWith("file:///android_asset/")){
                     return false;
                 }else{
-                    view.evaluateJavascript("Android.openUrl("+org.json.JSONObject.quote(url)+");", null);
+                    view.post(() -> view.evaluateJavascript("Android.openUrl("+org.json.JSONObject.quote(url)+");", null));
                     return true;
                 }
             }
@@ -62,17 +62,17 @@ public class MainActivity extends Activity {
         if (requestCode == FILE_UPLOAD_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             Uri resultUri = data.getData();
             String jsCallback = "handleFileChange("+org.json.JSONObject.quote(resultUri.toString())+", "+org.json.JSONObject.quote(getFileName(resultUri))+");";
-            webview.evaluateJavascript(jsCallback, null);
+            webview.post(() -> webview.evaluateJavascript(jsCallback, null));
         }else if(requestCode == RECOGNIZE_SPEECH_ACTIVITY && resultCode == RESULT_OK && data != null) {
             ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             if(result != null && !result.isEmpty()) {
-                webview.evaluateJavascript("onSpeechResult("+org.json.JSONObject.quote(result.get(0))+");", null);
+                webview.post(() -> webview.evaluateJavascript("onSpeechResult("+org.json.JSONObject.quote(result.get(0))+");", null));
             }
         }
     }
     @Override
     protected void onDestroy() {
-        webview.evaluateJavascript("Android.finish();", null);
+        webview.post(() -> webview.evaluateJavascript("Android.finish();", null));
         webview.destroy();
         super.onDestroy();
     }
@@ -107,7 +107,7 @@ public class MainActivity extends Activity {
             startActivityForResult(intent, RECOGNIZE_SPEECH_ACTIVITY);
         }catch(ActivityNotFoundException e) {
             e.printStackTrace();
-            webview.evaluateJavascript("onSpeechError('Tu dispositivo no soporta el reconocimiento por voz!');", null);
+            webview.post(() -> webview.evaluateJavascript("onSpeechError('Tu dispositivo no soporta el reconocimiento por voz!');", null));
         }
     }
 }
