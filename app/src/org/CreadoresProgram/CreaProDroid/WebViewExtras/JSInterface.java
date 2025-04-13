@@ -187,7 +187,12 @@ public class JSInterface{
     }
     @JavascriptInterface
     public void downloadUpdate(){
-        mGithibUpdate.downloadUpdate(mContext, mWebView);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mGithubUpdate.downloadUpdate(mContext, mWebView);
+            }
+        }).start();
     }
     @JavascriptInterface
     public long getSizeApkUpdate(){

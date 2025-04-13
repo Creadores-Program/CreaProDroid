@@ -162,3 +162,16 @@ function copyMDcode(button) {
         alert("Texto copiado!");
     }
 }
+function verifyUpdate(alertNoUp){
+    var nowdatesdcnjd = new Date();
+    if(localStorage.getItem("update") != nowdatesdcnjd.getDay()){
+        localStorage.setItem("update", nowdatesdcnjd.getDay());
+        if(!Android.isLatestVersionByGithub() && confirm("Nueva Actualizacion Disponible!\nPesa: "+(Android.getSizeApkUpdate() / (1024 * 1024))+"mb\nPlataforma de donde se Descarga: Github.com\n¿Quieres Actualizar?")){
+            Android.downloadUpdate();
+            alert("Actualizando...\nNo Cierres la app!");
+        }else if(alertNoUp){
+            alert("No hay actualizaciones disponibles.\nO cancelaste la descarga.");
+        }
+    }
+}
+verifyUpdate();
