@@ -146,7 +146,7 @@ function sendMessage(msg, isSpeak) {
 }
 function handleFileChange(Str, name) {
     alert("Procesando archivo...");
-    filesI += "[File:"+name + "]\n"+Android.readFile(Str) + "\n[/File:"+name+"]\n";
+    filesI += "[File:"+name + "]\n"+Str + "\n[/File:"+name+"]\n";
     alert("Archivo procesado, puedes enviar el mensaje ahora.");
 }
 function onSpeechResult(result) {

@@ -16,6 +16,11 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import java.util.Locale;
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.InputStream;
+import java.io.FileInputStream;
+import java.io.File;
 
 public class MainActivity extends Activity {
     public static final int FILE_UPLOAD_REQUEST_CODE = 1;
@@ -66,7 +71,7 @@ public class MainActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == FILE_UPLOAD_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             Uri resultUri = data.getData();
-            String jsCallback = "handleFileChange("+org.json.JSONObject.quote(resultUri.toString())+", "+org.json.JSONObject.quote(getFileName(resultUri))+");";
+            String jsCallback = "handleFileChange("+org.json.JSONObject.quote(readFile(resultUri.toString()))+", "+org.json.JSONObject.quote(getFileName(resultUri))+");";
             webview.post(new Runnable(){
                 @Override
                 public void run(){
@@ -133,6 +138,29 @@ public class MainActivity extends Activity {
                     webview.loadUrl("javascript:onSpeechError('Tu dispositivo no soporta el reconocimiento por voz!');");
                 }
             });
+        }
+    }
+    private String readFile(String filePath) {
+        InputStream fis = null;
+        try {
+            if(filePath.startsWith("content://")){
+                Uri uri = Uri.parse(filePath);
+                fis = mContext.getContentResolver().openInputStream(uri);
+            }else{
+                File file = new File(filePath);
+                fis = new FileInputStream(file);
+            }
+            BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line).append("\n");
+            }
+            reader.close();
+            return stringBuilder.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error al leer el archivo.";
         }
     }
 }
