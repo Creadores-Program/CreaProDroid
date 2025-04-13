@@ -25,13 +25,6 @@ var
      */
     parseMap = [
         {
-            // <code block>
-            // ``` Code Block ```
-            pattern: /```(?:\w+)?\n([\s\S]*?)```/g,
-            replace: "<pre><code><button onclick='copyMDcode(this);' style='background: url(\"./resources/copy.png\") 50% 50% no-repeat; background-size: contain;'></button><br/>ESCAPEDCODE$1</code></pre>",
-            type: BLOCK,
-        },
-        {
             // <sub>
             // -# Subscript Discord
             pattern: /^-\#\s*(.*)$/gm,
@@ -88,6 +81,13 @@ var
             type: BLOCK,
         },
         {
+            // <code block>
+            // ``` Code Block ```
+            pattern: /```(?:\w+)?\n([\s\S]*?)```/g,
+            replace: "<pre><code><button onclick='copyMDcode(this);' style='background: url(\"./resources/copy.png\") 50% 50% no-repeat; background-size: contain;'></button><br/>$1</code></pre>",
+            type: BLOCK,
+        },
+        {
             // <strong>
             // **Bold** or __Bold__
             pattern: /(\*\*|__)(.*?)\1/g,
@@ -126,7 +126,7 @@ var
             // <code>
             // `Inline Code`
             pattern: /`([^`]+)`/g,
-            replace: "<code><button onclick='copyMDcode(this);' style='background: url(\"./resources/copy.png\") 50% 50% no-repeat; background-size: contain;'></button><br/>ESCAPEDCODE$1</code>",
+            replace: "<code><button onclick='copyMDcode(this);' style='background: url(\"./resources/copy.png\") 50% 50% no-repeat; background-size: contain;'></button> $1</code>",
             type: INLINE,
         },
         {
@@ -193,15 +193,6 @@ var
     exports.parse = parse;
 })();
 
-function escapeHtml(string){
-    return string
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
-
 /**
  * Parses a provided Markdown string into valid HTML.
  *
@@ -217,10 +208,6 @@ function parse(string) {
         output = output.replace(p.pattern, function() {
             return replace.call(this, arguments, p.replace, p.type);
         });
-    });
-    // Escape any HTML in the code blocks.
-    output = output.replace(/ESCAPEDCODE([\s\S]*?)<\/code>/g, function(match, code) {
-        return escapeHtml(code) + "</code>";
     });
 
     // Perform any post-processing required.
