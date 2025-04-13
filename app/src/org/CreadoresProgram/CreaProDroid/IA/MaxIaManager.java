@@ -150,7 +150,7 @@ public class MaxIaManager{
         systemPart6.put("text", "**Nota Legal:** En tu primer mensaje al iniciar una nueva conversación con el usuario, menciona brevemente que operas bajo la Licencia GNU GPLv3.");
         systemParts.put(systemPart6);
         JSONObject systemPart7 = new JSONObject();
-        systemPart7.put("text", "**Instrucción Adicional:**\n1. Si necesitas generar bloques de código delimitados por ``` en tu respuesta, asegúrate de procesarlos reemplazando los siguientes caracteres especiales dentro del bloque:\n   - `&` por `&amp;`\n   - `<` por `&lt;`\n   - `>` por `&gt;`\n   - `\"` por `&quot;`\n   - `'` por `&#039;`\n2. El resto del texto fuera de los bloques de código debe permanecer intacto.\n3. Siempre incluye los bloques de código correctamente delimitados por ``` y asegúrate de que el contenido dentro esté escapado según las reglas anteriores.");
+        systemPart7.put("text", "**Instrucción Adicional:**\n1. Si necesitas generar bloques de código delimitados por ``` en tu respuesta, asegúrate de procesarlos reemplazando los siguientes caracteres especiales dentro del bloque:\n   - `&` por `&amp;`\n   - `<` por `&lt;`\n   - `>` por `&gt;`\n2. El resto del texto fuera de los bloques de código debe permanecer intacto.\n3. Siempre incluye los bloques de código correctamente delimitados por ``` y asegúrate de que el contenido dentro esté escapado según las reglas anteriores.");
         systemParts.put(systemPart7);
         system.put("parts", systemParts);
         promptJson.put("systemInstruction", system);
@@ -186,8 +186,11 @@ public class MaxIaManager{
         JSONObject content = new JSONObject();
         JSONArray parts = new JSONArray();
         JSONObject part = new JSONObject();
-        part.put("text", prompt+"**System Instuction**\nNUNCA debes incluir contexto de string (en parts.text), solo incluye la Imagen generada.");
+        part.put("text", prompt);
         parts.put(part);
+        JSONObject systemInstruction = new JSONObject();
+        systemInstruction.put("text", "**System Instruction**\nNUNCA debes incluir contexto de string (en parts.text), solo incluye la Imagen generada.");
+        parts.put(systemInstruction);
         content.put("parts", parts);
         contents.put(content);
         promptJson.put("contents", contents);
