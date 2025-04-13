@@ -78,7 +78,10 @@ public class GithubUpdate{
                 }
                 String latestVersion = jsonObject.getString("tag_name");
                 return latestVersion.equals(currentVersion);
-        }catch (Exception e) {
+            }else{
+                throw new RuntimeException("Error al verificar versión");
+            }
+        } catch (Exception e) {
             e.printStackTrace();
             return true;
         }
