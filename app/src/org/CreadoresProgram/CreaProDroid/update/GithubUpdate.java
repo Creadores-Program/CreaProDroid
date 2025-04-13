@@ -13,10 +13,14 @@ public class GithubUpdate{
     public GithubUpdate(Context context){
         currentVersion = getCurrentVersionName(context);
     }
+    public void downloadUpdate(){}
     public boolean isLatestVersionByGithub(){
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(repoUrl)
+                .addHeader("Content-Type", "application/json")
+                .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Mobile Safari/537.36")
+                .addHeader("Accept", "application/vnd.github+json")
                 .build();
         try (Response response = client.newCall(request).execute()) {
             if (response.isSuccessful() && response.body() != null) {
