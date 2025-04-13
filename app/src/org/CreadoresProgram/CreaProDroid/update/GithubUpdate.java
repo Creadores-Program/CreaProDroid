@@ -32,7 +32,8 @@ public class GithubUpdate{
             .url(urlDownload)
             .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Mobile Safari/537.36")
             .build();
-        try(Response response = client.newCall(request).execute()){
+        try{
+            Response response = client.newCall(request).execute();
             if (response.isSuccessful() && response.body() != null) {
                 InputStream inputStream = response.body().byteStream();
                 File outputFile = new File(context.getExternalFilesDir(null), "CreaProDroid.apk");
@@ -56,6 +57,17 @@ public class GithubUpdate{
                         view.loadUrl("javascript:alert('Ocurrio un error Desconocido al Descargar la actualización!');");
                     }
             });
+        }finally{
+            try{
+                if(response != null){
+                    response.close();
+                }
+                if(fileOutputStream != null){
+                    fileOutputStream.close();
+                }  
+            }catch(Exception err){
+                err.printStackTrace();
+            }
         }
     }
     public boolean isLatestVersionByGithub(){
@@ -64,7 +76,8 @@ public class GithubUpdate{
                 .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Mobile Safari/537.36")
                 .addHeader("Accept", "application/vnd.github+json")
                 .build();
-        try (Response response = client.newCall(request).execute()) {
+        try {
+            Response response = client.newCall(request).execute();
             if (response.isSuccessful() && response.body() != null) {
                 String jsonData = response.body().string();
                 JSONObject jsonObject = new JSONObject(jsonData);
@@ -84,6 +97,14 @@ public class GithubUpdate{
         } catch (Exception e) {
             e.printStackTrace();
             return true;
+        }finally{
+            try{
+                if(response != null){
+                    response.close();
+                }
+            }catch(Exception err){
+                err.printStackTrace();
+            }
         }
     }
     private void installApk(Context context, File apkFile){

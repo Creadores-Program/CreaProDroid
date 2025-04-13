@@ -38,7 +38,8 @@ public class MaxIaManager{
             String[] files = assetManager.list("IA/MaxIA");
             if(files != null) {
                 for (String file : files) {
-                    try(InputStream inputStream = assetManager.open("IA/MaxIA/" + file)){
+                    try{
+                        InputStream inputStream = assetManager.open("IA/MaxIA/" + file);
                         byte[] buff = new byte[inputStream.available()];
                         int bytesRea;
                         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -47,11 +48,14 @@ public class MaxIaManager{
                         }
                         byte[] fileBytes = outputStream.toByteArray();
                         this.BaseDataIA += " . " + new String(fileBytes, StandardCharsets.UTF_8);
+                    }finally {
+                        if(inputStream != null) inputStream.close();
                     }
                 }
             }
-            try(InputStream inputS = assetManager.open("IA/Data/MaxIA/BotPrompts.json");
-                InputStream inputS2 = assetManager.open("IA/Data/MaxIA/NoSeBot.json")){
+            try{
+                InputStream inputS = assetManager.open("IA/Data/MaxIA/BotPrompts.json");
+                InputStream inputS2 = assetManager.open("IA/Data/MaxIA/NoSeBot.json");
                 byte[] buff = new byte[inputS.available()];
                 int bytesRea;
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -68,6 +72,9 @@ public class MaxIaManager{
                 }
                 byte[] fileBytes2 = outputStream2.toByteArray();
                 this.maxNoSeBotPrompts = new JSONArray(new String(fileBytes2, StandardCharsets.UTF_8));
+            }finally {
+                if(inputS != null) inputS.close();
+                if(inputS2 != null) inputS2.close();
             }
         }catch (Exception e) {
             e.printStackTrace();
@@ -262,9 +269,12 @@ public class MaxIaManager{
                 .addHeader("Content-Type", "application/json")
                 .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Mobile Safari/537.36")
                 .build(); 
-        try(Response response = clientHt.newCall(request).execute()){
+        try{
+            Response response = clientHt.newCall(request).execute();
             if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
             return response.body().string();
+        }finally {
+            if (response != null) response.close();
         }
     }
 }
