@@ -71,7 +71,7 @@ public class MainActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == FILE_UPLOAD_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             Uri resultUri = data.getData();
-            String jsCallback = "handleFileChange("+org.json.JSONObject.quote(readFile(resultUri.toString()))+", "+org.json.JSONObject.quote(getFileName(resultUri))+");";
+            String jsCallback = "handleFileChange("+org.json.JSONObject.quote(readFile(resultUri.toString(), this))+", "+org.json.JSONObject.quote(getFileName(resultUri))+");";
             webview.post(new Runnable(){
                 @Override
                 public void run(){
@@ -140,7 +140,7 @@ public class MainActivity extends Activity {
             });
         }
     }
-    private String readFile(String filePath) {
+    private String readFile(String filePath, Context mContext) {
         InputStream fis = null;
         try {
             if(filePath.startsWith("content://")){
