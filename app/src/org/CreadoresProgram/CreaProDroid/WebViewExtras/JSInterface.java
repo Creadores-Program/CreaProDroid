@@ -23,7 +23,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.customtabs.CustomTabsIntent;
 import org.CreadoresProgram.CreaProDroid.MainActivity;
-import org.CreadoresProgran.CreaProDroid.update.GithubUpdate;
+import org.CreadoresProgram.CreaProDroid.update.GithubUpdate;
 
 public class JSInterface{
     private MainActivity mContext;
@@ -196,7 +196,7 @@ public class JSInterface{
     }
     @JavascriptInterface
     public long getSizeApkUpdate(){
-        return mGithibUpdate.getSizeApk();
+        return mGithubUpdate.getSizeApk();
     }
     @JavascriptInterface
     public void saveImageGen(String base64data){

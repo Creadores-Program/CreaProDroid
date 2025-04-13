@@ -34,7 +34,7 @@ public class GithubUpdate{
             .build();
         try(Response response = client.newCall(request).execute()){
             if (response.isSuccessful() && response.body() != null) {
-                inputStream inputStream = response.body().byteStream();
+                InputStream inputStream = response.body().byteStream();
                 File outputFile = new File(context.getExternalFilesDir(null), "CreaProDroid.apk");
                 FileOutputStream fileOutputStream = new FileOutputStream(outputFile);
                 byte[] buffer = new byte[2048];
