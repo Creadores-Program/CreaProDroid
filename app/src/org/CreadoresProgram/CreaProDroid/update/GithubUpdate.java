@@ -32,18 +32,19 @@ public class GithubUpdate{
             .url(urlDownload)
             .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Mobile Safari/537.36")
             .build();
+        FileOutputStream fileOutputStream = null;
+        Response response = null;
         try{
-            Response response = client.newCall(request).execute();
+            response = client.newCall(request).execute();
             if (response.isSuccessful() && response.body() != null) {
                 InputStream inputStream = response.body().byteStream();
                 File outputFile = new File(context.getExternalFilesDir(null), "CreaProDroid.apk");
-                FileOutputStream fileOutputStream = new FileOutputStream(outputFile);
+                fileOutputStream = new FileOutputStream(outputFile);
                 byte[] buffer = new byte[2048];
                 int bytesRead;
                 while ((bytesRead = inputStream.read(buffer)) != -1) {
                     fileOutputStream.write(buffer, 0, bytesRead);
                 }
-                fileOutputStream.close();
                 inputStream.close();
                 installApk(context, outputFile);
             }else{
@@ -76,8 +77,9 @@ public class GithubUpdate{
                 .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Mobile Safari/537.36")
                 .addHeader("Accept", "application/vnd.github+json")
                 .build();
+        Response response = null;
         try {
-            Response response = client.newCall(request).execute();
+            response = client.newCall(request).execute();
             if (response.isSuccessful() && response.body() != null) {
                 String jsonData = response.body().string();
                 JSONObject jsonObject = new JSONObject(jsonData);

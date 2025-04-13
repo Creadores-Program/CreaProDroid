@@ -66,9 +66,10 @@ public class JSInterface{
             Request request = new Request.Builder()
                 .url(url)
                 .post(body)
-                .build(); 
+                .build();
+            Response response = null;
             try{
-                Response response = clientHt.newCall(request).execute();
+                response = clientHt.newCall(request).execute();
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
                 return response.body().string();
             }finally {
@@ -79,8 +80,9 @@ public class JSInterface{
                 .url(url)
                 .get()
                 .build();
+            Response response = null;
             try{
-                Response response = clientHt.newCall(request).execute();
+                response = clientHt.newCall(request).execute();
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
                 return response.body().string();
             }finally {
