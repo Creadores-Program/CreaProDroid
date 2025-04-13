@@ -32,6 +32,13 @@ var
             type: INLINE,
         },
         {
+            // <code block>
+            // ``` Code Block ```
+            pattern: /```(?:\w+)?\n([\s\S]*?)```/g,
+            replace: "<pre><code><button onclick='copyMDcode(this);' style='background: url(\"./resources/copy.png\") 50% 50% no-repeat; background-size: contain;'></button><br/>$1</code></pre>",
+            type: BLOCK,
+        },
+        {
             // <h1> - <h6>
             // # - ######
             pattern: /^(#{1,6})\s*(.*)$/gm,
@@ -78,13 +85,6 @@ var
             // Paragraph
             pattern: /^(?!<\/?\w+>|\s?\*|\s?[0-9]+|>|\&gt;|-{3,})([^\n]+)$/gm,
             replace: "<p>$1</p>",
-            type: BLOCK,
-        },
-        {
-            // <code block>
-            // ``` Code Block ```
-            pattern: /```(?:\w+)?\n([\s\S]*?)```/g,
-            replace: "<pre><code><button onclick='copyMDcode(this);' style='background: url(\"./resources/copy.png\") 50% 50% no-repeat; background-size: contain;'></button><br/>$1</code></pre>",
             type: BLOCK,
         },
         {
