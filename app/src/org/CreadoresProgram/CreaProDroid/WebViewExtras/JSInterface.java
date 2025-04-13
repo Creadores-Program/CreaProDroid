@@ -23,18 +23,21 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.customtabs.CustomTabsIntent;
 import org.CreadoresProgram.CreaProDroid.MainActivity;
+import org.CreadoresProgran.CreaProDroid.update.GithubUpdate;
 
 public class JSInterface{
     private MainActivity mContext;
     private MaxIaManager mMaxIaManager;
     private TextToSpeech tts;
     private WebView mWebView;
+    private GithubUpdate mGithubUpdate;
     private OkHttpClient clientHt = new OkHttpClient();
     private static final MediaType JSONHt = MediaType.parse("application/json; charset=utf-8");
     public JSInterface(MainActivity c, WebView webView) {
         mContext = c;
         mWebView = webView;
         mMaxIaManager = new MaxIaManager((Context) c);
+        mGithubUpdate = new GithubUpdate((Context) c);
         tts = new TextToSpeech(c, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -177,6 +180,18 @@ public class JSInterface{
     @JavascriptInterface
     public void clearCache(){
         mWebView.clearCache(true);
+    }
+    @JavascriptInterface
+    public boolean isLatestVersionByGithub(){
+        return mGithubUpdate.isLatestVersionByGithub();
+    }
+    @JavascriptInterface
+    public void downloadUpdate(){
+        mGithibUpdate.downloadUpdate(mContext, mWebView);
+    }
+    @JavascriptInterface
+    public long getSizeApkUpdate(){
+        return mGithibUpdate.getSizeApk();
     }
     @JavascriptInterface
     public void saveImageGen(String base64data){
