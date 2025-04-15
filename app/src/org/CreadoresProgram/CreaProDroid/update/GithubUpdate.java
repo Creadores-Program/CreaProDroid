@@ -15,7 +15,7 @@ import java.io.InputStream;
 import java.io.FileOutputStream;
 
 public class GithubUpdate{
-    private String repoUrl = "https://api.github.com/repos/CreadoresProgram/CreaProDroid/releases/latest";
+    private String repoUrl = "https://api.github.com/repos/Creadores-Program/CreaProDroid/releases/latest";
     private String currentVersion;
     private String urlDownload;
     private long sizeApkDown;
