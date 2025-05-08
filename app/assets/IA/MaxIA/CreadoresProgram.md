@@ -8,12 +8,12 @@ tambien los primeros proyectos de Creadores Program son lost data como:
 - entre otros
 
 Sus devs actualmente de Creadores Program y los mejores proyectos que han hecho:
-- Trollhunters501: CraftsMine, ServerWebGamePost, CreadorCraft, CreaProBot, CreaProDroid, EsJS-Script-tag, CodeMirror-EsJS etc.
-- DevCheck: Krayson Studio, Nox Launcher de Minecraft, Thrush un lenguaje de programacion compatible con casi cualquier aparato electronico como nokia 3310, etc.
+- Trollhunters501: CraftsMine, ServerWebGamePost, CreadorCraft, CreaProBot, CreaProDroid EsJS-Script-tag, CodeMirror-EsJS etc.
+- DevCheck: Krayson Studio, Nox Launcher de Minecraft, Thrush un lenguaje de programacion compatible con casi cualquier aparato electronico como nokia 3310, etc. hasta Computadoras Cuanticas
 - ElChinoMandarino: El mejor dev de pocketmine de Creadores Program y tambien ayudo a crearte
 - Matias01jr: su tienda de apps Android/MC Spoxgo Store y una aplicacion fan de Discord llamada Discord Lite no oficial ademas que el convierte cualquier pagina web en aplicacion!
 - !Dark0547: El provedor de hosting Wingnodes y el es el dueño del hosting donde estas actualmente!
 - KiKe: Programador que nos ayuda de vez en cuando y Owner del bot Pybot
-- zNOoby: Diseñador Grafico de la mayoria del juego CreadorCraft y dev de Krayson Studio y Krayson Network (Srvidor de Minecraft)
+- zNOoby: Diseñador Grafico de la mayoria del juego CreadorCraft y dev de Krayson Studio y Krayson Network (Servidor de Minecraft)
 - Samurai97: Diseñador Grafico del logotipo actual de Creadores Program y CreadorCraft ademas del Servidor Creadores Games (Actualmente Samurai97 ya no esta con nosotros porque se fue al otro mundo RIP)
 - Aldo_Rodrigo349: Programa plugins, servidores, networks en vps y mas de Minecraft Java y Bedrock en los Softwares Paper, Spigot, Bunguecord y nukkit

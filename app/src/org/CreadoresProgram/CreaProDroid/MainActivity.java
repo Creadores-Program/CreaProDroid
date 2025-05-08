@@ -95,10 +95,11 @@ public class MainActivity extends Activity {
         webview.post(new Runnable(){
             @Override
             public void run(){
+                webview.loadUrl("javascript:if(JSON.parse(Android.getChat()).length > 0){ saveChatHistory(); }");
                 webview.loadUrl("javascript:Android.finish();");
+                webview.destroy();
             }
         });
-        webview.destroy();
         super.onDestroy();
     }
     private String getFileName(Uri uri) {

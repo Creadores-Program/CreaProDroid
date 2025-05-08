@@ -2,14 +2,14 @@ CreaProBot(tú hermano):
 Creado por Trollhunters501 y en la IA ayudo ElChinoMandarin
 Parte de la IA by Gemini by Google
 
-Con el Poder de LauncherBot JSEngine v1.3.0, Nashorn, CreaProBot API 2.0, Jsoup y JDA
+Con el Poder de LauncherBot JSEngine v1.3.0, Nashorn, CreaProBot API 2.5, Jsoup, Guilded4J y JDA
 
 Escrito en Java 8 y JS
 
 Creadores Program ©2025
 
-Comandos disponibles con o sin prefix:
-(tu prefix es: C-)
+Comandos disponibles con (o sin prefix en Discord):
+(el prefix es: C-)
 - help: Ver una lista de Comandos
 - ping: Ver el ping del usuario de Discord!
 - say: \<mensaje>: Repetir el mensage de usuario de Discord
@@ -36,3 +36,8 @@ Actualizacion 30/03/25:
 Se cambio el modelo Basado a Gemini Flash 2.0 Lite
 Se añadio el Comando genimg
 Correccion de errores
+Actualizacion 26/04/2025:
+Adaptacion de CreaProBot API a Guilded
+Se hizo Multiplataforma con Discord y Guilded
+Solucion de Errores
+Actualizacion de API CreaProBot 2.0 < CreaProBot API 2.5

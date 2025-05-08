@@ -12,6 +12,7 @@
     <div id="Home" class="InterfaceH">
         <div class="chat-header" style="position: -webkit-sticky; position: sticky; top: 0;">
             <h1>CreaProDroid</h1>
+            <div id="openHistoryChats" style="width: 40px; height: 40px; background: url('./resources/chat_paste_go.png') 50% 50% no-repeat; background-size: contain;" onclick="document.getElementById('Home').style.display = 'none'; document.getElementById('OldsChats').style.display = 'block';"></div>
             <div id="configBtn" style="width: 40px; height: 40px; background: url('./resources/settings.png') 50% 50% no-repeat; background-size: contain;" onclick="document.getElementById('Home').style.display = 'none'; document.getElementById('Config').style.display = 'block';"></div>
         </div>
         <div class="chat-container" id="Chat"></div>
@@ -22,6 +23,13 @@
             <button onclick="Android.stopSpeak(); Android.startSpeechRecognition();" style="background: url('./resources/mic.png') 50% 50% no-repeat; background-size: contain;"></button>
             <button onclick="if(confirm('Quieres Borrar la conversacion?')){ Android.clearChat(); document.getElementById('Chat').innerHTML = ''; }" style="background: url('./resources/chat_error.png') 50% 50% no-repeat;"></button>
         </div>
+    </div>
+    <div class="InterfaceH Hidedef" id="OldsChats">
+        <div id="oldChats-header" style="position: -webkit-sticky; position: sticky; top: 0;">
+            <div id="backOlCBtn" style="width: 40px; height: 40px; background: url('./resources/close.png') 50% 50% no-repeat; background-size: contain;" onclick="document.getElementById('OldsChats').style.display = 'none'; document.getElementById('Home').style.display = 'block';"></div>
+            <h1>Chats Anteriores</h1>
+        </div>
+        <div id="oldChats-container"></div>
     </div>
     <div id="Config" class="InterfaceH HideDef">
         <div id="config-header" style="position: -webkit-sticky; position: sticky; top: 0;">
