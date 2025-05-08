@@ -125,7 +125,11 @@ public class MaxIaManager{
         }
     }
     public void setHistory(String history){
-        this.history = new JSONArray(history);
+        try{
+            this.history = new JSONArray(history);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
     public String getHistory(){
         return this.history.toString();
