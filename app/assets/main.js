@@ -148,6 +148,15 @@ function sendToHtmlUser(msg){
     chatUserd.appendChild(chatUserdText);
     chatfj.appendChild(chatUserd);
 }
+function stripHtml(html) {
+    var tempDiv = document.createElement("div");
+    tempDiv.innerHTML = html;
+    var codeElements = tempDiv.querySelectorAll("code");
+    for(var i = 0; i < codeElements.length; i++){
+        codeElements[i].remove();
+    }
+    return tempDiv.textContent;
+}
 function sendMessage(msg, isSpeak) {
     Android.stopSpeak();
     sendToHtmlUser(msg.split("[File:")[0]);
@@ -191,15 +200,6 @@ function sendMessage(msg, isSpeak) {
             Android.openUrl(subPrompIAJson.openUrl);
             sendToHtml("Abriendo la url...");
         }
-    }
-    function stripHtml(html) {
-        var tempDiv = document.createElement("div");
-        tempDiv.innerHTML = html;
-        var codeElements = tempDiv.querySelectorAll("code");
-        for(var i = 0; i < codeElements.length; i++){
-            codeElements[i].remove();
-        }
-        return tempDiv.textContent;
     }
 }
 function handleFileChange(Str, name) {
