@@ -106,7 +106,6 @@ function updateHistoryChatHtml(){
         htmlEmenHCU.appendChild(document.createElement("br"));
     }
 }
-updateHistoryChatHtml();
 function sendToHtml(msg){
     var chatfj = document.getElementById("Chat");
     var chatIAd = document.createElement("div");

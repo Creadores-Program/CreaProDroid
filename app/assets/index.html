@@ -12,7 +12,7 @@
     <div id="Home" class="InterfaceH">
         <div class="chat-header" style="position: -webkit-sticky; position: sticky; top: 0;">
             <h1>CreaProDroid</h1>
-            <div id="openHistoryChats" style="width: 40px; height: 40px; background: url('./resources/chat_paste_go.png') 50% 50% no-repeat; background-size: contain;" onclick="document.getElementById('Home').style.display = 'none'; document.getElementById('OldsChats').style.display = 'block';"></div>
+            <div id="openHistoryChats" style="width: 40px; height: 40px; background: url('./resources/chat_paste_go.png') 50% 50% no-repeat; background-size: contain;" onclick="document.getElementById('Home').style.display = 'none'; document.getElementById('OldsChats').style.display = 'block'; updateHistoryChatHtml();"></div>
             <div id="configBtn" style="width: 40px; height: 40px; background: url('./resources/settings.png') 50% 50% no-repeat; background-size: contain;" onclick="document.getElementById('Home').style.display = 'none'; document.getElementById('Config').style.display = 'block';"></div>
         </div>
         <div class="chat-container" id="Chat"></div>
