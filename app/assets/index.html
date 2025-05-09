@@ -24,7 +24,7 @@
             <button onclick="if(confirm('Quieres Borrar la conversacion?')){ Android.clearChat(); document.getElementById('Chat').innerHTML = ''; }" style="background: url('./resources/chat_error.png') 50% 50% no-repeat;"></button>
         </div>
     </div>
-    <div class="InterfaceH Hidedef" id="OldsChats">
+    <div class="InterfaceH HideDef" id="OldsChats">
         <div id="oldChats-header" style="position: -webkit-sticky; position: sticky; top: 0;">
             <div id="backOlCBtn" style="width: 40px; height: 40px; background: url('./resources/close.png') 50% 50% no-repeat; background-size: contain;" onclick="document.getElementById('OldsChats').style.display = 'none'; document.getElementById('Home').style.display = 'block';"></div>
             <h1>Chats Anteriores</h1>

@@ -94,7 +94,7 @@ function loadChatHistory(name){
 function updateHistoryChatHtml(){
     var htmlEmenHCU = document.getElementById("oldChats-container");
     htmlEmenHCU.innerHTML = "";
-    for(var i = chatHistoryOld.length - 1; i >= 0; i--){
+    for(var i = chatHistoryOld.length - 1; i > -1; i--){
         var chatHistoryItem = document.createElement("div");
         chatHistoryItem.className += "oldChatItem";
         chatHistoryItem.innerHTML = chatHistoryOld[i].name;
