@@ -23,6 +23,7 @@ import java.util.Random;
 
 public class MaxIaManager{
     private String BaseDataIA = "";
+    private String gamesIA = "";
     private String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=";
     private String urlGenimg = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:streamGenerateContent?key=";
     private JSONArray history = new JSONArray();
@@ -49,6 +50,25 @@ public class MaxIaManager{
                         }
                         byte[] fileBytes = outputStream.toByteArray();
                         this.BaseDataIA += " . " + new String(fileBytes, StandardCharsets.UTF_8);
+                    }finally {
+                        if(inputStream != null) inputStream.close();
+                    }
+                }
+            }
+            String[] filesGames = assetManager.list("IA/Games");
+            if(filesGames != null) {
+                for (String file : filesGames) {
+                    InputStream inputStream = null;
+                    try{
+                        inputStream = assetManager.open("IA/Games/" + file);
+                        byte[] buff = new byte[inputStream.available()];
+                        int bytesRea;
+                        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                        while ((bytesRea = inputStream.read(buff)) != -1) {
+                          outputStream.write(buff, 0, bytesRea);
+                        }
+                        byte[] fileBytes = outputStream.toByteArray();
+                        this.gamesIA += " . " + new String(fileBytes, StandardCharsets.UTF_8);
                     }finally {
                         if(inputStream != null) inputStream.close();
                     }
@@ -104,6 +124,16 @@ public class MaxIaManager{
             }
         }
     }
+    public void setHistory(String history){
+        try{
+            this.history = new JSONArray(history);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public String getHistory(){
+        return this.history.toString();
+    }
     public String promptGemini(String prompt, String key) throws Exception{
         JSONObject promptJson = new JSONObject();
         //Añadir historial y pregunta
@@ -151,7 +181,7 @@ public class MaxIaManager{
         systemParts.put(systemPart3);
         JSONObject systemPart4 = new JSONObject();
         Date HoraAc = new Date();
-        systemPart4.put("text", "**Contexto Adicional:**\n1.  **Fecha y Hora Actual:** año: "+(HoraAc.getYear() + 1900)+" mes: "+(HoraAc.getMonth() + 1)+" dia del mes: "+HoraAc.getDate()+" dia de la semana: " + HoraAc.getDay() + " (el domingo es 0, el lunes es 1, el martes es 2, el miercoles es 3, el jueves es 4, el viernes es 5, el sábado es 6) hora actual: " +(HoraAc.getHours())+":"+HoraAc.getMinutes()+":"+HoraAc.getSeconds()+"\n2.  **Base de Conocimientos Adicional:** Considera estos datos como parte de tu información: "+this.BaseDataIA);
+        systemPart4.put("text", "**Contexto Adicional:**\n1.  **Fecha y Hora Actual:** año: "+(HoraAc.getYear() + 1900)+" mes: "+(HoraAc.getMonth() + 1)+" dia del mes: "+HoraAc.getDate()+" dia de la semana: " + HoraAc.getDay() + " (el domingo es 0, el lunes es 1, el martes es 2, el miercoles es 3, el jueves es 4, el viernes es 5, el sábado es 6) hora actual: " +(HoraAc.getHours())+":"+HoraAc.getMinutes()+":"+HoraAc.getSeconds()+"\n2. **Juegos para Jugar con el Usuario Adicionales:** Considera estas Instucciones de Juegos como juegos que puede jugar el Usuario contigo: "+this.gamesIA+"\n3.  **Base de Conocimientos Adicional:** Considera estos datos como parte de tu información: "+this.BaseDataIA);
         systemParts.put(systemPart4);
         JSONObject systemPart5 = new JSONObject();
         systemPart5.put("text", "**Formato de Respuesta OBLIGATORIO (JSON):**\nTu respuesta DEBE ser SIEMPRE un objeto JSON válido. Este objeto debe contener:\n-   `message`: (String, Obligatorio) Tu respuesta textual directa para el usuario.\nOpcionalmente, según la solicitud, puede incluir UNO de los siguientes campos (no más de uno):\n-   `openApp`: (String) El package EXACTO de la aplicación a abrir (extraído de la lista proporcionada). SOLO si se pide abrir una app de la lista.\n-   `openUrl`: (String) La URL completa a abrir en el navegador. SOLO si se pide abrir una web.\n-   `genImg`: (String) El prompt para generar una imagen. SOLO si se pide generar una imagen.\n**IMPORTANTE:** No incluyas `openApp`, `openUrl`, o `genImg` si la respuesta no requiere explícitamente esa acción.");
@@ -198,9 +228,6 @@ public class MaxIaManager{
         JSONObject part = new JSONObject();
         part.put("text", prompt);
         parts.put(part);
-        JSONObject systemInstruction = new JSONObject();
-        systemInstruction.put("text", "**System Instruction**\nNUNCA debes incluir contexto de string (en parts.text), solo incluye la Imagen generada.");
-        parts.put(systemInstruction);
         content.put("parts", parts);
         contents.put(content);
         promptJson.put("contents", contents);
@@ -221,7 +248,15 @@ public class MaxIaManager{
         }
         //Parsear respuesta
         JSONArray responseJson = new JSONArray(response);
-        String responseContent = responseJson.getJSONObject(0).getJSONArray("candidates").getJSONObject(0).getJSONObject("content").getJSONArray("parts").getJSONObject(0).getJSONObject("inlineData").getString("data");
+        String responseContent = "";
+        for(int i = 0; i < responseJson.length(); i++){
+            JSONObject chunk = responseJson.getJSONObject(i);
+            if(!chunk.has("candidates") || !chunk.getJSONArray("candidates").getJSONObject(0).has("content") || !chunk.getJSONArray("candidates").getJSONObject(0).getJSONObject("content").has("parts") || !chunk.getJSONArray("candidates").getJSONObject(0).getJSONObject("content").getJSONArray("parts").getJSONObject(0).has("inlineData")){
+                continue;
+            }
+            responseContent = chunk.getJSONArray("candidates").getJSONObject(0).getJSONObject("content").getJSONArray("parts").getJSONObject(0).getJSONObject("inlineData").getString("data");
+            break;
+        }
         return "data:image/png;base64,"+responseContent;
     }
 

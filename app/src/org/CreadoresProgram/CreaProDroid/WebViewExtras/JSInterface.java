@@ -106,6 +106,14 @@ public class JSInterface{
         mMaxIaManager.clearChat();
     }
     @JavascriptInterface
+    public void setChat(String chat){
+        mMaxIaManager.setHistory(chat);
+    }
+    @JavascriptInterface
+    public String getChat(){
+        return mMaxIaManager.getHistory();
+    }
+    @JavascriptInterface
     public String genImg(String prompt, String key){
         try{
           return mMaxIaManager.genImg(prompt, key);

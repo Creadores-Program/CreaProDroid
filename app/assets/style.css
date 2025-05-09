@@ -84,6 +84,27 @@ body{
     display: table;
     clear: both;
 }
+.oldChatItem{
+    background-color: #2c2c2c;
+    color: #ffffff;
+    padding: 10px 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.oldChatItem:hover {
+    background-color: #444444;
+    transform: scale(1.05);
+}
+.oldChatItem:active {
+    background-color: #6200ee;
+    transform: scale(1);
+}
 .InterfaceH{
     position: fixed;
     top: 0%;
@@ -92,7 +113,7 @@ body{
     height: 100%;
     overflow: scroll;
 }
-#config-container {
+#config-container, #oldChats-container {
     background-color: #1e1e1e;
     color: #ffffff;
     padding: 15px;
@@ -114,56 +135,56 @@ body{
     align-items: center;
     justify-content: space-between;
     padding: 10px;
-    background-color: #1e1e1e; /* Fondo oscuro */
-    border-top: 1px solid #333333; /* Línea superior */
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5); /* Sombra superior */
-    max-width: 100%; /* No permite que el contenedor exceda el 100% del ancho */
-    box-sizing: border-box; /* Incluye padding y borde en el ancho total */
-    overflow: hidden; /* Evita que el contenido desborde */
+    background-color: #1e1e1e;
+    border-top: 1px solid #333333;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5);
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .input-container button {
     width: 50px;
     height: 50px;
-    background-color: #2c2c2c; /* Fondo oscuro para el botón */
+    background-color: #2c2c2c;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     border: none;
-    border-radius: 50%; /* Botones redondeados */
+    border-radius: 50%;
     cursor: pointer;
-    transition: transform 0.2s, background-color 0.2s; /* Animación al pasar el cursor */
+    transition: transform 0.2s, background-color 0.2s;
 }
 
 .input-container button:hover {
-    transform: scale(1.1); /* Efecto de zoom al pasar el cursor */
-    background-color: #444444; /* Cambio de color al pasar el cursor */
+    transform: scale(1.1);
+    background-color: #444444;
 }
 
 .input-container input {
-    flex: 1; /* Ocupa el espacio restante */
+    flex: 1;
     margin: 0 10px;
     padding: 10px 15px;
-    background-color: #2c2c2c; /* Fondo oscuro */
-    color: #ffffff; /* Texto blanco */
-    border: 1px solid #444444; /* Borde oscuro */
-    border-radius: 25px; /* Bordes redondeados */
+    background-color: #2c2c2c;
+    color: #ffffff;
+    border: 1px solid #444444;
+    border-radius: 25px;
     font-size: 16px;
-    outline: none; /* Quita el borde azul al seleccionar */
-    transition: border-color 0.2s; /* Animación al enfocar */
+    outline: none;
+    transition: border-color 0.2s;
 }
 
 .input-container input:focus {
-    border-color: #6200ee; /* Color del borde al enfocar */
+    border-color: #6200ee;
 }
 .HideDef{
     display: none;
 }
 .chat-header h1,
-#configBtn, #config-header h1, #backConfBtn {
+#configBtn, #openHistoryChats, #config-header h1, #backConfBtn, #oldChats-header h1 #backOlCBtn {
     display: inline-block;
     vertical-align: middle;
 }
-#configBtn, #backConfBtn {
+#configBtn, #openHistoryChats, #backConfBtn, #backOlCBtn {
     float: right;
 }
