@@ -55,8 +55,9 @@ if(localStorage.getItem("historyChats") == null){
     chatHistoryOld = JSON.parse(localStorage.getItem("historyChats"));
 }
 function saveChatHistory(){
+    var timeCreatedCekj = new Date();
     chatHistoryOld.push({
-        "name": Date.now() +" "+ userName + Math.random(),
+        "name": timeCreatedCekj.getTimezoneOffset() + " "+ timeCreatedCekj.getFullYear() + "/" + timeCreatedCekj.getMonth() + "/" + timeCreatedCekj.getDay()+" "+timeCreatedCekj.getHours()+":"+timeCreatedCekj.getMinutes()+" "+  Math.random(),
         "history": JSON.parse(Android.getChat())
     });
     if(chatHistoryOld.length > 20){
