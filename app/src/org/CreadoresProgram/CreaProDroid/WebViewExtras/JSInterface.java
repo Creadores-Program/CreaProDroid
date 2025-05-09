@@ -56,6 +56,7 @@ public class JSInterface{
             tts.stop();
             tts.shutdown();
         }
+        mWebView.destroy();
         mContext.finish();
     }
     @JavascriptInterface
