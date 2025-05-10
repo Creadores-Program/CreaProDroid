@@ -41,7 +41,8 @@ CreaProDroid es un asistente de inteligencia artificial diseñado específicamen
 |----------|----------|----------|
 | ![Cap1](GithubResources/Screenshot_20250410-202418_082610.png) | ![Cap2](GithubResources/Screenshot_20250410-202425_082608.png) | ![Cap3](GithubResources/Screenshot_20250410-202334_082615.png) |
 | ![Cap4](GithubResources/Screenshot_20250410-202341_082614.png) | ![Cap5](GithubResources/Screenshot_20250410-202405_082612.png) | ![Cap6](GithubResources/Screenshot_20250410-202444_082604.png) |
-| ![Cap7](/GithubResources/Screenshot_20250410-202413_082611.png) |
+| ![Cap7](/GithubResources/Screenshot_20250410-202413_082611.png) | ![Cap8](/GithubResources/Screenshot_20250510-170341_050538.png) | ![Cap9](/GithubResources/Screenshot_20250510-170346_050536.png) |
+| ![Cap10](/GithubResources/Screenshot_20250510-170422_050530.png) |
 
 ## **Contribución**
 Si deseas contribuir al desarrollo de CreaProDroid:
