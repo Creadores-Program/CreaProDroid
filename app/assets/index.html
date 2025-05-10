@@ -18,7 +18,7 @@
         <div class="chat-container" id="Chat"></div>
         <div class="input-container" style="position: -webkit-sticky; position: sticky; bottom: 0;">
             <button id="upFile" onclick="Android.openFileUploader()" style="background: url('./resources/addCircle.png') 50% 50% no-repeat; background-size: contain;"></button>
-            <input type="text" id="inputChat" placeholder="Escribe un mensaje..." />
+            <input type="text" id="inputChat" placeholder="Escribe un mensaje..." onkeydown="if(event.keyCode == 13){ if(document.getElementById('inputChat').value != null && document.getElementById('inputChat').value.trim() != ''){ sendMessage(document.getElementById('inputChat').value +filesI, false); document.getElementById('inputChat').value = ''; filesI = ''; } }" />
             <button id="sendBtn" style="background: url('./resources/send.png') 50% 50% no-repeat; background-size: contain;" onclick="if(document.getElementById('inputChat').value != null && document.getElementById('inputChat').value.trim() != ''){ sendMessage(document.getElementById('inputChat').value +filesI, false); document.getElementById('inputChat').value = ''; filesI = ''; }"></button>
             <button onclick="Android.stopSpeak(); Android.startSpeechRecognition();" style="background: url('./resources/mic.png') 50% 50% no-repeat; background-size: contain;"></button>
             <button onclick="if(confirm('Quieres Borrar la conversacion?')){ Android.clearChat(); document.getElementById('Chat').innerHTML = ''; }" style="background: url('./resources/chat_error.png') 50% 50% no-repeat;"></button>
