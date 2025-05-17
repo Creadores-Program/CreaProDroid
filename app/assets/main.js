@@ -57,7 +57,7 @@ if(localStorage.getItem("historyChats") == null){
 function saveChatHistory(){
     var timeCreatedCekj = new Date();
     chatHistoryOld.push({
-        "name": timeCreatedCekj.getTimezoneOffset() + " "+ timeCreatedCekj.getFullYear() + "/" + timeCreatedCekj.getMonth() + "/" + timeCreatedCekj.getDay()+" "+timeCreatedCekj.getHours()+":"+timeCreatedCekj.getMinutes()+" "+  Math.random(),
+        "name": timeCreatedCekj.getTimezoneOffset() + " "+ timeCreatedCekj.getFullYear() + "/" + timeCreatedCekj.getMonth() + "/" + timeCreatedCekj.getDay()+" "+timeCreatedCekj.getHours()+":"+timeCreatedCekj.getMinutes()+" " + JSON.parse(Android.getChat())[0].text.split("[File:")[0] + " " +  Math.random(),
         "history": JSON.parse(Android.getChat())
     });
     if(chatHistoryOld.length > 20){
