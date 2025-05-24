@@ -56,32 +56,6 @@ El juego puede usar todos los scripts que tiene CreadorCraft (ver en créditos d
 **LoadUrlCC.fileToUrl(path, mimetype)**: convierte un archivo de tu juego a url util para src de imagen, uso en DOM API, etc. esta es una función asincronoma(async)!
 **LoadUrlCC.setUrlToImg(img, path)**: establece el src a una imagen de Html con una imagen de tu juego
  
-## APICreadorCraftLan (JavaScript, TypeScript, EsJS, etc): 
-
-Esta api solo funciona con onLanAPI en true en el manifest.json!
- 
-**new APICreadorCraftLan(carpeta)**: la carpeta y sus archivos de tu juego se sube al servidor LAN que es [CreadorCrat Lan](https://github.com/Creadores-Program/CreadorCraftLan) el servicio oficial para abrir servidores LAN
- **instanciaAPICreadorCraftLan.start()**: lanza la carpeta hacia el servicio para abrir el servidor Lan
-Archivos de la carpeta del Servidor:
- manifest.json:
-```json
-{ "main": "index.js" }//El lado del Servidor LAN NO ejecuta otros lenguajes solo JS
-```
-index.js:
-```js
-function onLoad(){} //función obligatoria para antes de iniciar
-```
-### CCLAPI:
- esta Api es solo del lado del servidor!
- **CCLAPI.addEventListener(event, callback)**: añadir un evento en el servidor,
-  eventos disponibles:
-    stop y start
-  **CCLAPI.exit()**: apagar servicio/servidor por código (también se puede apagar en notificación)
- ### ServerWebGamePostServer(El ServerWebGamePostClient es igual en Cliente/Servidor): 
-  Esta api es casi igual a la de Server de NodeJS excepto por el processDatapacks ya que es un string del nombre de una función accesible desde contexto global
- ### require:
-  este funciona exactamente igual al de CreadorCraft excepto que **NO** necesita llamar a ``await require.CreadorCraftInit()`` y ademas los archivos que **NO** son texto retornan un base64! 
-
 Para ejecutar en otros lenguajes puedes ver cómo usar variables javascript en ese lenguaje!.
 
 ## Ejecución de Código:
@@ -130,7 +104,6 @@ Este es el archivo que contiene información importante de su juego aquí les de
 • onMarkdown (opcional): Añadir API de Markdown (Marked). (Este es una opción boleana poner true o false o simplemente no poner si no lo utiliza)
 • on3Dengine (opcional): Añadir motor 3D de three.js (Este es una opción boleana poner true o false o simplemente no poner si no lo utiliza)(Solo funciona para scripts tipo module como el js de la opción mainJSmodule)
 • onServerWebGamePost (opcional): Añadir el sistema Multijugador ServerWebGamePost de Creadores Program (Este es una opción boleana poner true o false o simplemente no poner si no lo utiliza)
-• onLanAPI (opcional): Añadir la API de CreadorCraftLan (Este es una opción boleana poner true o false o simplemente no poner si no lo utiliza)
 • onCommonJS (opcional): Añadir CommonJS de navegador (funcion require) (Este es una opción boleana poner true o false o simplemente no poner si no lo utiliza)
    Ahora usa CommonJS Nativo fork de simple-browser-require Funciona igual excepto que tiene una función extra de promesa para leer todos los archivos de tu juego ejemplo de uso:
    ```js
