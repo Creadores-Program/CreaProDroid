@@ -192,6 +192,10 @@ public class JSInterface{
         return mGithubUpdate.getSizeApk();
     }
     @JavascriptInterface
+    public String getDescriptionVer(){
+        return mGithubUpdate.getDescriptionVer();
+    }
+    @JavascriptInterface
     public void saveImageGen(String base64data){
         try{
             byte[] decodedBytes = android.util.Base64.decode(base64data.split(",")[1], android.util.Base64.DEFAULT);

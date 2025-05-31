@@ -19,6 +19,7 @@ public class GithubUpdate{
     private String currentVersion;
     private String urlDownload;
     private long sizeApkDown;
+    private String descriptionVer;
     private OkHttpClient client = new OkHttpClient();
     public GithubUpdate(Context context){
         currentVersion = getCurrentVersionName(context);
@@ -89,6 +90,7 @@ public class GithubUpdate{
                     if(asset.getString("name").endsWith(".apk")){
                         urlDownload = asset.getString("browser_download_url");
                         sizeApkDown = asset.getLong("size");
+                        descriptionVer = jsonObject.getString("name")+"\n"+jsonObject.getString("body");
                     }
                 }
                 String latestVersion = jsonObject.getString("tag_name");
@@ -119,6 +121,9 @@ public class GithubUpdate{
     }
     public long getSizeApk(){
         return sizeApkDown;
+    }
+    public String getDescriptionVer(){
+        return descriptionVer;
     }
     private String getCurrentVersionName(Context context){
         try {

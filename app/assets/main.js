@@ -223,7 +223,7 @@ function copyMDcode(button) {
 }
 function verifyUpdate(alertNoUp){
     if(alertNoUp){
-        if(!Android.isLatestVersionByGithub() && confirm("Nueva Actualizacion Disponible!\nPesa: "+(Android.getSizeApkUpdate() / (1024 * 1024))+"mb\nPlataforma de donde se Descarga: Github.com\n¿Quieres Actualizar?")){
+        if(!Android.isLatestVersionByGithub() && confirm("Nueva Actualizacion Disponible!\nPesa: "+(Android.getSizeApkUpdate() / (1024 * 1024))+"mb\nPlataforma de donde se Descarga: Github.com\n"+Android.getDescriptionVer()+"\n¿Quieres Actualizar?")){
             Android.downloadUpdate();
             alert("Actualizando...\nNo Cierres la app!");
         }else{
@@ -233,7 +233,7 @@ function verifyUpdate(alertNoUp){
         var nowdatesdcnjd = new Date();
         if(localStorage.getItem("update") != nowdatesdcnjd.getDay()){
             localStorage.setItem("update", nowdatesdcnjd.getDay());
-            if(!Android.isLatestVersionByGithub() && confirm("Nueva Actualizacion Disponible!\nPesa: "+(Android.getSizeApkUpdate() / (1024 * 1024))+"mb\nPlataforma de donde se Descarga: Github.com\n¿Quieres Actualizar?")){
+            if(!Android.isLatestVersionByGithub() && confirm("Nueva Actualizacion Disponible!\nPesa: "+(Android.getSizeApkUpdate() / (1024 * 1024))+"mb\nPlataforma de donde se Descarga: Github.com\n"+Android.getDescriptionVer()+"\n¿Quieres Actualizar?")){
                 Android.downloadUpdate();
                 alert("Actualizando...\nNo Cierres la app!");
             }
