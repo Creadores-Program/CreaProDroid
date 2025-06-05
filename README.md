@@ -67,4 +67,3 @@ Para preguntas o soporte, contacta a [Creadores Program](https://github.com/Crea
 - okio
 - Support App Compats
 - Support Compat v4
-- JavaStudio Android
