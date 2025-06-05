@@ -1,0 +1,33 @@
+name: Build CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 17
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Perms Gradle
+        run: chmod 777 gradlew
+      - name: Build library
+        run: ./gradlew :app:assembleDebug --no-daemon
+
+      - name: Upload AAR artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: CreaProDroidApp
+          path: WebViewCREA/build/outputs/apk/*.apk
