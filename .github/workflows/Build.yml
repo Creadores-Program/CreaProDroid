@@ -23,11 +23,11 @@ jobs:
 
       - name: Perms Gradle
         run: chmod 777 gradlew
-      - name: Build library
+      - name: Build App
         run: ./gradlew :app:assembleDebug --no-daemon
 
-      - name: Upload AAR artifact
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: CreaProDroidApp
-          path: WebViewCREA/build/outputs/apk/*.apk
+          path: app/build/outputs/apk/*.apk
