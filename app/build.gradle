@@ -3,8 +3,9 @@ plugins {
 }
 dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.12.13'
-    implementation 'com.android.support:customtabs:20.0.0'
-    implementation 'com.android.support:appcompat-v7:20.0.0'
+    implementation files('libs/Compatv4.jar')
+    implementation files('libs/zappcompats.jar')
+    implementation files('libs/customTabs.jar')
 }
 
 android {
