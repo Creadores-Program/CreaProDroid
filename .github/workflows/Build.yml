@@ -23,7 +23,11 @@ jobs:
 
       - name: Perms Gradle
         run: chmod 777 gradlew
+      - name: Set Key
+        run: echo "${{ secrets.CREAPRODROIDKEYAPPB }}" | base64 -d > app/CreaProDroid.keystore
       - name: Build App
+        env:
+          CREAPRODROIDKEYCONTREAPP: ${{ secrets.CREAPRODROIDKEYCONTREAPP }}
         run: ./gradlew :app:assembleDebug --no-daemon
 
       - name: Upload APK artifact

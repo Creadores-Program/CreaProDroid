@@ -18,7 +18,18 @@ android {
         versionCode 3
         versionName "1.2.0-beta"
     }
+    signingConfigs {
+        debug {
+            storeFile file('CreaProDroid.keystore')
+            storePassword System.getenv("CREAPRODROIDKEYCONTREAPP")
+            keyAlias "CreaProDroidkey"
+            keyPassword System.getenv("CREAPRODROIDKEYCONTREAPP")
+        }
+    }
     buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
