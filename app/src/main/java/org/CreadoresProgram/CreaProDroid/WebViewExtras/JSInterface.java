@@ -115,6 +115,10 @@ public class JSInterface{
         return mMaxIaManager.getHistory();
     }
     @JavascriptInterface
+    public void setModel(int model){
+        mMaxIaManager.setModel(model);
+    }
+    @JavascriptInterface
     public String genImg(String prompt, String key){
         try{
           return mMaxIaManager.genImg(prompt, key);

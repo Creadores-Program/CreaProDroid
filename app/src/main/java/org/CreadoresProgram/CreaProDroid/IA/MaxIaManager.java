@@ -24,7 +24,11 @@ import java.util.Random;
 public class MaxIaManager{
     private String BaseDataIA = "";
     private String gamesIA = "";
-    private String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=";
+    private String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=";
+    private String[] urlKeys = {
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=",
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key="
+    };
     private String urlGenimg = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:streamGenerateContent?key=";
     private JSONArray history = new JSONArray();
     private String UserName = "Maxi";
@@ -133,6 +137,9 @@ public class MaxIaManager{
     }
     public String getHistory(){
         return this.history.toString();
+    }
+    public void setModel(int model){
+        this.url = this.urlKeys[model];
     }
     public String promptGemini(String prompt, String key) throws Exception{
         JSONObject promptJson = new JSONObject();
