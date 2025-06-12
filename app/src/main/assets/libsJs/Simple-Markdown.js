@@ -35,7 +35,7 @@ var
             // <code block>
             // ``` Code Block ```
             pattern: /```(?:\w+)?\n([\s\S]*?)```/g,
-            replace: "<pre><code><button onclick='copyMDcode(this);' style='background: url(\"./resources/copy.png\") 50% 50% no-repeat; background-size: contain;'></button><br/>$1</code></pre>",
+            replace: "<pre><code><button onclick='copyMDcode(this);' style='background: url(\"./resources/copy.png\") 50% 50% no-repeat; background-size: contain;'></button><br/><textarea readonly>$1</textarea></code></pre>",
             type: BLOCK,
         },
         {
@@ -126,7 +126,7 @@ var
             // <code>
             // `Inline Code`
             pattern: /`([^`]+)`/g,
-            replace: "<code><button onclick='copyMDcode(this);' style='background: url(\"./resources/copy.png\") 50% 50% no-repeat; background-size: contain;'></button> $1</code>",
+            replace: "<code><button onclick='copyMDcode(this);' style='background: url(\"./resources/copy.png\") 50% 50% no-repeat; background-size: contain;'></button> <textarea readonly>$1</textarea></code>",
             type: INLINE,
         },
         {

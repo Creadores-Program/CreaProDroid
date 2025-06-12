@@ -212,3 +212,23 @@ body{
 #modelIA:focus {
     border-color: #6200ee;
 }
+pre code textarea{
+    width: 100%;
+    min-height: 80px;
+    resize: vertical;
+    font-family: 'Fira Mono', 'Consolas', 'Menlo', 'Monaco', monospace;
+    background-color: #2c2c2c;
+    color: #ffffff;
+    border: 1px solid #444444;
+    border-radius: 8px;
+    font-size: 15px;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+pre code textarea:focus {
+    border-color: #6200ee;
+    background-color: #222;
+}
