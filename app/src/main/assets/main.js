@@ -227,7 +227,7 @@ if(localStorage.getItem("model") != null){
     document.getElementById("modelIA").value = localStorage.getItem("model");
 }
 var pluginsIA;
-document.body.onload = function() {
+window.onload = function() {
     document.getElementById("modelIA").onchange = function() {
         var selectedModel = parseInt(this.value);
         Android.setModel(selectedModel);
