@@ -226,13 +226,64 @@ if(localStorage.getItem("model") != null){
     Android.setModel(localStorage.getItem("model"));
     document.getElementById("modelIA").value = localStorage.getItem("model");
 }
+var pluginsIA;
 document.body.onload = function() {
     document.getElementById("modelIA").onchange = function() {
         var selectedModel = parseInt(this.value);
         Android.setModel(selectedModel);
         localStorage.setItem("model", selectedModel);
     };
+    if(pluginsIA != null){
+        if(pluginsIA.indexOf(0) != -1){
+            document.getElementById("pluginDeviceInfo").checked = true;
+        }
+        if(pluginsIA.indexOf(1) != -1){
+            document.getElementById("pluginContacts").checked = true;
+        }
+        if(pluginsIA.indexOf(2) != -1){
+            document.getElementById("pluginAvancedActions").checked = true;
+        }
+    }
+    document.getElementById("pluginDeviceInfo").onchange = function(){
+        if(this.checked){
+            pluginsIA.push(0);
+            Android.setPlugins(JSON.stringify(pluginsIA));
+            localStorage.setItem("pluginsIA", JSON.stringify(pluginsIA));
+        }else{
+            pluginsIA.splice(pluginsIA.indexOf(0), 1);
+            Android.setPlugins(JSON.stringify(pluginsIA));
+            localStorage.setItem("pluginsIA", JSON.stringify(pluginsIA));
+        }
+    };
+    document.getElementById("pluginContacts").onchange = function(){
+        if(this.checked){
+            pluginsIA.push(1);
+            Android.setPlugins(JSON.stringify(pluginsIA));
+            localStorage.setItem("pluginsIA", JSON.stringify(pluginsIA));
+        }else{
+            pluginsIA.splice(pluginsIA.indexOf(1), 1);
+            Android.setPlugins(JSON.stringify(pluginsIA));
+            localStorage.setItem("pluginsIA", JSON.stringify(pluginsIA));
+        }
+    };
+    document.getElementById("pluginAvancedActions").onchange = function(){
+        if(this.checked){
+            pluginsIA.push(2);
+            Android.setPlugins(JSON.stringify(pluginsIA));
+            localStorage.setItem("pluginsIA", JSON.stringify(pluginsIA));
+        }else{
+            pluginsIA.splice(pluginsIA.indexOf(2), 1);
+            Android.setPlugins(JSON.stringify(pluginsIA));
+            localStorage.setItem("pluginsIA", JSON.stringify(pluginsIA));
+        }
+    };
 };
+
+//setPlugins
+if(localStorage.getItem("pluginsIA") != null){
+    Android.setPlugins(localStorage.getItem("pluginsIA"));
+    pluginsIA = JSON.parse(localStorage.getItem("pluginsIA"));
+}
 
 //update
 function verifyUpdate(alertNoUp){

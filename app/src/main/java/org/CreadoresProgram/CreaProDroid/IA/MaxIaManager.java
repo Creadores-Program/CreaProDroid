@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
+import org.CreadoresProgram.CreaProDroid.IA.Plugins.*;
 
 public class MaxIaManager{
     private String BaseDataIA = "";
@@ -37,7 +38,10 @@ public class MaxIaManager{
     private static final MediaType JSONHt = MediaType.parse("application/json; charset=utf-8");
     private JSONArray maxBotPrompts;
     private JSONArray maxNoSeBotPrompts;
+    private String[] plugins;
+    private Context context;
     public MaxIaManager(Context context) {
+        this.context = context;
         AssetManager assetManager = context.getAssets();
         try{
             String[] files = assetManager.list("IA/MaxIA");
@@ -141,6 +145,23 @@ public class MaxIaManager{
     public void setModel(int model){
         this.url = this.urlKeys[model];
     }
+    public void setPlugins(int[] plugins){
+        this.plugins = new String[plugins.length];
+        for(int i = 0; i < plugins.length; i++){
+            switch (plugins[i]) {
+                case 0:
+                    this.plugins[i] = new DeviceInfo(context).getInfo();
+                break;
+                case 1:
+                    this.plugins[i] = new Contacts(context).getInfo();
+                break;
+                case 2:
+                    this.plugins[i] = new AvancedActions(context).getInfo();
+                break;
+            }
+        }
+    }
+
     public String promptGemini(String prompt, String key) throws Exception{
         JSONObject promptJson = new JSONObject();
         //Añadir historial y pregunta
@@ -199,6 +220,11 @@ public class MaxIaManager{
         JSONObject systemPart7 = new JSONObject();
         systemPart7.put("text", "**Instrucción Adicional:**\n1. Si necesitas generar bloques de código delimitados por ``` en tu respuesta, asegúrate de procesarlos reemplazando los siguientes caracteres especiales dentro del bloque:\n   - `&` por `&amp;`\n   - `<` por `&lt;`\n   - `>` por `&gt;`\n2. El resto del texto fuera de los bloques de código debe permanecer intacto.\n3. Siempre incluye los bloques de código correctamente delimitados por ``` y asegúrate de que el contenido dentro esté escapado según las reglas anteriores.");
         systemParts.put(systemPart7);
+        if(this.plugins != null && this.plugins.length != 0){
+            JSONObject systemPart8 = new JSONObject();
+            systemPart8.put("text", "**Plugins:**\naqui tienes informacion extra que puedes hacer o solamente informacion extra:\n\n"+(String.join("\n", this.plugins)));
+            systemParts.put(systemPart8);
+        }
         system.put("parts", systemParts);
         promptJson.put("systemInstruction", system);
         //Enviar peticion

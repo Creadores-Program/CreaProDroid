@@ -45,7 +45,34 @@
                 <option value="1">Gemini Flash Lite 2.0</option>
             </select><br/>
             <button onclick="Android.clearCache(); alert('Cache Borrada!');">Borrar Cache</button>
-            <button onclick="verifyUpdate(true);">Buscar Actualizaciones</button>
+            <button onclick="verifyUpdate(true);">Buscar Actualizaciones</button><br/>
+            <h2>Plugins:</h2><br/>
+            <div class="plugin-switch-container">
+                <label class="plugin-switch">
+                    <input type="checkbox" id="pluginContacts" checked>
+                    <span class="slider"></span>
+                    <span class="plugin-label">
+                        Contacts
+                        <span class="plugin-desc">Accede a tus contactos y muestra nombres, teléfonos y correos.</span>
+                    </span>
+                </label>
+                <label class="plugin-switch">
+                    <input type="checkbox" id="pluginDeviceInfo">
+                    <span class="slider"></span>
+                    <span class="plugin-label">
+                        Device Info
+                        <span class="plugin-desc">Obtiene información del dispositivo.</span>
+                    </span>
+                </label>
+                <label class="plugin-switch">
+                    <input type="checkbox" id="pluginAvancedActions">
+                    <span class="slider"></span>
+                    <span class="plugin-label">
+                        Avanced Actions
+                        <span class="plugin-desc">Permite ejecutar acciones avanzadas y comandos especiales.</span>
+                    </span>
+                    </label>
+            </div>
         </div>
     </div>
 </body>

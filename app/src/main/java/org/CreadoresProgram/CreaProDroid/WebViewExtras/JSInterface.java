@@ -119,6 +119,19 @@ public class JSInterface{
         mMaxIaManager.setModel(model);
     }
     @JavascriptInterface
+    public void setPlugins(String arrayjs){
+        try{
+            org.json.JSONArray jsonArrJS = new org.json.JSONArray(arrayjs);
+            int[] arr = new int[jsonArrJS.length()];
+            for(int i = 0; i < jsonArrJS.length(); i++){
+                arr[i] = jsonArrJS.optInt(i);
+            }
+            mMaxIaManager.setPlugins(arr);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    @JavascriptInterface
     public String genImg(String prompt, String key){
         try{
           return mMaxIaManager.genImg(prompt, key);

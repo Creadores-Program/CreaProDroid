@@ -55,6 +55,27 @@ CreaProDroid está licenciado bajo la [GNU GPLv3](https://www.gnu.org/licenses/g
 ## **Contacto**
 Para preguntas o soporte, contacta a [Creadores Program](https://github.com/Creadores-Program) [CreadoresProgram Discord](https://discord.com/invite/mrmHcwxXff).
 
+## Novedades de Version
+- 1.0.0-beta
+  # Lanzamiento
+  Lanzamiento oficial de CreaProDroid
+- 1.1.0-beta
+  # Corregir mensajes de actualización y mejorar las funciones de chat
+  - arreglar error de mensaje de actualizaciones por boton de configuración.
+  - Introduccion a dos nuevos minijuegos
+  - añadir funcionalidad de historial de chats (Nombre basado en la fecha) permitiendo a usuarios interactuar con chats anteriores
+  - Correccion de errores
+- 1.1.1-beta
+  # Solucion de errores
+  - Se solucionó el error de historial de chat que no funcionaba en Dispositivos gama baja del 2016
+  - Se añadio envio de chat por enter
+- 1.2.0-beta
+  # Mejoras significativas
+  - Se mejoro el registro del historial de chat
+  - Se añadio seleccion de modelo de IA de Gemini en configuración
+  - Se Añadieron Plugins en la IA
+  - Se cambio la firma y empaquetado de Jstudio android a gradle(es necesario reinstalar o si es usuario root cambiar apk manualmente)
+
 ## Creditos
 - Github Copilot
 - Microsoft Copilot
@@ -66,6 +87,5 @@ Para preguntas o soporte, contacta a [Creadores Program](https://github.com/Crea
 - okio
 - Support App Compats
 - Support Compat v4
-- JavaStudio Android
 
 Github: https://github.com/Creadores-Program/CreaProDroid
