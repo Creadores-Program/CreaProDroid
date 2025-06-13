@@ -38,7 +38,7 @@ public class MaxIaManager{
     private static final MediaType JSONHt = MediaType.parse("application/json; charset=utf-8");
     private JSONArray maxBotPrompts;
     private JSONArray maxNoSeBotPrompts;
-    private String[] plugins;
+    private String[] plugins = new String[0];
     private Context context;
     public MaxIaManager(Context context) {
         this.context = context;

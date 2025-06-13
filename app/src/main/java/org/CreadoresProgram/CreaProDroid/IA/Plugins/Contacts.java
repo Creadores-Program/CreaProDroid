@@ -1,7 +1,8 @@
 package org.CreadoresProgram.CreaProDroid.IA.Plugins;
 import android.database.Cursor;
 import android.provider.ContactsContract;
-public class Contacts {
+import android.content.Context;
+public class Contacts extends PluginIA{
     @Override
     public String getInfo(){
         StringBuilder contactsInfo = new StringBuilder();
