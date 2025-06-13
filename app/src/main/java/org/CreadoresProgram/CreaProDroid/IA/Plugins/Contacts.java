@@ -3,6 +3,9 @@ import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.content.Context;
 public class Contacts extends PluginIA{
+    public Contacts(Context context){
+        super(context);
+    }
     @Override
     public String getInfo(){
         StringBuilder contactsInfo = new StringBuilder();

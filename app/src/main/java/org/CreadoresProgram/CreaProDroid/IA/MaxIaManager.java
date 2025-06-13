@@ -222,7 +222,7 @@ public class MaxIaManager{
         systemParts.put(systemPart7);
         if(this.plugins != null && this.plugins.length != 0){
             JSONObject systemPart8 = new JSONObject();
-            systemPart8.put("text", "**Plugins:**\naqui tienes informacion extra que puedes hacer o solamente informacion extra:\n\n"+(String.join("\n", this.plugins)));
+            systemPart8.put("text", "**Plugins:**\naqui tienes informacion extra que puedes hacer o solamente informacion extra:\n\n"+strJoin("\n", this.plugins));
             systemParts.put(systemPart8);
         }
         system.put("parts", systemParts);
@@ -348,5 +348,15 @@ public class MaxIaManager{
         }finally {
             if (response != null) response.close();
         }
+    }
+    private String strJoin(String delimiter, String[] arry){
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < arry.length; i++){
+            sb.append(arry[i]);
+            if(i < arry.length - 1){
+                sb.append(delimiter);
+            }
+        }
+        return sb.toString();
     }
 }
