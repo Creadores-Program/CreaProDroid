@@ -197,9 +197,16 @@ function sendMessage(msg, isSpeak) {
         }
     }
     if(subPrompIAJson.openUrl != null && subPrompIAJson.openUrl.trim() != "" && subPrompIAJson.openUrl.toLowerCase() != "string"){
-        if(confirm("Quieres abrir la url "+subPrompIAJson.openUrl+"?")){
-            Android.openUrl(subPrompIAJson.openUrl);
-            sendToHtml("Abriendo la url...");
+        if(!subPrompIAJson.openUrl.startsWith("https://") && !subPrompIAJson.openUrl.startsWith("http://")){
+            if(confirm("Quieres abrir la accion que va a hacer CreaProDroid?")){
+                Android.openUrl(subPrompIAJson.openUrl);
+                sendToHtml("Iniciando Accion...");
+            }
+        }else{
+            if(confirm("Quieres abrir la url "+subPrompIAJson.openUrl+"?")){
+                Android.openUrl(subPrompIAJson.openUrl);
+                sendToHtml("Abriendo la url...");
+            }
         }
     }
 }
