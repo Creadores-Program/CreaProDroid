@@ -283,6 +283,8 @@ window.onload = function() {
 if(localStorage.getItem("pluginsIA") != null){
     Android.setPlugins(localStorage.getItem("pluginsIA"));
     pluginsIA = JSON.parse(localStorage.getItem("pluginsIA"));
+}else{
+    pluginsIA = [];
 }
 
 //update

@@ -75,6 +75,7 @@ Para preguntas o soporte, contacta a [Creadores Program](https://github.com/Crea
   - Se añadio seleccion de modelo de IA de Gemini en configuración
   - Se Añadieron Plugins en la IA
   - Se cambio la firma y empaquetado de Jstudio android a gradle(es necesario reinstalar o si es usuario root cambiar apk manualmente)
+  - Se mejoro el actualizador por Github ahora proporciona mas información
 
 ## Creditos
 - Github Copilot
