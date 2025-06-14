@@ -221,13 +221,12 @@ function copyMDcode(button) {
         alert("Texto copiado!");
     }
 }
-//model set
-if(localStorage.getItem("model") != null){
-    Android.setModel(localStorage.getItem("model"));
-    document.getElementById("modelIA").value = localStorage.getItem("model");
-}
 var pluginsIA;
 window.onload = function() {
+    if(localStorage.getItem("model") != null){
+        Android.setModel(localStorage.getItem("model"));
+        document.getElementById("modelIA").value = localStorage.getItem("model");
+    }
     document.getElementById("modelIA").onchange = function() {
         var selectedModel = parseInt(this.value);
         Android.setModel(selectedModel);
