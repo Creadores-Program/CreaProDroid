@@ -79,7 +79,7 @@ body{
     overflow-wrap: break-word;
     overflow: hidden;
 }
-.clearfix::after{
+.clearfix:after{
     content: "";
     display: table;
     clear: both;
@@ -188,7 +188,7 @@ body{
 #configBtn, #openHistoryChats, #backConfBtn, #backOlCBtn {
     float: right;
 }
-#modelIA-label::before {
+#modelIA-label:before {
     content: "Seleccionar Modelo de IA";
     display: block;
     font-size: 16px;
@@ -266,7 +266,7 @@ pre code textarea:focus {
     box-sizing: border-box;
 }
 
-.plugin-switch .slider::before {
+.plugin-switch .slider:before {
     content: "";
     position: absolute;
     left: 3px;
@@ -283,7 +283,7 @@ pre code textarea:focus {
     border-color: #6200ee;
 }
 
-.plugin-switch input[type="checkbox"]:checked + .slider::before {
+.plugin-switch input[type="checkbox"]:checked + .slider:before {
     background-color: #fff;
     transform: translateX(20px);
 }
