@@ -28,6 +28,7 @@ public class MaxIaManager{
     private String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=";
     private String[] urlKeys = {
         "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=",
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=",
         "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=",
         "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key="
     };
