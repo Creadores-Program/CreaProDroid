@@ -25,8 +25,9 @@ import org.CreadoresProgram.CreaProDroid.IA.Plugins.*;
 public class MaxIaManager{
     private String BaseDataIA = "";
     private String gamesIA = "";
-    private String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=";
+    private String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=";
     private String[] urlKeys = {
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=",
         "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=",
         "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key="
     };

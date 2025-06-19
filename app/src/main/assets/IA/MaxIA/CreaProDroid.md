@@ -73,6 +73,7 @@ Para preguntas o soporte, contacta a [Creadores Program](https://github.com/Crea
   # Mejoras significativas
   - Se mejoro el registro del historial de chat
   - Se añadio seleccion de modelo de IA de Gemini en configuración
+  - Se añadio el modelo Gemini Flash 2.5
   - Se Añadieron Plugins en la IA
   - Se añadio que CreaProDroid haga reconocimiento de voz por el boton de asistente de voz
   - Se cambio la firma y empaquetado de Jstudio android a gradle(es necesario reinstalar o si es usuario root cambiar apk manualmente)
