@@ -86,11 +86,13 @@ CreadorCraft ejecutará en este orden el código de su juego:
 Este es el archivo que contiene información importante de su juego aquí les dejo los parámetros del Json que debe tener su juego:
 • name (obligatorio): Nombre de su juego.
 • icon (opcional): Icono o baner de su juego la imagen debe ser tipo URL.
-•description (obligatorio): Descripción de su juego.
+• description (obligatorio): Descripción de su juego.
+• version (recomendado): Version de tu juego util para Juegos CreadorCraft API 1.0.0+ para manejar actualizaciones
 • mainHtml (obligatorio): El directorio del archivo main del código Html.
 • mainJS (obligatorio): El directorio del archivo main del código JavaScript.
 • mainJSmodule (opcional): El directorio del archivo main del código JavaScript tipo module.
 • mainCSS (opcional): El directorio del archivo main del código CSS.
+• uuid (obligatorio): Esta opción es obligatoria para la versión 1.0.0 ESTABLE si no esta definida se manejara como un juego de CreadorCraft ALFA x (actualmente no es necesario hasta que salga CreadorCraft 1.0.0 ESTABLE)
 • mainPython (opcional): El directorio del archivo main del código Python.
 • configPy (opcional): Configuración  de tu modulo python Más Información en PyScript en la opción config de html
 • mainWebAssembly (opcional): El directorio del archivo main del Código compilado Web Assembly.

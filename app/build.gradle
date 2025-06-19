@@ -10,11 +10,11 @@ dependencies {
 
 android {
     namespace 'org.CreadoresProgram.CreaProDroid'
-    compileSdkVersion 20
+    compileSdkVersion 21
 
     defaultConfig {
         minSdkVersion 17
-        targetSdkVersion 20
+        targetSdkVersion 21
         versionCode 3
         versionName "1.2.0-beta"
     }

@@ -26,7 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: CreadorCraft-Maker
-        uses: Creadores-Program/CreadorCraft-Maker-GHA@v1
+        uses: Creadores-Program/CreadorCraft-Maker-GHA@v1.2.0
         with:
           path: "./src"
       - name: Upload Artifact
@@ -35,6 +35,29 @@ jobs:
           name: My Game Example
           path: gameBuildCCM/TestName 1.0.0.creadorcraftgame.zip
 ```
+
+### Automatic UUID Generation
+
+You can have the wrapper automatically generate a unique UUID for your game using the `"uuid": "{{RandomId}}"` field in your `manifest.json`.
+For example:
+
+```json
+{
+  "name": "TestName",
+  "description": "Test game",
+  "version": "1.0.0",
+  "mainHtml": "index.html",
+  "mainCSS": "index.css",
+  "mainJS": "index.js",
+  "uuid": "{{RandomId}}"
+}
+```
+
+When you package your game for the first time, the `{{RandomId}}` value will be replaced with an automatically generated UUID.
+**This UUID will appear in the console during the packaging process.**
+Keep this UUID in mind, as you'll need to use it in the `uuid` field for future updates to your game.
+
+`{{RandomId}}` is only used for the first package; for updates, replace the value with the generated UUID.
 
 ### Structure Repo:
 myName/RepoGameName/src
