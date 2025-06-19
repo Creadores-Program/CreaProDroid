@@ -14,6 +14,7 @@ import android.graphics.Color;
 import android.speech.RecognizerIntent;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.view.KeyEvent;
 import java.util.Locale;
 import java.util.ArrayList;
 import java.io.BufferedReader;
@@ -99,6 +100,14 @@ public class MainActivity extends Activity {
             }
         });
         super.onDestroy();
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_VOICE_ASSIST) {
+            startSpeechRecognition();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
     private String getFileName(Uri uri) {
         String result = null;
