@@ -35,6 +35,7 @@ CreaProDroid es un asistente de inteligencia artificial diseñado específicamen
    - Genera imágenes basadas en descripciones.
    - Abre aplicaciones instaladas en tu dispositivo.
    - Borra el historial de chat cuando lo desees.
+   - Con Plugins de IA puedes añadir funcionalidades como enviar mensajes, llamar y más.
 
 ## **Capturas de Pantalla**
 | Capturas | Capturas | Capturas |
