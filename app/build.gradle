@@ -16,7 +16,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 21
         versionCode 3
-        versionName "1.2.0-beta"
+        versionName "1.2.5-beta"
     }
     signingConfigs {
         debug {

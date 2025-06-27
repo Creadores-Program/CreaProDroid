@@ -149,6 +149,9 @@ public class JSInterface{
         builder.setShowTitle(true);
         builder.setToolbarColor(Color.parseColor("#FF6200EE"));
         CustomTabsIntent customTabsIntent = builder.build();
+        if(url.startsWith("data:") || url.startsWith("intent:") || url.startsWith("package:")){
+            url = "javascript:location.href=" + org.json.JSONObject.quote(url) + ";";
+        }
         customTabsIntent.launchUrl(mContext, Uri.parse(url));
     }
     @JavascriptInterface
