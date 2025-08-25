@@ -49,6 +49,11 @@
             </select><br/>
             <button onclick="Android.clearCache(); alert('Cache Borrada!');">Borrar Cache</button>
             <button onclick="verifyUpdate(true);">Buscar Actualizaciones</button><br/>
+            <div class="custom-prompt-container">
+                <label for="customPrompt" style="font-weight: bold;color: #e0e0e0;">Instrucción personalizada para la IA:</label>
+                <textarea id="customPrompt" rows="3" style="width: 100%;margin: 8px;background: #2c2c2c;color: #fff;border-radius: 8px;padding: 10px;font-size: 15px;"></textarea>
+                <button onclick="setCustomPrompt()">Guardar</button>
+            </div><br/>
             <h2>Plugins:</h2><br/>
             <div class="plugin-switch-container">
                 <label class="plugin-switch">
@@ -68,13 +73,21 @@
                     </span>
                 </label>
                 <label class="plugin-switch">
+                    <input type="checkbox" id="pluginPersonality">
+                    <span class="slider"></span>
+                    <span class="plugin-label">
+                        Personality
+                        <span class="plugin-desc">Permite que la IA tenga su propia personalidad segun los chats.</span>
+                    </span>
+                </label>
+                <label class="plugin-switch">
                     <input type="checkbox" id="pluginAvancedActions">
                     <span class="slider"></span>
                     <span class="plugin-label">
                         Avanced Actions
                         <span class="plugin-desc">Permite ejecutar acciones avanzadas y comandos especiales.</span>
                     </span>
-                    </label>
+                </label>
             </div>
         </div>
     </div>

@@ -144,6 +144,14 @@ public class JSInterface{
         mMaxIaManager.setUserName(name);
     }
     @JavascriptInterface
+    public void setPersonalityPrompt(String prompt){
+        mMaxIaManager.setPersonalityPrompt(prompt);
+    }
+    @JavascriptInterface
+    public void setCustomSistemPrompt(String prompt){
+        mMaxIaManager.setCustomSistemPrompt(prompt);
+    }
+    @JavascriptInterface
     public void openUrl(String url){
         CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
         builder.setShowTitle(true);

@@ -5,7 +5,7 @@ CreadorCraft Maker Wiki de API:
 
 El juego puede usar todos los scripts que tiene CreadorCraft (ver en créditos de CreadorCraft).
 
-## GameProps API (JavaScript, TypeScript y LatinoScript):
+## GameProps API (JavaScript, TypeScript, EsJS y más):
 
 **GameProps.status**: ver el estado de la conexión con el juego CreadorCraft o CreadorCraft API retorna `null` si no está conectado o un string `"ready"` si se ha conectado correctamente!
 
@@ -32,17 +32,17 @@ El juego puede usar todos los scripts que tiene CreadorCraft (ver en créditos d
 
 **GameProps.exitGame()**: saca al jugador del juego!
 
-**GameProps.getClickSound()**: retorna un audio de click.
+**GameProps.getClickSound()**: retorna un audio de click en API AudioGame.
 
-**GameProps.getGameMusic()**: retorna un audio de juego de fondo.
+**GameProps.getGameMusic()**: retorna un audio de juego de fondo en API de Audio de Html.
 
-**GameProps.getWarnSound()**: retorna un sonido de advertencia.
+**GameProps.getWarnSound()**: retorna un sonido de advertencia en API AudioGame.
 
-**GameProps.getWinSound()**: retorna un sonido de ganar.
+**GameProps.getWinSound()**: retorna un sonido de ganar en API AudioGame.
 
-**GameProps.getClickStartSound()**: retorna el sonido del click al entrar al juego.
+**GameProps.getClickStartSound()**: retorna el sonido del click al entrar al juego en API AudioGame.
 
-**GameProps.getStorage()**: retorna una clase de almacenamiento del juego:
+**GameProps.getStorage()**: retorna una clase de almacenamiento del juego (todas funciones asyncronomas):
 ```javascript
 {
   GameProps.getStorage().set(ID, object): guardar un objeto en el almacenamiento de CreadorCraft.
@@ -87,6 +87,7 @@ Este es el archivo que contiene información importante de su juego aquí les de
 • name (obligatorio): Nombre de su juego.
 • icon (opcional): Icono o baner de su juego la imagen debe ser tipo URL.
 • description (obligatorio): Descripción de su juego.
+• version (recomendado): Version de tu juego util para Juegos CreadorCraft API 1.0.0+ para manejar actualizaciones
 • version (recomendado): Version de tu juego util para Juegos CreadorCraft API 1.0.0+ para manejar actualizaciones
 • mainHtml (obligatorio): El directorio del archivo main del código Html.
 • mainJS (obligatorio): El directorio del archivo main del código JavaScript.

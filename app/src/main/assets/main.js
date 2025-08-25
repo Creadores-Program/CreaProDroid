@@ -107,6 +107,23 @@ function updateHistoryChatHtml(){
         htmlEmenHCU.appendChild(document.createElement("br"));
     }
 }
+function setCustomPrompt(){
+    var customPrompt = document.getElementById("customPrompt").value;
+    if((customPrompt == null || customPrompt.trim() == "") && localStorage.getItem("customPrompt")){
+        if(confirm("¿Quieres eliminar la instrucción personalizada actual?")){
+            localStorage.removeItem("customPrompt");
+            Android.setCustomSistemPrompt("");
+            alert("Instrucción personalizada eliminada.");
+        }
+        return;
+    }
+    if(customPrompt == null || customPrompt.trim() == ""){
+        alert("No se puede guardar una instrucción vacía.");
+        return;
+    }
+    localStorage.setItem("customPrompt", customPrompt);
+    Android.setCustomSistemPrompt(customPrompt);
+}
 function sendToHtml(msg){
     var chatfj = document.getElementById("Chat");
     var chatIAd = document.createElement("div");
@@ -239,6 +256,10 @@ window.onload = function() {
         Android.setModel(selectedModel);
         localStorage.setItem("model", selectedModel);
     };
+    if(localStorage.getItem("customPrompt")){
+        document.getElementById("customPrompt").value = localStorage.getItem("customPrompt");
+        Android.setCustomSistemPrompt(localStorage.getItem("customPrompt"));
+    }
     if(pluginsIA != null){
         if(pluginsIA.indexOf(0) != -1){
             document.getElementById("pluginDeviceInfo").checked = true;
@@ -248,6 +269,9 @@ window.onload = function() {
         }
         if(pluginsIA.indexOf(2) != -1){
             document.getElementById("pluginAvancedActions").checked = true;
+        }
+        if(pluginsIA.indexOf(3) != -1){
+            document.getElementById("pluginPersonality").checked = true;
         }
     }
     document.getElementById("pluginDeviceInfo").onchange = function(){
@@ -279,6 +303,17 @@ window.onload = function() {
             localStorage.setItem("pluginsIA", JSON.stringify(pluginsIA));
         }else{
             pluginsIA.splice(pluginsIA.indexOf(2), 1);
+            Android.setPlugins(JSON.stringify(pluginsIA));
+            localStorage.setItem("pluginsIA", JSON.stringify(pluginsIA));
+        }
+    };
+    document.getElementById("pluginPersonality").onchange = function(){
+        if(this.checked){
+            pluginsIA.push(3);
+            Android.setPlugins(JSON.stringify(pluginsIA));
+            localStorage.setItem("pluginsIA", JSON.stringify(pluginsIA));
+        }else{
+            pluginsIA.splice(pluginsIA.indexOf(3), 1);
             Android.setPlugins(JSON.stringify(pluginsIA));
             localStorage.setItem("pluginsIA", JSON.stringify(pluginsIA));
         }

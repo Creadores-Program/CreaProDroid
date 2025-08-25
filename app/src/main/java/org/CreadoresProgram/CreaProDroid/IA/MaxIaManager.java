@@ -42,6 +42,9 @@ public class MaxIaManager{
     private JSONArray maxBotPrompts;
     private JSONArray maxNoSeBotPrompts;
     private String[] plugins = new String[0];
+    private boolean isUsingPersonality = false;
+    private String personalityPrompt = "";
+    private String customSistemPrompt = "";
     private Context context;
     public MaxIaManager(Context context) {
         this.context = context;
@@ -148,6 +151,12 @@ public class MaxIaManager{
     public void setModel(int model){
         this.url = this.urlKeys[model];
     }
+    public void setPersonalityPrompt(String prompt){
+        this.personalityPrompt = prompt;
+    }
+    public void setCustomSistemPrompt(String prompt){
+        this.customSistemPrompt = prompt;
+    }
     public void setPlugins(int[] plugins){
         this.plugins = new String[plugins.length];
         for(int i = 0; i < plugins.length; i++){
@@ -160,6 +169,10 @@ public class MaxIaManager{
                 break;
                 case 2:
                     this.plugins[i] = new AvancedActions(context).getInfo();
+                break;
+                case 3:
+                    this.plugins[i] = new Personality(context).getInfo();
+                    this.isUsingPersonality = true;
                 break;
             }
         }
@@ -192,6 +205,9 @@ public class MaxIaManager{
         properties.put("genImg", propert);
         properties.put("openApp", propert);
         properties.put("openUrl", propert);
+        if(this.isUsingPersonality){
+            properties.put("personality", propert);
+        }
         responseSchema.put("properties", properties);
         JSONArray requi = new JSONArray();
         requi.put("message");
@@ -227,6 +243,16 @@ public class MaxIaManager{
             JSONObject systemPart8 = new JSONObject();
             systemPart8.put("text", "**Plugins:**\naqui tienes informacion extra que puedes hacer o solamente informacion extra:\n\n"+strJoin("\n", this.plugins));
             systemParts.put(systemPart8);
+        }
+        if(this.isUsingPersonality && this.personalityPrompt != null && this.personalityPrompt.length() > 0){
+            JSONObject systemPart9 = new JSONObject();
+            systemPart9.put("text", "**Personalidad Adicional:**\n"+this.personalityPrompt);
+            systemParts.put(systemPart9);
+        }
+        if(this.customSistemPrompt != null && this.customSistemPrompt.length() > 0){
+            JSONObject systemPart10 = new JSONObject();
+            systemPart10.put("text", "**Instrucción Personalizada del Sistema Adicional:**\n"+this.customSistemPrompt);
+            systemParts.put(systemPart10);
         }
         system.put("parts", systemParts);
         promptJson.put("systemInstruction", system);
