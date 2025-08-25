@@ -226,6 +226,10 @@ function sendMessage(msg, isSpeak) {
             }
         }
     }
+    if(subPrompIAJson.personality && subPrompIAJson.personality.trim() != "" && subPrompIAJson.personality.toLowerCase() != "string"){
+        Android.setPersonalityPrompt(subPrompIAJson.personality);
+        localStorage.setItem("personalityPrompt", subPrompIAJson.personality);
+    }
 }
 function handleFileChange(Str, name) {
     alert("Procesando archivo...");
@@ -272,6 +276,9 @@ window.onload = function() {
         }
         if(pluginsIA.indexOf(3) != -1){
             document.getElementById("pluginPersonality").checked = true;
+            if(localStorage.getItem("personalityPrompt")){
+                Android.setPersonalityPrompt(localStorage.getItem("personalityPrompt"));
+            }
         }
     }
     document.getElementById("pluginDeviceInfo").onchange = function(){
