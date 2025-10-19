@@ -204,14 +204,14 @@ public class JSInterface{
     }
     @JavascriptInterface
     public boolean isLatestVersionByGithub(){
-        return mGithubUpdate.isLatestVersionByGithub();
+        return mGithubUpdate.isLatestVersionByGithub(mWebView);
     }
     @JavascriptInterface
     public void downloadUpdate(){
         new Thread(new Runnable() {
             @Override
             public void run() {
-                mGithubUpdate.downloadUpdate(mContext, mWebView);
+                mGithubUpdate.downloadUpdate(mContext);
             }
         }).start();
     }
@@ -248,3 +248,4 @@ public class JSInterface{
         }
     }
 }
+
