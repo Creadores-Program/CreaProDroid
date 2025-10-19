@@ -37,7 +37,7 @@ public class GithubUpdate{
         CustomTabsIntent customTabsIntent = builder.build();
         customTabsIntent.launchUrl(context, Uri.parse(urlDownload));
     }
-    public boolean isLatestVersionByGithub(Webview view){
+    public boolean isLatestVersionByGithub(WebView view){
         Request request = new Request.Builder()
                 .url(repoUrl)
                 .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Mobile Safari/537.36")
@@ -104,4 +104,5 @@ public class GithubUpdate{
         }
     }
 }
+
 
