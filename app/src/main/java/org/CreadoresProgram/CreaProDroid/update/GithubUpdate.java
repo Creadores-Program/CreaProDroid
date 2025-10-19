@@ -10,6 +10,8 @@ import android.content.pm.PackageManager;
 import android.webkit.WebView;
 import android.content.Intent;
 import android.net.Uri;
+import android.graphics.Color;
+import android.support.customtabs.CustomTabsIntent;
 import java.io.File;
 import java.io.InputStream;
 import java.io.FileOutputStream;
@@ -28,51 +30,14 @@ public class GithubUpdate{
             outputFile.delete();
         }
     }
-    public void downloadUpdate(Context context, WebView view){
-        Request request = new Request.Builder()
-            .url(urlDownload)
-            .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Mobile Safari/537.36")
-            .build();
-        FileOutputStream fileOutputStream = null;
-        Response response = null;
-        try{
-            response = client.newCall(request).execute();
-            if (response.isSuccessful() && response.body() != null) {
-                InputStream inputStream = response.body().byteStream();
-                File outputFile = new File(context.getExternalFilesDir(null), "CreaProDroid.apk");
-                fileOutputStream = new FileOutputStream(outputFile);
-                byte[] buffer = new byte[2048];
-                int bytesRead;
-                while ((bytesRead = inputStream.read(buffer)) != -1) {
-                    fileOutputStream.write(buffer, 0, bytesRead);
-                }
-                inputStream.close();
-                installApk(context, outputFile);
-            }else{
-                throw new RuntimeException("Ocurrió un error desconocido al Descargar el apk!");
-            }
-        }catch(Exception err){
-            err.printStackTrace();
-            view.post(new Runnable(){
-                    @Override
-                    public void run(){
-                        view.loadUrl("javascript:alert('Ocurrio un error Desconocido al Descargar la actualización!');");
-                    }
-            });
-        }finally{
-            try{
-                if(response != null){
-                    response.close();
-                }
-                if(fileOutputStream != null){
-                    fileOutputStream.close();
-                }  
-            }catch(Exception err){
-                err.printStackTrace();
-            }
-        }
+    public void downloadUpdate(Context context){
+        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+        builder.setShowTitle(true);
+        builder.setToolbarColor(Color.parseColor("#FF6200EE"));
+        CustomTabsIntent customTabsIntent = builder.build();
+        customTabsIntent.launchUrl(context, Uri.parse(urlDownload));
     }
-    public boolean isLatestVersionByGithub(){
+    public boolean isLatestVersionByGithub(Webview view){
         Request request = new Request.Builder()
                 .url(repoUrl)
                 .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Mobile Safari/537.36")
@@ -88,18 +53,30 @@ public class GithubUpdate{
                 for(int i = 0; i < assetsGithub.length(); i++){
                     JSONObject asset = assetsGithub.getJSONObject(i);
                     if(asset.getString("name").endsWith(".apk")){
-                        urlDownload = asset.getString("browser_download_url");
+                        urlDownload = jsonObject.getString("html_url");
                         sizeApkDown = asset.getLong("size");
                         descriptionVer = jsonObject.getString("name")+"\n"+jsonObject.getString("body");
                     }
                 }
                 String latestVersion = jsonObject.getString("tag_name");
+                view.post(new Runnable(){
+                    @Override
+                    public void run(){
+                        view.loadUrl("javascript:window.errrorVerifyVersion = false;");
+                    }
+                });
                 return latestVersion.equals(currentVersion);
             }else{
                 throw new RuntimeException("Error al verificar versión");
             }
         } catch (Exception e) {
             e.printStackTrace();
+            view.post(new Runnable(){
+                @Override
+                public void run(){
+                    view.loadUrl("javascript:window.errrorVerifyVersion = true;");
+                }
+            });
             return true;
         }finally{
             try{
@@ -109,14 +86,6 @@ public class GithubUpdate{
             }catch(Exception err){
                 err.printStackTrace();
             }
-        }
-    }
-    private void installApk(Context context, File apkFile){
-        if (apkFile.exists()) {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(Uri.fromFile(apkFile), "application/vnd.android.package-archive");
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
         }
     }
     public long getSizeApk(){
@@ -135,3 +104,4 @@ public class GithubUpdate{
         }
     }
 }
+
