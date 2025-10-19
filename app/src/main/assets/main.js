@@ -340,8 +340,11 @@ function verifyUpdate(alertNoUp){
     if(alertNoUp){
         if(!Android.isLatestVersionByGithub() && confirm("Nueva Actualizacion Disponible!\nPesa: "+(Android.getSizeApkUpdate() / (1024 * 1024))+"mb\nPlataforma de donde se Descarga: Github.com\n"+Android.getDescriptionVer()+"\n¿Quieres Actualizar?")){
             Android.downloadUpdate();
-            alert("Actualizando...\nNo Cierres la app!");
         }else{
+            if(window.errrorVerifyVersion){
+                alert("Ocurrio un error Desconocido al verificar actualizaciones!");
+                return;
+            }
             alert("No hay actualizaciones disponibles.\nO cancelaste la descarga.");
         }
     }else{
@@ -350,9 +353,9 @@ function verifyUpdate(alertNoUp){
             localStorage.setItem("update", nowdatesdcnjd.getDay());
             if(!Android.isLatestVersionByGithub() && confirm("Nueva Actualizacion Disponible!\nPesa: "+(Android.getSizeApkUpdate() / (1024 * 1024))+"mb\nPlataforma de donde se Descarga: Github.com\n"+Android.getDescriptionVer()+"\n¿Quieres Actualizar?")){
                 Android.downloadUpdate();
-                alert("Actualizando...\nNo Cierres la app!");
             }
         }
     }
 }
 verifyUpdate();
+
