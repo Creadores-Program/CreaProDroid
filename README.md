@@ -1,6 +1,7 @@
 # CreaProDroid
 
 CreaProDroid es un asistente de inteligencia artificial diseñado específicamente para dispositivos Android antiguos (versiones 4.2 a 8.1). Este asistente utiliza la tecnología de Google Gemini y está optimizado para ofrecer una experiencia fluida y útil en dispositivos con recursos limitados.
+Si este no es compatible puedes probar [CreaProPhone J2ME](https://github.com/Creadores-Program/CreaProPhone) con [J2ME Loader de SpoxgoStore](https://spoxgostore-blogspot.com/p/j2me-loader.html) que extiende la compatibilidad a Android 2.3
 
 ## **Características**
 - **Asistente de IA**: Responde preguntas, realiza tareas y ofrece asistencia personalizada.
