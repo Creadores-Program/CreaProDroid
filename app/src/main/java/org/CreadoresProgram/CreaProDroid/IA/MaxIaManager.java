@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 import org.CreadoresProgram.CreaProDroid.IA.Plugins.*;
 
 public class MaxIaManager{
@@ -37,7 +38,11 @@ public class MaxIaManager{
     private JSONArray history = new JSONArray();
     private String UserName = "Maxi";
     private JSONArray apps = new JSONArray();
-    private OkHttpClient clientHt = new OkHttpClient();
+    private OkHttpClient clientHt = new OkHttpClient.Builder()
+        .connectTimeout(30, TimeUnit.SECONDS)
+        .writeTimeout(180, TimeUnit.SECONDS)
+        .readTimeout(60, TimeUnit.SECONDS)
+        .build();
     private static final MediaType JSONHt = MediaType.parse("application/json; charset=utf-8");
     private JSONArray maxBotPrompts;
     private JSONArray maxNoSeBotPrompts;
