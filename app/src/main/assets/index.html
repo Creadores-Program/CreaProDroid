@@ -41,11 +41,9 @@
             <button onclick="var subUserName = prompt('Escribe tu nombre:'); if(subUserName == null || subUserName.trim() == ''){ alert('No se puede continuar sin el nombre.'); throw new Error('No se puede continuar sin el nombre.'); }else if(subUserName.length < 5 || subUserName.length > 20){ alert('El nombre debe tener entre 5 y 20 caracteres.'); throw new Error('El nombre debe tener entre 5 y 20 caracteres.'); } Android.setUserName(subUserName); localStorage.setItem('userName', userName); userName = subUserName; delete subUserName;">Actualizar Nombre</button><br/>
             <label id="modelIA-label" for="modelIA"></label>
             <select id="modelIA">
-                <option value="0" selected=selected>Gemini Flash 2.5</option>
-                <option value="1">Gemini Flash Lite 2.5</option>
-                <option value="2">Gemini Pro 2.5</option>
-                <option value="3">Gemini Flash 2.0</option>
-                <option value="4">Gemini Flash Lite 2.0</option>
+                <option value="0">Gemini Pro 2.5</option>
+                <option value="1" selected=selected>Gemini Flash</option>
+                <option value="2">Gemini Flash Lite</option>
             </select><br/>
             <button onclick="Android.clearCache(); alert('Cache Borrada!');">Borrar Cache</button>
             <button onclick="verifyUpdate(true);">Buscar Actualizaciones</button><br/>

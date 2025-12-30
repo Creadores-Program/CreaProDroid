@@ -26,22 +26,20 @@ import org.CreadoresProgram.CreaProDroid.IA.Plugins.*;
 public class MaxIaManager{
     private String BaseDataIA = "";
     private String gamesIA = "";
-    private String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=";
+    private String url = "";
     private String[] urlKeys = {
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=",
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=",
         "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=",
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=",
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key="
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=",
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key="
     };
     private String urlGenimg = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:streamGenerateContent?key=";
     private JSONArray history = new JSONArray();
     private String UserName = "Maxi";
     private JSONArray apps = new JSONArray();
     private OkHttpClient clientHt = new OkHttpClient.Builder()
-        .connectTimeout(30, TimeUnit.SECONDS)
-        .writeTimeout(180, TimeUnit.SECONDS)
-        .readTimeout(60, TimeUnit.SECONDS)
+        .connectTimeout(60, TimeUnit.SECONDS)
+        .writeTimeout(360, TimeUnit.SECONDS)
+        .readTimeout(120, TimeUnit.SECONDS)
         .build();
     private static final MediaType JSONHt = MediaType.parse("application/json; charset=utf-8");
     private JSONArray maxBotPrompts;

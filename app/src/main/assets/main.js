@@ -252,8 +252,14 @@ function copyMDcode(button) {
 var pluginsIA;
 window.onload = function() {
     if(localStorage.getItem("model") != null){
+        if(parseInt(localStorage.getItem("model")) > 2){
+            localStorage.setItem("model", 1);
+        }
         Android.setModel(localStorage.getItem("model"));
         document.getElementById("modelIA").value = localStorage.getItem("model");
+    }else{
+        localStorage.setItem("model", 1);
+        Android.setModel(localStorage.getItem("model"));
     }
     document.getElementById("modelIA").onchange = function() {
         var selectedModel = parseInt(this.value);
