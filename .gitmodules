@@ -1,3 +1,6 @@
 [submodule "MaxIA"]
         path = app/assets/IA/Data
         url = https://github.com/Creadores-Program/MaxIA.git
+[submodule "app/assets/IA/Data"]
+	path = app/assets/IA/Data
+	url = https://github.com/Creadores-Program/MaxIA.git
