@@ -28,7 +28,7 @@ public class MaxIaManager{
     private String gamesIA = "";
     private String url = "";
     private String[] urlKeys = {
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=",
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-latest:generateContent?key=",
         "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=",
         "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key="
     };
