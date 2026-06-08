@@ -50,3 +50,7 @@ Actualizacion 31/05/2025:
 Se implemento el comando genimg en Guilded.
 se añadio el comando adminserver para administrar servidores.
 Correccion de Errores.
+Actualizacion 20/12/2025:
+Fue desactivado indefinidamente hasta nuevo aviso.
+Actualizacion 17/03/2026:
+Se perdieron la mayor parte de archivos del codigo por fallas internas (corrupcion de hardware de datos donde estaba el codigo) y sigue desactivado.

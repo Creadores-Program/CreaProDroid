@@ -81,6 +81,11 @@ Para preguntas o soporte, contacta a [Creadores Program](https://github.com/Crea
   - Se añadio que CreaProDroid haga reconocimiento de voz por el boton de asistente de voz
   - Se cambio la firma y empaquetado de Jstudio android a gradle(es necesario reinstalar o si es usuario root cambiar apk manualmente)
   - Se mejoro el actualizador por Github ahora proporciona mas información
+- 1.3.0-beta
+  # Actualizacion de algunas cosas
+  - Se cambiaron los modelos de IA a latest y solo hay 3 opciones: Gemini Flash, Gemini Flash Lite y Gemini Pro
+  - Actualizacion de Base de Datos
+  - Correccion de errores y poco mas.
 
 ## Creditos
 - Github Copilot

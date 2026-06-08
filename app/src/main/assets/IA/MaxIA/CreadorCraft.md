@@ -166,3 +166,20 @@ To Try the Game you can enter this Link!:
 , 
 Tambien tiene su motor de juegos Llamado Creadorcraft Maker que hace que los programadores puedan programar juegos en JS, Java, Html, CSS, SCSS, Htmx, TypeScript, LiveScript CoffeScript, PHP, Python, Ruby, Lua, Perl, Webasembly, Markdown, EsHtml, EsJS y EJS
 Link de CreadorCraftMaker: https://creadorcraft-maker.blogspot.com/
+
+Actualizacion 23/01/26:
+
+# Fin de CreadorCraft (Plataforma)
+Amigos lamentamos informar que la Plataforma CreadorCraft quedara Archivada eso significa que ya no tendrá mas actualizaciones!
+## Porque?
+La plataforma fue en decadencia a tal punto que ya no tiene comunidad! 😔
+## Que pasará con CreadorCraft Plataforma?
+Seguirá online! Y también podrás hacer versiones custom si prefieres ya que es de código abierto y puedes hacer lo que tu quieras!
+## Que pasará con CreadorCraft (Juego)?
+Este discord y el Juego seran un JUEGO DE ROBLOX!!
+## Porque?
+La plataforma Roblox tiene mucha mas comunidad, crear experiencias son gratuitos y es mucho más fácil programar un juego con el tema de CreadorCraft Juego! Ya que ya tiene la estructura del servidor lista! Lo cual lo hace mucho mas fácil para nosotros hacer el juego ahí!
+## Que pasará con los archivos del Juego?
+Los vamos a reutilizar incluyendo texturas y código para que el juego de Roblox se lanze mas rápido!
+-# Creadores Program
+-# "La revolución del Código"
