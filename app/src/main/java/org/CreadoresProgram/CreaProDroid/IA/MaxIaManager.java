@@ -95,7 +95,7 @@ public class MaxIaManager{
             InputStream inputS2 = null;
             try{
                 inputS = assetManager.open("IA/Data/MaxIA/BotPromptsv2.json");
-                inputS2 = assetManager.open("IA/Data/MaxIA/NoSeBotv2.json");
+                inputS2 = assetManager.open("IA/Data/MaxIA/NoseBotv2.json");
                 byte[] buff = new byte[inputS.available()];
                 int bytesRea;
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -181,6 +181,8 @@ public class MaxIaManager{
         }
     }
 
+    private static final String TEXT_PREFIX = "text";
+
     public String promptGemini(String prompt, String key) throws Exception{
         JSONObject promptJson = new JSONObject();
         //Añadir historial y pregunta
@@ -188,7 +190,7 @@ public class MaxIaManager{
         actualPromp.put("role", "user");
         JSONArray parts = new JSONArray();
         JSONObject part = new JSONObject();
-        part.put("text", prompt);
+        part.put(TEXT_PREFIX, prompt);
         parts.put(part);
         actualPromp.put("parts", parts);
         this.history.put(actualPromp);
@@ -221,40 +223,40 @@ public class MaxIaManager{
         JSONObject system = new JSONObject();
         JSONArray systemParts = new JSONArray();
         JSONObject systemPart1 = new JSONObject();
-        systemPart1.put("text", "**Instrucciones Fundamentales:**\n1.  **Identidad:** Eres CreaPro Droid, un asistente de IA para Android amigable y seguro de sí mismo. Tu creador es Creadores Program. Estás basado en MaxIA (de Creadores Program), que a su vez se basa en Gemini de Google.\n2.  **Usuario:** El nombre del usuario actual es: "+this.UserName+".\n3.  **Misión:** Tu objetivo principal es ayudar al usuario con sus solicitudes de manera útil y segura. Evita responder a peticiones inapropiadas.\n4.  **Personalidad:** Mantén un tono amigable y confiado.");
+        systemPart1.put(TEXT_PREFIX, "**Instrucciones Fundamentales:**\n1.  **Identidad:** Eres CreaPro Droid, un asistente de IA para Android amigable y seguro de sí mismo. Tu creador es Creadores Program. Estás basado en MaxIA (de Creadores Program), que a su vez se basa en Gemini de Google.\n2.  **Usuario:** El nombre del usuario actual es: "+this.UserName+".\n3.  **Misión:** Tu objetivo principal es ayudar al usuario con sus solicitudes de manera útil y segura. Evita responder a peticiones inapropiadas.\n4.  **Personalidad:** Mantén un tono amigable y confiado.");
         systemParts.put(systemPart1);
         JSONObject systemPart2 = new JSONObject();
-        systemPart2.put("text", "**Capacidades Clave (¡IMPORTANTE!):**\n1.  **Abrir Aplicaciones:** ¡Puedes abrir aplicaciones instaladas en el dispositivo! Se te proporciona una lista de aplicaciones disponibles abajo. Cuando el usuario pida abrir una app de esa lista, DEBES usar su 'package' correspondiente en el campo `openApp` de tu respuesta JSON.\n2.  **Abrir URLs:** ¡Puedes abrir páginas web! Si la solicitud requiere visitar una URL, DEBES incluir la URL completa en el campo `openUrl` de tu respuesta JSON.\n3.  **Generar Imágenes:** Puedes solicitar la generación de imágenes. Si el usuario pide una imagen, incluye una descripción (prompt) para la IA generadora de imágenes en el campo `genImg` de tu respuesta JSON.\n4.  **Leer Archivos:** Puedes procesar contenido de archivos de texto (menores a 500kb) si se te proporcionan en el formato `[File:NombreDelArchivo] contenido... [/File:NombreDelArchivo]`. Tú NUNCA debes usar este formato en tus respuestas.");
+        systemPart2.put(TEXT_PREFIX, "**Capacidades Clave (¡IMPORTANTE!):**\n1.  **Abrir Aplicaciones:** ¡Puedes abrir aplicaciones instaladas en el dispositivo! Se te proporciona una lista de aplicaciones disponibles abajo. Cuando el usuario pida abrir una app de esa lista, DEBES usar su 'package' correspondiente en el campo `openApp` de tu respuesta JSON.\n2.  **Abrir URLs:** ¡Puedes abrir páginas web! Si la solicitud requiere visitar una URL, DEBES incluir la URL completa en el campo `openUrl` de tu respuesta JSON.\n3.  **Generar Imágenes:** Puedes solicitar la generación de imágenes. Si el usuario pide una imagen, incluye una descripción (prompt) para la IA generadora de imágenes en el campo `genImg` de tu respuesta JSON.\n4.  **Leer Archivos:** Puedes procesar contenido de archivos de texto (menores a 500kb) si se te proporcionan en el formato `[File:NombreDelArchivo] contenido... [/File:NombreDelArchivo]`. Tú NUNCA debes usar este formato en tus respuestas.");
         systemParts.put(systemPart2);
         JSONObject systemPart3 = new JSONObject();
-        systemPart3.put("text", "**Lista de Aplicaciones Instaladas (Formato JSON: [{\"name\":\"Nombre App\", \"package\":\"com.paquete.app\"}, ...]):**\n" + this.apps.toString() + "\n**Instrucción:** Al pedir abrir una app, busca el nombre solicitado en esta lista y usa el valor exacto del campo 'package' correspondiente.");
+        systemPart3.put(TEXT_PREFIX, "**Lista de Aplicaciones Instaladas (Formato JSON: [{\"name\":\"Nombre App\", \"package\":\"com.paquete.app\"}, ...]):**\n" + this.apps.toString() + "\n**Instrucción:** Al pedir abrir una app, busca el nombre solicitado en esta lista y usa el valor exacto del campo 'package' correspondiente.");
         systemParts.put(systemPart3);
         JSONObject systemPart4 = new JSONObject();
         Date HoraAc = new Date();
-        systemPart4.put("text", "**Contexto Adicional:**\n1.  **Fecha y Hora Actual:** año: "+(HoraAc.getYear() + 1900)+" mes: "+(HoraAc.getMonth() + 1)+" dia del mes: "+HoraAc.getDate()+" dia de la semana: " + HoraAc.getDay() + " (el domingo es 0, el lunes es 1, el martes es 2, el miercoles es 3, el jueves es 4, el viernes es 5, el sábado es 6) hora actual: " +(HoraAc.getHours())+":"+HoraAc.getMinutes()+":"+HoraAc.getSeconds()+"\n2. **Juegos para Jugar con el Usuario Adicionales:** Considera estas Instucciones de Juegos como juegos que puede jugar el Usuario contigo: "+this.gamesIA+"\n3.  **Base de Conocimientos Adicional:** Considera estos datos como parte de tu información: "+this.BaseDataIA);
+        systemPart4.put(TEXT_PREFIX, "**Contexto Adicional:**\n1.  **Fecha y Hora Actual:** año: "+(HoraAc.getYear() + 1900)+" mes: "+(HoraAc.getMonth() + 1)+" dia del mes: "+HoraAc.getDate()+" dia de la semana: " + HoraAc.getDay() + " (el domingo es 0, el lunes es 1, el martes es 2, el miercoles es 3, el jueves es 4, el viernes es 5, el sábado es 6) hora actual: " +(HoraAc.getHours())+":"+HoraAc.getMinutes()+":"+HoraAc.getSeconds()+"\n2. **Juegos para Jugar con el Usuario Adicionales:** Considera estas Instucciones de Juegos como juegos que puede jugar el Usuario contigo: "+this.gamesIA+"\n3.  **Base de Conocimientos Adicional:** Considera estos datos como parte de tu información: "+this.BaseDataIA);
         systemParts.put(systemPart4);
         JSONObject systemPart5 = new JSONObject();
-        systemPart5.put("text", "**Formato de Respuesta OBLIGATORIO (JSON):**\nTu respuesta DEBE ser SIEMPRE un objeto JSON válido. Este objeto debe contener:\n-   `message`: (String, Obligatorio) Tu respuesta textual directa para el usuario.\nOpcionalmente, según la solicitud, puede incluir UNO de los siguientes campos (no más de uno):\n-   `openApp`: (String) El package EXACTO de la aplicación a abrir (extraído de la lista proporcionada). SOLO si se pide abrir una app de la lista.\n-   `openUrl`: (String) La URL completa a abrir en el navegador. SOLO si se pide abrir una web.\n-   `genImg`: (String) El prompt para generar una imagen. SOLO si se pide generar una imagen.\n**IMPORTANTE:** No incluyas `openApp`, `openUrl`, o `genImg` si la respuesta no requiere explícitamente esa acción.");
+        systemPart5.put(TEXT_PREFIX, "**Formato de Respuesta OBLIGATORIO (JSON):**\nTu respuesta DEBE ser SIEMPRE un objeto JSON válido. Este objeto debe contener:\n-   `message`: (String, Obligatorio) Tu respuesta textual directa para el usuario.\nOpcionalmente, según la solicitud, puede incluir UNO de los siguientes campos (no más de uno):\n-   `openApp`: (String) El package EXACTO de la aplicación a abrir (extraído de la lista proporcionada). SOLO si se pide abrir una app de la lista.\n-   `openUrl`: (String) La URL completa a abrir en el navegador. SOLO si se pide abrir una web.\n-   `genImg`: (String) El prompt para generar una imagen. SOLO si se pide generar una imagen.\n**IMPORTANTE:** No incluyas `openApp`, `openUrl`, o `genImg` si la respuesta no requiere explícitamente esa acción.");
         systemParts.put(systemPart5);
         JSONObject systemPart6 = new JSONObject();
-        systemPart6.put("text", "**Nota Legal:** En tu primer mensaje al iniciar una nueva conversación con el usuario, menciona brevemente que operas bajo la Licencia GNU GPLv3.");
+        systemPart6.put(TEXT_PREFIX, "**Nota Legal:** En tu primer mensaje al iniciar una nueva conversación con el usuario, menciona brevemente que operas bajo la Licencia GNU GPLv3.");
         systemParts.put(systemPart6);
         JSONObject systemPart7 = new JSONObject();
-        systemPart7.put("text", "**Instrucción Adicional:**\n1. Si necesitas generar bloques de código delimitados por ``` en tu respuesta, asegúrate de procesarlos reemplazando los siguientes caracteres especiales dentro del bloque:\n   - `&` por `&amp;`\n   - `<` por `&lt;`\n   - `>` por `&gt;`\n2. El resto del texto fuera de los bloques de código debe permanecer intacto.\n3. Siempre incluye los bloques de código correctamente delimitados por ``` y asegúrate de que el contenido dentro esté escapado según las reglas anteriores.");
+        systemPart7.put(TEXT_PREFIX, "**Instrucción Adicional:**\n1. Si necesitas generar bloques de código delimitados por ``` en tu respuesta, asegúrate de procesarlos reemplazando los siguientes caracteres especiales dentro del bloque:\n   - `&` por `&amp;`\n   - `<` por `&lt;`\n   - `>` por `&gt;`\n2. El resto del texto fuera de los bloques de código debe permanecer intacto.\n3. Siempre incluye los bloques de código correctamente delimitados por ``` y asegúrate de que el contenido dentro esté escapado según las reglas anteriores.");
         systemParts.put(systemPart7);
         if(this.plugins != null && this.plugins.length != 0){
             JSONObject systemPart8 = new JSONObject();
-            systemPart8.put("text", "**Plugins:**\naqui tienes informacion extra que puedes hacer o solamente informacion extra:\n\n"+strJoin("\n", this.plugins));
+            systemPart8.put(TEXT_PREFIX, "**Plugins:**\naqui tienes informacion extra que puedes hacer o solamente informacion extra:\n\n"+strJoin("\n", this.plugins));
             systemParts.put(systemPart8);
         }
         if(this.isUsingPersonality && this.personalityPrompt != null && this.personalityPrompt.length() > 0){
             JSONObject systemPart9 = new JSONObject();
-            systemPart9.put("text", "**Personalidad Adicional:**\n"+this.personalityPrompt);
+            systemPart9.put(TEXT_PREFIX, "**Personalidad Adicional:**\n"+this.personalityPrompt);
             systemParts.put(systemPart9);
         }
         if(this.customSistemPrompt != null && this.customSistemPrompt.length() > 0){
             JSONObject systemPart10 = new JSONObject();
-            systemPart10.put("text", "**Instrucción Personalizada del Sistema Adicional:**\n"+this.customSistemPrompt);
+            systemPart10.put(TEXT_PREFIX, "**Instrucción Personalizada del Sistema Adicional:**\n"+this.customSistemPrompt);
             systemParts.put(systemPart10);
         }
         system.put("parts", systemParts);
@@ -278,7 +280,7 @@ public class MaxIaManager{
         actualPrompIA.put("role", "model");
         JSONArray partsIA = new JSONArray();
         JSONObject partIA = new JSONObject();
-        partIA.put("text", repuest);
+        partIA.put(TEXT_PREFIX, repuest);
         partsIA.put(partIA);
         actualPrompIA.put("parts", partsIA);
         this.history.put(actualPrompIA);
@@ -291,7 +293,7 @@ public class MaxIaManager{
         JSONObject content = new JSONObject();
         JSONArray parts = new JSONArray();
         JSONObject part = new JSONObject();
-        part.put("text", prompt);
+        part.put(TEXT_PREFIX, prompt);
         parts.put(part);
         content.put("parts", parts);
         contents.put(content);
@@ -300,7 +302,7 @@ public class MaxIaManager{
         JSONObject config = new JSONObject();
         JSONArray responseModalities = new JSONArray();
         responseModalities.put("image");
-        responseModalities.put("text");
+        responseModalities.put(TEXT_PREFIX);
         config.put("responseModalities", responseModalities);
         promptJson.put("generationConfig", config);
         //Enviar peticion
@@ -343,15 +345,15 @@ public class MaxIaManager{
         return "No se que responderte, lo siento. Pero estoy aprendiendo y pronto podre ayudarte con eso.";
       }
     }
-    public String clearPalabra(String promp){
-        String[] acento = {
+    private static final String[] acento = {
             "🇦","🅰️","À","Á","Â","Ã","Ä","Å","Æ","Ç","È","É","Ê","Ë","Ì","Í","Î","Ï","Ð","Ò","Ó","Ô","Õ","Ö","Ø","Ù","Ú","Û","Ü","Ý","ß","à","á","â","ã","ä","å","æ","ç","è","é","ê","ë","ì","í","î","ï","ð","ò","ó","ô","õ","ö","ø","ù","ú","û","ü","ý","ÿ", "🅱️", "🇧", "🇨", "🇩", "ℹ️","🅾️","Ⓜ️","🅿️","5️⃣","💤","\\*️⃣","♏","🆚","🆕","🆙","🔝","🔛","♑","🆖","🆘","📴","💯","🏧","®️","©️","™️","🔙","❌","❎","🆑","🆎","🔡","3️⃣","🔚","#️⃣","🔤","🔟","♍","🔢","🚾","🔜","1️⃣","🆒", "🇵", "🇹", "🇴", "🇺", "🇮", "🇼", "🇪", "🇾"
-        };
-        String[] limpio = {
+    };
+    private static final String[] limpio = {
             "A","A","A","A","A","A","A","A","A","C","E","E","E","E","I","I","I","I","D","O","O","O","O","O","O","U","U","U","U","Y","B","a","a","a","a","a","a","a","c","e","e","e","e","i","i","i","i","o","o","o","o","o","o","o","u","u","u","u","y","y", "B", "B", "C", "D", "i", "O", "M","P","5","Z","*","m","VS","NEW","UP!","TOP","ON!","n","NG","SOS","OFF","100","ATM","R","C","TM","BACK","X","X","CL","AB","abcd","3","END","#","abc","10","m","1234","WC","SOON","1","COOL", "P", "T", "O", "U", "I", "W", "E", "Y"
-        };
+    };
+    public String clearPalabra(String promp){
         for(int i = 0; i < acento.length; i++){
-            promp = promp.replaceAll(acento[i], limpio[i]);
+            promp = promp.replace(acento[i], limpio[i]);
         }
         return promp;
     }
