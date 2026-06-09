@@ -94,8 +94,8 @@ public class MaxIaManager{
             InputStream inputS = null;
             InputStream inputS2 = null;
             try{
-                inputS = assetManager.open("IA/Data/MaxIA/BotPrompts.json");
-                inputS2 = assetManager.open("IA/Data/MaxIA/NoSeBot.json");
+                inputS = assetManager.open("IA/Data/MaxIA/BotPromptsv2.json");
+                inputS2 = assetManager.open("IA/Data/MaxIA/NoSeBotv2.json");
                 byte[] buff = new byte[inputS.available()];
                 int bytesRea;
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

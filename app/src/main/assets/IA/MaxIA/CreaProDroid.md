@@ -85,6 +85,7 @@ Para preguntas o soporte, contacta a [Creadores Program](https://github.com/Crea
   # Actualizacion de algunas cosas
   - Se cambiaron los modelos de IA a latest y solo hay 3 opciones: Gemini Flash, Gemini Flash Lite y Gemini Pro
   - Actualizacion de Base de Datos
+  - Se publico la app en Android Market Reborn/Lyano: https://market.lyano.ovh/details/?id=org.CreadoresProgram.CreaProDroid
   - Correccion de errores y poco mas.
 
 ## Creditos
