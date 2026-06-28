@@ -92,7 +92,11 @@ Para preguntas o soporte, contacta a [Creadores Program](https://github.com/Crea
   - Se cambio el modelo de ia de imagenes de Gemini Flash 2.0 a Pollinations.ai
   - Se arreglo el bug de tls antiguo en algunas peticiones de red.
   - Se arreglo el bug que hacia que al abrir la app o actualizar el modelo de Ia fuera Invalido y usara el chatbot offline hasta cambiarlo manualmente desde Configuración (Ya no debe pasar).
+  - Se arregló el bug de String en Java que usaba == y no equals (ya debe funcionar correctamente)
+  - Arreglos sutiles en css.
+  - Optimización de clientes de red.
   - Actualizacion de Base de Datos
+  - Actualizar CreadorCraftChatventure a CreadorCraft Chat Edition (CreadorCraftChatventure v2.0)
 
 ## Creditos
 - Github Copilot
@@ -105,5 +109,7 @@ Para preguntas o soporte, contacta a [Creadores Program](https://github.com/Crea
 - okio
 - Support App Compats
 - Support Compat v4
+- Pollinations.ai
+- Conscrypt
 
 Github: https://github.com/Creadores-Program/CreaProDroid
