@@ -8,8 +8,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.TlsVersion;
-import okhttp3.ConnectionSpec;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,7 +19,6 @@ import android.speech.tts.TextToSpeech;
 import java.util.Locale;
 import android.os.Bundle;
 import java.util.ArrayList;
-import java.util.Arrays;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Environment;
@@ -29,6 +26,7 @@ import android.util.Base64;
 import android.support.customtabs.CustomTabsIntent;
 import org.CreadoresProgram.CreaProDroid.MainActivity;
 import org.CreadoresProgram.CreaProDroid.update.GithubUpdate;
+import org.CreadoresProgram.CreaProDroid.okhttp.OkClients;
 
 public class JSInterface{
     private MainActivity mContext;
@@ -36,14 +34,7 @@ public class JSInterface{
     private TextToSpeech tts;
     private WebView mWebView;
     private GithubUpdate mGithubUpdate;
-    private OkHttpClient clientHt = new OkHttpClient.Builder()
-        .connectionSpecs(Arrays.asList(
-            new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-                .tlsVersions(TlsVersion.TLS_1_3, TlsVersion.TLS_1_2)
-                .build(),
-            ConnectionSpec.COMPATIBLE_TLS
-        ))
-        .build();
+    private OkHttpClient clientHt = OkClients.getInstance().getClient();
     private static final MediaType JSONHt = MediaType.parse("application/json; charset=utf-8");
     public JSInterface(MainActivity c, WebView webView) {
         mContext = c;
