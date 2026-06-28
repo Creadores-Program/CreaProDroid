@@ -4,6 +4,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.Call;
+import okhttp3.Callback;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import android.content.Context;
@@ -20,6 +22,7 @@ import java.io.InputStream;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
+import java.util.concurrent.CountDownLatch;
 import org.CreadoresProgram.CreaProDroid.IA.Plugins.*;
 import org.CreadoresProgram.CreaProDroid.okhttp.OkClients;
 
@@ -329,14 +332,34 @@ public class MaxIaManager{
                 .addHeader("Content-Type", "application/json")
                 .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Mobile Safari/537.36")
                 .build(); 
-        Response response = null;
-        try{
-            response = clientHt.newCall(request).execute();
-            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-            return response.body().string();
-        }finally {
-            if (response != null) response.close();
+        final String[] bodyRes = new String[1];
+        final IOException[] err = new IOException[1];
+        final CountDownLatch latch = new CountDownLatch(1);
+        clientHt.newCall(request).enqueue(new Callback(){
+            @Override
+            public void onFailure(Call call, IOException e) {
+                err[0] = e;
+                latch.countDown();
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try{
+                    if (response.isSuccessful()) {
+                        bodyRes[0] = response.body().string();
+                    } else {
+                        err[0] = new IOException("Unexpected code " + response);
+                    }
+                    latch.countDown();
+                }finally{
+                    if(response != null) response.close();
+                }
+            }
+        });
+        latch.await();
+        if(err[0] != null){
+            throw err[0];
         }
+        return bodyRes[0];
     }
     private String strJoin(String delimiter, String[] arry){
         StringBuilder sb = new StringBuilder();
