@@ -2,8 +2,6 @@ package org.CreadoresProgram.CreaProDroid.update;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import okhttp3.Call;
-import okhttp3.Callback;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import android.content.Context;
@@ -17,8 +15,6 @@ import android.support.customtabs.CustomTabsIntent;
 import java.io.File;
 import java.io.InputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.concurrent.CountDownLatch;
 import org.CreadoresProgram.CreaProDroid.okhttp.OkClients;
 
 public class GithubUpdate{
@@ -50,26 +46,7 @@ public class GithubUpdate{
                 .build();
         Response response = null;
         try {
-            final Response[] subRes = new Response[1];
-            final IOException[] err = new IOException[1];
-            final CountDownLatch latch = new CountDownLatch(1);
-            client.newCall(request).enqueue(new Callback(){
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    err[0] = e;
-                    latch.countDown();
-                }
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    subRes[0] = response;
-                    latch.countDown();
-                }
-            });
-            latch.await();
-            if(err[0] != null){
-                throw err[0];
-            }
-            response = subRes[0];
+            response = client.newCall(request).execute();
             if (response.isSuccessful() && response.body() != null) {
                 String jsonData = response.body().string();
                 JSONObject jsonObject = new JSONObject(jsonData);
@@ -128,5 +105,4 @@ public class GithubUpdate{
         }
     }
 }
-
 
