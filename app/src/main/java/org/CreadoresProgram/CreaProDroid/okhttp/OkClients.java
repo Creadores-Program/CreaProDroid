@@ -1,13 +1,11 @@
 package org.CreadoresProgram.CreaProDroid.okhttp;
-import okhttp3.MediaType;
+
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 import okhttp3.TlsVersion;
 import okhttp3.ConnectionSpec;
 
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 public class OkClients{
     private OkHttpClient clientHt = new OkHttpClient.Builder()
         .connectionSpecs(Arrays.asList(
