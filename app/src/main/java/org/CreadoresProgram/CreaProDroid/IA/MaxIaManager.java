@@ -275,7 +275,7 @@ public class MaxIaManager{
           response = fetch(this.url+key, promptJson.toString());
         }catch (Exception e){
             e.printStackTrace();
-            if(prompt == "Este Es Un Test de ti porfavor responde un Saludo!"){
+            if(prompt.equals("Este Es Un Test de ti porfavor responde un Saludo!")){
                 return "{{KeyInvalidTest74284}}";
             }
             return this.promptMax(prompt);
