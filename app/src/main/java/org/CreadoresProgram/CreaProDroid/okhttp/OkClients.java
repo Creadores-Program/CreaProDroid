@@ -15,16 +15,10 @@ public class OkClients{
             ConnectionSpec.COMPATIBLE_TLS
         ))
         .build();
-    private OkHttpClient clientHtIa = new OkHttpClient.Builder()
+    private OkHttpClient clientHtIa = clientHt.newBuilder()
         .connectTimeout(60, TimeUnit.SECONDS)
         .writeTimeout(360, TimeUnit.SECONDS)
         .readTimeout(120, TimeUnit.SECONDS)
-        .connectionSpecs(Arrays.asList(
-            new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-                .tlsVersions(TlsVersion.TLS_1_3, TlsVersion.TLS_1_2)
-                .build(),
-            ConnectionSpec.COMPATIBLE_TLS
-        ))
         .build();
     private static OkClients instance;
     public static OkClients getInstance(){
