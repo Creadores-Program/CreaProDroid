@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Environment;
-import android.app.DownloadManager;
+import android.util.Base64;
 import android.support.customtabs.CustomTabsIntent;
 import org.CreadoresProgram.CreaProDroid.MainActivity;
 import org.CreadoresProgram.CreaProDroid.update.GithubUpdate;
@@ -222,12 +222,19 @@ public class JSInterface{
         String imgTitle = "GenImg_"+System.currentTimeMillis()+".png";
         if(base64data.startsWith("https://")){
             try{
-                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(base64data));
-                request.allowScanningByMediaScanner();
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, imgTitle);
-                DownloadManager dm = (DownloadManager) this.mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-                dm.enqueue(request);
+                Request request = new Request.Builder()
+                    .url(base64data)
+                    .get()
+                    .build();
+                Response response = null;
+                try{
+                    response = clientHt.newCall(request).execute();
+                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+                    byte[] dataImg = response.body().bytes();
+                    base64data = "data:image/png;base64,"+Base64.encodeToString(dataImg, Base64.DEFAULT);
+                }finally {
+                    if(response != null) response.close();
+                }
             }catch(Exception e){
                 e.printStackTrace();
                 mWebView.post(new Runnable(){
@@ -236,11 +243,11 @@ public class JSInterface{
                         mWebView.loadUrl("javascript:alert('Error al guardar la imagen: '+" + org.json.JSONObject.quote(e.getMessage()) + ");");
                     }
                 });
+                return;
             }
-            return;
         }
         try{
-            byte[] decodedBytes = android.util.Base64.decode(base64data.split(",")[1], android.util.Base64.DEFAULT);
+            byte[] decodedBytes = Base64.decode(base64data.split(",")[1], Base64.DEFAULT);
             File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), imgTitle);
             java.io.FileOutputStream fos = new java.io.FileOutputStream(file);
             fos.write(decodedBytes);
