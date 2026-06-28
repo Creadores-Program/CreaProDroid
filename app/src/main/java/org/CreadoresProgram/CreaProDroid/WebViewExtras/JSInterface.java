@@ -21,7 +21,7 @@ import android.speech.tts.TextToSpeech;
 import java.util.Locale;
 import android.os.Bundle;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Environment;
@@ -37,7 +37,7 @@ public class JSInterface{
     private WebView mWebView;
     private GithubUpdate mGithubUpdate;
     private OkHttpClient clientHt = new OkHttpClient.Builder()
-        .connectionSpecs(Collections.singletonList(
+        .connectionSpecs(Arrays.asList(
             new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
                 .tlsVersions(TlsVersion.TLS_1_3, TlsVersion.TLS_1_2)
                 .build(),
