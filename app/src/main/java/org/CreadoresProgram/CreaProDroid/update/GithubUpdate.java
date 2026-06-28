@@ -2,6 +2,8 @@ package org.CreadoresProgram.CreaProDroid.update;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.TlsVersion;
+import okhttp3.ConnectionSpec;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import android.content.Context;
@@ -16,6 +18,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.FileOutputStream;
 import java.util.concurrent.TimeUnit;
+import java.util.Collections;
 
 public class GithubUpdate{
     private String repoUrl = "https://api.github.com/repos/Creadores-Program/CreaProDroid/releases/latest";
@@ -27,6 +30,11 @@ public class GithubUpdate{
         .connectTimeout(30, TimeUnit.SECONDS)
         .writeTimeout(180, TimeUnit.SECONDS)
         .readTimeout(60, TimeUnit.SECONDS)
+        .connectionSpecs(Collections.sigletonList(
+            new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+                .tlsVersions(TlsVersion.TLS_1_2)
+                .build();
+        ))
         .build();
     public GithubUpdate(Context context){
         currentVersion = getCurrentVersionName(context);

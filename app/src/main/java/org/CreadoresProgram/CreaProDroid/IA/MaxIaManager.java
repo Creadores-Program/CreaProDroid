@@ -4,6 +4,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.TlsVersion;
+import okhttp3.ConnectionSpec;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import android.content.Context;
@@ -20,6 +22,7 @@ import java.io.InputStream;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
+import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 import org.CreadoresProgram.CreaProDroid.IA.Plugins.*;
 
@@ -39,6 +42,11 @@ public class MaxIaManager{
         .connectTimeout(60, TimeUnit.SECONDS)
         .writeTimeout(360, TimeUnit.SECONDS)
         .readTimeout(120, TimeUnit.SECONDS)
+        .connectionSpecs(Collections.sigletonList(
+            new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+                .tlsVersions(TlsVersion.TLS_1_2)
+                .build();
+        ))
         .build();
     private static final MediaType JSONHt = MediaType.parse("application/json; charset=utf-8");
     private JSONArray maxBotPrompts;
