@@ -32,8 +32,9 @@ public class GithubUpdate{
         .readTimeout(60, TimeUnit.SECONDS)
         .connectionSpecs(Collections.singletonList(
             new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-                .tlsVersions(TlsVersion.TLS_1_2)
-                .build()
+                .tlsVersions(TlsVersion.TLS_1_3, TlsVersion.TLS_1_2)
+                .build(),
+            ConnectionSpec.COMPATIBLE_TLS
         ))
         .build();
     public GithubUpdate(Context context){
