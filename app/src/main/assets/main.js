@@ -193,9 +193,8 @@ function sendMessage(msg, isSpeak) {
     var responMSGIA = MarkdownToHtml.parse(subPrompIAJson.message);
     if(subPrompIAJson.genImg != null && subPrompIAJson.genImg.trim() != "" && subPrompIAJson.genImg.toLowerCase() != "string"){
         try{
-            var genimghjkfr = Android.genImg(subPrompIAJson.genImg, apiKey);
-            if(genimghjkfr == null || genimghjkfr == "Hubo un error al generar la imagen, por favor intenta de nuevo.") throw new Error("Hubo un error al generar la imagen, por favor intenta de nuevo.");
-            responMSGIA += "<br/><button style='background: url(\"./resources/download.png\") 50% 50% no-repeat; background-size: contain;' onclick='Android.saveImageGen(\""+genimghjkfr+"\");'></button><img src='"+genimghjkfr+"' alt='Imagen Generada'/>";
+            var genimghjkfr = "https://image.pollinations.ai/prompt/"+encodeURIComponent(subPrompIAJson.genImg);
+            responMSGIA += "<br/><button style='background: url(\"./resources/download.png\") 50% 50% no-repeat; background-size: contain;' onclick='var validimgD = this.parentNode.getElementsByTagName(\"img\")[0]; if(!validimgD || validimgD.naturalWidth === 0){ return; } Android.saveImageGen(\""+genimghjkfr+"\");'></button><img src='"+genimghjkfr+"' alt='Imagen Generada'/>";
         }catch(e){
             responMSGIA += "<br/>Hubo un error al generar la imagen, por favor intenta de nuevo.";
         }

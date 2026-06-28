@@ -21,6 +21,8 @@ import android.os.Bundle;
 import java.util.ArrayList;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Environment;
+import android.app.DownloadManager;
 import android.support.customtabs.CustomTabsIntent;
 import org.CreadoresProgram.CreaProDroid.MainActivity;
 import org.CreadoresProgram.CreaProDroid.update.GithubUpdate;
@@ -132,14 +134,6 @@ public class JSInterface{
         }
     }
     @JavascriptInterface
-    public String genImg(String prompt, String key){
-        try{
-          return mMaxIaManager.genImg(prompt, key);
-        }catch (Exception e){
-            throw new RuntimeException("Error: " + e.getMessage());
-        }
-    }
-    @JavascriptInterface
     public void setUserName(String name){
         mMaxIaManager.setUserName(name);
     }
@@ -225,9 +219,29 @@ public class JSInterface{
     }
     @JavascriptInterface
     public void saveImageGen(String base64data){
+        String imgTitle = "GenImg_"+System.currentTimeMillis()+".png";
+        if(base64data.startsWith("https://")){
+            try{
+                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(base64data));
+                request.allowScanningByMediaScanner();
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, imgTitle);
+                DownloadManager dm = (DownloadManager) this.mContext.getSystemService(Context.DOWNLOAD_SERVICE);
+                dm.enqueue(request);
+            }catch(Exception e){
+                e.printStackTrace();
+                mWebView.post(new Runnable(){
+                    @Override
+                    public void run(){
+                        mWebView.loadUrl("javascript:alert('Error al guardar la imagen: '+" + org.json.JSONObject.quote(e.getMessage()) + ");");
+                    }
+                });
+            }
+            return;
+        }
         try{
             byte[] decodedBytes = android.util.Base64.decode(base64data.split(",")[1], android.util.Base64.DEFAULT);
-            File file = new File(android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_DOWNLOADS), "GenImg_"+System.currentTimeMillis()+".png");
+            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), imgTitle);
             java.io.FileOutputStream fos = new java.io.FileOutputStream(file);
             fos.write(decodedBytes);
             fos.close();

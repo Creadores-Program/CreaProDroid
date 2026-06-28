@@ -32,7 +32,6 @@ public class MaxIaManager{
         "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=",
         "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key="
     };
-    private String urlGenimg = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:streamGenerateContent?key=";
     private JSONArray history = new JSONArray();
     private String UserName = "Maxi";
     private JSONArray apps = new JSONArray();
@@ -285,46 +284,6 @@ public class MaxIaManager{
         actualPrompIA.put("parts", partsIA);
         this.history.put(actualPrompIA);
         return repuest;
-    }
-
-    public String genImg(String prompt, String key) throws Exception{
-        JSONObject promptJson = new JSONObject();
-        JSONArray contents = new JSONArray();
-        JSONObject content = new JSONObject();
-        JSONArray parts = new JSONArray();
-        JSONObject part = new JSONObject();
-        part.put(TEXT_PREFIX, prompt);
-        parts.put(part);
-        content.put("parts", parts);
-        contents.put(content);
-        promptJson.put("contents", contents);
-        //Añadir Configuracion
-        JSONObject config = new JSONObject();
-        JSONArray responseModalities = new JSONArray();
-        responseModalities.put("image");
-        responseModalities.put(TEXT_PREFIX);
-        config.put("responseModalities", responseModalities);
-        promptJson.put("generationConfig", config);
-        //Enviar peticion
-        String response = "";
-        try{
-          response = fetch(this.urlGenimg+key, promptJson.toString());
-        }catch (Exception e){
-            e.printStackTrace();
-            return "Hubo un error al generar la imagen, por favor intenta de nuevo.";
-        }
-        //Parsear respuesta
-        JSONArray responseJson = new JSONArray(response);
-        String responseContent = "";
-        for(int i = 0; i < responseJson.length(); i++){
-            JSONObject chunk = responseJson.getJSONObject(i);
-            if(!chunk.has("candidates") || !chunk.getJSONArray("candidates").getJSONObject(0).has("content") || !chunk.getJSONArray("candidates").getJSONObject(0).getJSONObject("content").has("parts") || !chunk.getJSONArray("candidates").getJSONObject(0).getJSONObject("content").getJSONArray("parts").getJSONObject(0).has("inlineData")){
-                continue;
-            }
-            responseContent = chunk.getJSONArray("candidates").getJSONObject(0).getJSONObject("content").getJSONArray("parts").getJSONObject(0).getJSONObject("inlineData").getString("data");
-            break;
-        }
-        return "data:image/png;base64,"+responseContent;
     }
 
     public String promptMax(String prompt){
