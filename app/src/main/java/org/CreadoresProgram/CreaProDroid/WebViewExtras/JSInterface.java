@@ -37,10 +37,10 @@ public class JSInterface{
     private WebView mWebView;
     private GithubUpdate mGithubUpdate;
     private OkHttpClient clientHt = new OkHttpClient.Builder()
-        .connectionSpecs(Collections.sigletonList(
+        .connectionSpecs(Collections.singletonList(
             new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
                 .tlsVersions(TlsVersion.TLS_1_2)
-                .build();
+                .build()
         ))
         .build();
     private static final MediaType JSONHt = MediaType.parse("application/json; charset=utf-8");

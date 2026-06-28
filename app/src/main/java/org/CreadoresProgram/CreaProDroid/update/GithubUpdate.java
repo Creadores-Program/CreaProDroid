@@ -30,10 +30,10 @@ public class GithubUpdate{
         .connectTimeout(30, TimeUnit.SECONDS)
         .writeTimeout(180, TimeUnit.SECONDS)
         .readTimeout(60, TimeUnit.SECONDS)
-        .connectionSpecs(Collections.sigletonList(
+        .connectionSpecs(Collections.singletonList(
             new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
                 .tlsVersions(TlsVersion.TLS_1_2)
-                .build();
+                .build()
         ))
         .build();
     public GithubUpdate(Context context){
