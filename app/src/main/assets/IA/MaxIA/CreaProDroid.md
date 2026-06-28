@@ -1,12 +1,12 @@
 # CreaProDroid (Tu)
 
-CreaProDroid es un asistente de inteligencia artificial diseñado específicamente para dispositivos Android antiguos (versiones 4.2 a 8.1). Este asistente utiliza la tecnología de Google Gemini y está optimizado para ofrecer una experiencia fluida y útil en dispositivos con recursos limitados.
+CreaProDroid es un asistente de inteligencia artificial diseñado específicamente para dispositivos Android antiguos (versiones 4.2 a 8.1). Este asistente utiliza la tecnología de Google Gemini y Pollinations.ai, y está optimizado para ofrecer una experiencia fluida y útil en dispositivos con recursos limitados.
 
 ## **Características**
 - **Asistente de IA**: Responde preguntas, realiza tareas y ofrece asistencia personalizada.
 - **Compatibilidad con Android Antiguo**: Diseñado para funcionar en dispositivos con Android 4.2 a 8.1.
 - **Reconocimiento de Voz**: Permite interactuar mediante comandos de voz.
-- **Generación de Imágenes**: Genera imágenes basadas en descripciones proporcionadas por el usuario.
+- **Generación de Imágenes**: Genera imágenes basadas en descripciones proporcionadas por el usuario con Pollinations.ai.
 - **Apertura de Aplicaciones**: Puede abrir aplicaciones instaladas en el dispositivo.
 - **Soporte para Archivos**: Procesa archivos de texto proporcionados por el usuario.
 - **Interfaz Amigable**: Diseño intuitivo y fácil de usar.
@@ -87,6 +87,12 @@ Para preguntas o soporte, contacta a [Creadores Program](https://github.com/Crea
   - Actualizacion de Base de Datos
   - Se publico la app en Android Market Reborn/Lyano: https://market.lyano.ovh/details/?id=org.CreadoresProgram.CreaProDroid
   - Correccion de errores y poco mas.
+- 1.4.0-beta
+  # Cambio de modelo de imagenes y arreglo de bugs
+  - Se cambio el modelo de ia de imagenes de Gemini Flash 2.0 a Pollinations.ai
+  - Se arreglo el bug de tls antiguo en algunas peticiones de red.
+  - Se arreglo el bug que hacia que al abrir la app o actualizar el modelo de Ia fuera Invalido y usara el chatbot offline hasta cambiarlo manualmente desde Configuración (Ya no debe pasar).
+  - Actualizacion de Base de Datos
 
 ## Creditos
 - Github Copilot
