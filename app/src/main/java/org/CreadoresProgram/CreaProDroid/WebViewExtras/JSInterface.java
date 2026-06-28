@@ -8,15 +8,12 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.Callback;
-import okhttp3.Call;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.concurrent.CountDownLatch;
 import org.CreadoresProgram.CreaProDroid.IA.MaxIaManager;
 import android.speech.tts.TextToSpeech;
 import java.util.Locale;
@@ -74,69 +71,29 @@ public class JSInterface{
                 .url(url)
                 .post(body)
                 .build();
-            final String[] bodyRes = new String[1];
-            final IOException[] err = new IOException[1];
-            final CountDownLatch latch = new CountDownLatch(1);
-            clientHt.newCall(request).enqueue(new Callback(){
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    err[0] = e;
-                    latch.countDown();
-                }
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    try{
-                        if (response.isSuccessful()) {
-                            bodyRes[0] = response.body().string();
-                        } else {
-                            err[0] = new IOException("Unexpected code " + response);
-                        }
-                        latch.countDown();
-                    }finally{
-                        if(response != null) response.close();
-                    }
-                }
-            });
-            latch.await();
-            if(err[0] != null){
-                throw err[0];
+            Response response = null;
+            try{
+                response = clientHt.newCall(request).execute();
+                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+                return response.body().string();
+            }finally {
+                if(response != null) response.close();
             }
-            return bodyRes[0];
         }else{
             Request request = new Request.Builder()
                 .url(url)
                 .get()
                 .build();
-            final String[] bodyRes = new String[1];
-            final IOException[] err = new IOException[1];
-            final CountDownLatch latch = new CountDownLatch(1);
-            clientHt.newCall(request).enqueue(new Callback(){
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    err[0] = e;
-                    latch.countDown();
-                }
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    try{
-                        if (response.isSuccessful()) {
-                            bodyRes[0] = response.body().string();
-                        } else {
-                            err[0] = new IOException("Unexpected code " + response);
-                        }
-                        latch.countDown();
-                    }finally{
-                        if(response != null) response.close();
-                    }
-                }
-            });
-            latch.await();
-            if(err[0] != null){
-                throw err[0];
+            Response response = null;
+            try{
+                response = clientHt.newCall(request).execute();
+                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+                return response.body().string();
+            }finally {
+                if(response != null) response.close();
             }
-            return bodyRes[0];
         }
-        }catch (Exception e){
+        }catch (IOException e){
             throw new RuntimeException("Error: " + e.getMessage());
         }
     }
@@ -303,4 +260,3 @@ public class JSInterface{
         }
     }
 }
-
