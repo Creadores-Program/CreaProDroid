@@ -95,6 +95,22 @@ public class MainActivity extends Activity {
         }
     }
     @Override
+    protected void onPause(){
+        super.onPause();
+        if(this.webview != null){
+            webview.onPause();
+            webview.pauseTimers();
+        }
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(this.webview != null){
+            webview.onResume();
+            webview.resumeTimers();
+        }
+    }
+    @Override
     protected void onDestroy() {
         webview.post(new Runnable(){
             @Override
