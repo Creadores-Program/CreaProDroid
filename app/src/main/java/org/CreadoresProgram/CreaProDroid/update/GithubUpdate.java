@@ -18,7 +18,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.FileOutputStream;
 import java.util.concurrent.TimeUnit;
-import java.util.Collections;
+import java.util.Arrays;
 
 public class GithubUpdate{
     private String repoUrl = "https://api.github.com/repos/Creadores-Program/CreaProDroid/releases/latest";
@@ -30,7 +30,7 @@ public class GithubUpdate{
         .connectTimeout(30, TimeUnit.SECONDS)
         .writeTimeout(180, TimeUnit.SECONDS)
         .readTimeout(60, TimeUnit.SECONDS)
-        .connectionSpecs(Collections.singletonList(
+        .connectionSpecs(Arrays.asList(
             new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
                 .tlsVersions(TlsVersion.TLS_1_3, TlsVersion.TLS_1_2)
                 .build(),
