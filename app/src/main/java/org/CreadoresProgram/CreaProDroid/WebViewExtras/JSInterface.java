@@ -21,9 +21,12 @@ import android.os.Bundle;
 import java.util.ArrayList;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Environment;
+import android.util.Base64;
 import android.support.customtabs.CustomTabsIntent;
 import org.CreadoresProgram.CreaProDroid.MainActivity;
 import org.CreadoresProgram.CreaProDroid.update.GithubUpdate;
+import org.CreadoresProgram.CreaProDroid.okhttp.OkClients;
 
 public class JSInterface{
     private MainActivity mContext;
@@ -31,7 +34,7 @@ public class JSInterface{
     private TextToSpeech tts;
     private WebView mWebView;
     private GithubUpdate mGithubUpdate;
-    private OkHttpClient clientHt = new OkHttpClient();
+    private OkHttpClient clientHt = OkClients.getInstance().getClient();
     private static final MediaType JSONHt = MediaType.parse("application/json; charset=utf-8");
     public JSInterface(MainActivity c, WebView webView) {
         mContext = c;
@@ -62,7 +65,7 @@ public class JSInterface{
     @JavascriptInterface
     public String fetch(String url, String method, String data) {
         try{
-        if(method == "POST"){
+        if(method.equals("POST")){
             RequestBody body = RequestBody.create(JSONHt, data);
             Request request = new Request.Builder()
                 .url(url)
@@ -129,14 +132,6 @@ public class JSInterface{
             mMaxIaManager.setPlugins(arr);
         }catch(Exception e){
             e.printStackTrace();
-        }
-    }
-    @JavascriptInterface
-    public String genImg(String prompt, String key){
-        try{
-          return mMaxIaManager.genImg(prompt, key);
-        }catch (Exception e){
-            throw new RuntimeException("Error: " + e.getMessage());
         }
     }
     @JavascriptInterface
@@ -226,8 +221,25 @@ public class JSInterface{
     @JavascriptInterface
     public void saveImageGen(String base64data){
         try{
-            byte[] decodedBytes = android.util.Base64.decode(base64data.split(",")[1], android.util.Base64.DEFAULT);
-            File file = new File(android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_DOWNLOADS), "GenImg_"+System.currentTimeMillis()+".png");
+            byte[] decodedBytes = new byte[0];
+            String imgTitle = "GenImg_"+System.currentTimeMillis()+".png";
+            if(base64data.startsWith("https://")){
+                Request request = new Request.Builder()
+                    .url(base64data)
+                    .get()
+                    .build();
+                Response response = null;
+                try{
+                    response = clientHt.newCall(request).execute();
+                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+                    decodedBytes = response.body().bytes();
+                }finally {
+                    if(response != null) response.close();
+                }
+            }else{
+                decodedBytes = Base64.decode(base64data.split(",")[1], Base64.DEFAULT);
+            }
+            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), imgTitle);
             java.io.FileOutputStream fos = new java.io.FileOutputStream(file);
             fos.write(decodedBytes);
             fos.close();
@@ -248,4 +260,3 @@ public class JSInterface{
         }
     }
 }
-

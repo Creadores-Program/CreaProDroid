@@ -1,13 +1,13 @@
 # CreaProDroid
 
-CreaProDroid es un asistente de inteligencia artificial diseñado específicamente para dispositivos Android antiguos (versiones 4.2 a 8.1). Este asistente utiliza la tecnología de Google Gemini y está optimizado para ofrecer una experiencia fluida y útil en dispositivos con recursos limitados.
+CreaProDroid es un asistente de inteligencia artificial diseñado específicamente para dispositivos Android antiguos (versiones 4.2 a 8.1). Este asistente utiliza la tecnología de Google Gemini y Pollinations.ai, y está optimizado para ofrecer una experiencia fluida y útil en dispositivos con recursos limitados.
 Si este no es compatible puedes probar [CreaProPhone J2ME](https://github.com/Creadores-Program/CreaProPhone) con [J2ME Loader de SpoxgoStore](https://spoxgostore-blogspot.com/p/j2me-loader.html) que extiende la compatibilidad a Android 2.3
 
 ## **Características**
 - **Asistente de IA**: Responde preguntas, realiza tareas y ofrece asistencia personalizada.
 - **Compatibilidad con Android Antiguo**: Diseñado para funcionar en dispositivos con Android 4.2 a 8.1.
 - **Reconocimiento de Voz**: Permite interactuar mediante comandos de voz.
-- **Generación de Imágenes**: Genera imágenes basadas en descripciones proporcionadas por el usuario.
+- **Generación de Imágenes**: Genera imágenes basadas en descripciones proporcionadas por el usuario con Pollinations.ai.
 - **Apertura de Aplicaciones**: Puede abrir aplicaciones instaladas en el dispositivo.
 - **Soporte para Archivos**: Procesa archivos de texto proporcionados por el usuario.
 - **Interfaz Amigable**: Diseño intuitivo y fácil de usar.
@@ -70,3 +70,5 @@ Para preguntas o soporte, contacta a [Creadores Program](https://github.com/Crea
 - okio
 - Support App Compats
 - Support Compat v4
+- Pollinations.ai
+- Conscrypt

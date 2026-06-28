@@ -15,8 +15,7 @@ import android.support.customtabs.CustomTabsIntent;
 import java.io.File;
 import java.io.InputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
+import org.CreadoresProgram.CreaProDroid.okhttp.OkClients;
 
 public class GithubUpdate{
     private String repoUrl = "https://api.github.com/repos/Creadores-Program/CreaProDroid/releases/latest";
@@ -24,11 +23,7 @@ public class GithubUpdate{
     private String urlDownload;
     private long sizeApkDown;
     private String descriptionVer;
-    private OkHttpClient client = new OkHttpClient.Builder()
-        .connectTimeout(30, TimeUnit.SECONDS)
-        .writeTimeout(180, TimeUnit.SECONDS)
-        .readTimeout(60, TimeUnit.SECONDS)
-        .build();
+    private OkHttpClient client = OkClients.getInstance().getClient();
     public GithubUpdate(Context context){
         currentVersion = getCurrentVersionName(context);
         File outputFile = new File(context.getExternalFilesDir(null), "CreaProDroid.apk");
@@ -110,5 +105,4 @@ public class GithubUpdate{
         }
     }
 }
-
 

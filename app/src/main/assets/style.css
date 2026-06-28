@@ -6,7 +6,7 @@ body{
     font-family: Arial, sans-serif;
     font-size: 16px;
 }
-*:not(.generedImg, .bubble){
+*:not(.generedImg):not(.bubble){
     user-select: none;
 }
 .chat-container{
@@ -14,6 +14,8 @@ body{
     margin: 0 auto;
     padding: 20px;
     overflow: hidden;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 .message{
     margin-bottom: 15px;
@@ -36,6 +38,7 @@ body{
     background-repeat: no-repeat;
     background-position: center;
     border: none;
+    -webkit-border-radius: 50%;
     border-radius: 50%;
     cursor: pointer;
     transition: transform 0.2s, background-color 0.2s;
@@ -89,6 +92,7 @@ body{
     color: #ffffff;
     padding: 10px 15px;
     margin: 10px 0;
+    -webkit-border-radius: 10px;
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.2s, transform 0.2s;
@@ -112,6 +116,7 @@ body{
     width: 100%;
     height: 100%;
     overflow: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 #config-container, #oldChats-container {
     background-color: #1e1e1e;
@@ -140,6 +145,7 @@ body{
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5);
     max-width: 100%;
     box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     overflow: hidden;
 }
 
@@ -152,6 +158,7 @@ body{
     background-position: center;
     border: none;
     border-radius: 50%;
+    -webkit-border-radius: 50%;
     cursor: pointer;
     transition: transform 0.2s, background-color 0.2s;
 }
@@ -169,6 +176,7 @@ body{
     color: #ffffff;
     border: 1px solid #444444;
     border-radius: 25px;
+    -webkit-border-radius: 25px;
     font-size: 16px;
     outline: none;
     transition: border-color 0.2s;
@@ -203,6 +211,7 @@ body{
     color: #ffffff;
     border: 1px solid #444444;
     border-radius: 8px;
+    -webkit-border-radius: 8px;
     font-size: 16px;
     margin-bottom: 15px;
     outline: none;
@@ -221,11 +230,13 @@ pre code textarea{
     color: #ffffff;
     border: 1px solid #444444;
     border-radius: 8px;
+    -webkit-border-radius: 8px;
     font-size: 15px;
     padding: 10px 15px;
     margin-bottom: 15px;
     outline: none;
     box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     transition: border-color 0.2s, background-color 0.2s;
 }
 pre code textarea:focus {
@@ -258,9 +269,11 @@ pre code textarea:focus {
     background-color: #2c2c2c;
     border: 1.5px solid #444444;
     border-radius: 26px;
+    -webkit-border-radius: 26px;
     position: relative;
     margin-right: 12px;
     box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     vertical-align: middle;
     display: inline-block;
 }
@@ -273,6 +286,7 @@ pre code textarea:focus {
     width: 20px;
     height: 20px;
     background-color: #e0e0e0;
+    -webkit-border-radius: 50%;
     border-radius: 50%;
     transition: left 0.2s;
 }
