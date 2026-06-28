@@ -44,8 +44,9 @@ public class MaxIaManager{
         .readTimeout(120, TimeUnit.SECONDS)
         .connectionSpecs(Collections.singletonList(
             new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-                .tlsVersions(TlsVersion.TLS_1_2)
-                .build()
+                .tlsVersions(TlsVersion.TLS_1_3, TlsVersion.TLS_1_2)
+                .build(),
+            ConnectionSpec.COMPATIBLE_TLS
         ))
         .build();
     private static final MediaType JSONHt = MediaType.parse("application/json; charset=utf-8");
