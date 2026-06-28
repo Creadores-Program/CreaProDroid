@@ -74,7 +74,7 @@ public class JSInterface{
     @JavascriptInterface
     public String fetch(String url, String method, String data) {
         try{
-        if(method == "POST"){
+        if(method.equals("POST")){
             RequestBody body = RequestBody.create(JSONHt, data);
             Request request = new Request.Builder()
                 .url(url)
