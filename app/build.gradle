@@ -3,6 +3,7 @@ plugins {
 }
 dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.12.13'
+    implementation 'org.conscrypt:conscrypt-android:2.5.2'
     implementation files('libs/Compatv4.jar')
     implementation files('libs/zappcompats.jar')
     implementation files('libs/customTabs.jar')
