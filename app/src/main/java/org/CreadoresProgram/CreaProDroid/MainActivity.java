@@ -22,6 +22,8 @@ import java.io.InputStreamReader;
 import java.io.InputStream;
 import java.io.FileInputStream;
 import java.io.File;
+import java.security.Security;
+import org.conscrypt.Conscrypt;
 
 public class MainActivity extends Activity {
     public static final int FILE_UPLOAD_REQUEST_CODE = 1;
@@ -30,6 +32,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Security.insertProviderAt(Conscrypt.newProvider(), 1);
         setContentView(R.layout.layout_main);
         WebView webView = (WebView) findViewById(R.id.webview);
         webView.setWebViewClient(new WebViewClient(){
