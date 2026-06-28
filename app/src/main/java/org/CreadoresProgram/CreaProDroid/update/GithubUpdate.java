@@ -2,8 +2,6 @@ package org.CreadoresProgram.CreaProDroid.update;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import okhttp3.TlsVersion;
-import okhttp3.ConnectionSpec;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import android.content.Context;
@@ -17,8 +15,7 @@ import android.support.customtabs.CustomTabsIntent;
 import java.io.File;
 import java.io.InputStream;
 import java.io.FileOutputStream;
-import java.util.concurrent.TimeUnit;
-import java.util.Arrays;
+import org.CreadoresProgram.CreaProDroid.okhttp.OkClients;
 
 public class GithubUpdate{
     private String repoUrl = "https://api.github.com/repos/Creadores-Program/CreaProDroid/releases/latest";
@@ -26,17 +23,7 @@ public class GithubUpdate{
     private String urlDownload;
     private long sizeApkDown;
     private String descriptionVer;
-    private OkHttpClient client = new OkHttpClient.Builder()
-        .connectTimeout(30, TimeUnit.SECONDS)
-        .writeTimeout(180, TimeUnit.SECONDS)
-        .readTimeout(60, TimeUnit.SECONDS)
-        .connectionSpecs(Arrays.asList(
-            new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-                .tlsVersions(TlsVersion.TLS_1_3, TlsVersion.TLS_1_2)
-                .build(),
-            ConnectionSpec.COMPATIBLE_TLS
-        ))
-        .build();
+    private OkHttpClient client = OkClients.getInstance().getClient();
     public GithubUpdate(Context context){
         currentVersion = getCurrentVersionName(context);
         File outputFile = new File(context.getExternalFilesDir(null), "CreaProDroid.apk");
