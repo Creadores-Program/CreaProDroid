@@ -219,9 +219,10 @@ public class JSInterface{
     }
     @JavascriptInterface
     public void saveImageGen(String base64data){
-        String imgTitle = "GenImg_"+System.currentTimeMillis()+".png";
-        if(base64data.startsWith("https://")){
-            try{
+        try{
+            byte[] decodedBytes = new byte[0];
+            String imgTitle = "GenImg_"+System.currentTimeMillis()+".png";
+            if(base64data.startsWith("https://")){
                 Request request = new Request.Builder()
                     .url(base64data)
                     .get()
@@ -230,24 +231,13 @@ public class JSInterface{
                 try{
                     response = clientHt.newCall(request).execute();
                     if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-                    byte[] dataImg = response.body().bytes();
-                    base64data = "data:image/png;base64,"+Base64.encodeToString(dataImg, Base64.DEFAULT);
+                    decodedBytes = response.body().bytes();
                 }finally {
                     if(response != null) response.close();
                 }
-            }catch(Exception e){
-                e.printStackTrace();
-                mWebView.post(new Runnable(){
-                    @Override
-                    public void run(){
-                        mWebView.loadUrl("javascript:alert('Error al guardar la imagen: '+" + org.json.JSONObject.quote(e.getMessage()) + ");");
-                    }
-                });
-                return;
+            }else{
+                decodedBytes = Base64.decode(base64data.split(",")[1], Base64.DEFAULT);
             }
-        }
-        try{
-            byte[] decodedBytes = Base64.decode(base64data.split(",")[1], Base64.DEFAULT);
             File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), imgTitle);
             java.io.FileOutputStream fos = new java.io.FileOutputStream(file);
             fos.write(decodedBytes);
