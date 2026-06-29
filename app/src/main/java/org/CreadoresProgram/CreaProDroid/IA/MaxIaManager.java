@@ -14,16 +14,31 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.pm.ApplicationInfo;
+import android.os.Build;
 import java.util.List;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 import java.util.Random;
 import org.CreadoresProgram.CreaProDroid.IA.Plugins.*;
 import org.CreadoresProgram.CreaProDroid.okhttp.OkClients;
 
 public class MaxIaManager{
+    private static final Charset dataCodeStr;
+    static{
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            dataCodeStr = KitkatCharset.getUTF8();
+        }else{
+            dataCodeStr = Charset.forName("UTF-8");
+        }
+    }
+    private static class KitkatCharset{
+        static Charset getUTF8(){
+            return StandardCharsets.UTF_8;
+        }
+    }
     private String BaseDataIA = "";
     private String gamesIA = "";
     private String url = "";
@@ -61,7 +76,7 @@ public class MaxIaManager{
                           outputStream.write(buff, 0, bytesRea);
                         }
                         byte[] fileBytes = outputStream.toByteArray();
-                        this.BaseDataIA += " . " + new String(fileBytes, StandardCharsets.UTF_8);
+                        this.BaseDataIA += " . " + new String(fileBytes, dataCodeStr);
                     }finally {
                         if(inputStream != null) inputStream.close();
                     }
