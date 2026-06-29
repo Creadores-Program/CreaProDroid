@@ -95,7 +95,7 @@ public class MaxIaManager{
                           outputStream.write(buff, 0, bytesRea);
                         }
                         byte[] fileBytes = outputStream.toByteArray();
-                        this.gamesIA += " . " + new String(fileBytes, StandardCharsets.UTF_8);
+                        this.gamesIA += " . " + new String(fileBytes, dataCodeStr);
                     }finally {
                         if(inputStream != null) inputStream.close();
                     }
@@ -113,7 +113,7 @@ public class MaxIaManager{
                     outputStream.write(buff, 0, bytesRea);
                 }
                 byte[] fileBytes = outputStream.toByteArray();
-                this.maxBotPrompts = new JSONArray(new String(fileBytes, StandardCharsets.UTF_8));
+                this.maxBotPrompts = new JSONArray(new String(fileBytes, dataCodeStr));
                 byte[] buff2 = new byte[inputS2.available()];
                 int bytesRea2;
                 ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
@@ -121,7 +121,7 @@ public class MaxIaManager{
                     outputStream2.write(buff2, 0, bytesRea2);
                 }
                 byte[] fileBytes2 = outputStream2.toByteArray();
-                this.maxNoSeBotPrompts = new JSONArray(new String(fileBytes2, StandardCharsets.UTF_8));
+                this.maxNoSeBotPrompts = new JSONArray(new String(fileBytes2, dataCodeStr));
             }finally {
                 if(inputS != null) inputS.close();
                 if(inputS2 != null) inputS2.close();
