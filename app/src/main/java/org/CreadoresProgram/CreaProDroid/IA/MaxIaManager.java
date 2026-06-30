@@ -22,6 +22,7 @@ import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.charset.Charset;
 import java.util.Random;
+import java.util.ArrayList;
 import org.CreadoresProgram.CreaProDroid.IA.Plugins.*;
 import org.CreadoresProgram.CreaProDroid.okhttp.OkClients;
 
@@ -297,18 +298,33 @@ public class MaxIaManager{
         return repuest;
     }
 
+    private static final double ACCEPTANCE_THRESHOLD = 0.45;
     public String promptMax(String prompt){
       String promptToMax = clearPalabra(prompt.split("\\[File:")[0]).toLowerCase().replaceAll("[\\p{Z}\\s]+", " ").trim().replaceAll("[^a-zA-Z]", "").replace("creaprodroid", "%BotName");
       try{
+        int mayorIndexGroup = -1;
+        double maxSimilarity = 0.0;
         for(int i = 0; i < this.maxBotPrompts.length(); i++){
             JSONArray prompts = this.maxBotPrompts.getJSONArray(i).getJSONArray(0);
             for(int j = 0; j < prompts.length(); j++){
                 String promptUser = prompts.getString(j);
                 if(promptToMax.equals(promptUser)){
-                    int elecRespon = new Random().nextInt(this.maxBotPrompts.getJSONArray(i).getJSONArray(1).length());
-                    return this.maxBotPrompts.getJSONArray(i).getJSONArray(1).getString(elecRespon).replace("%UserName", this.UserName).replace("%BotName", "CreaPro Droid").replace("%emoji.avatar", "🤖");
+                    mayorIndexGroup = i;
+                    maxSimilarity = 1.0;
+                    break;
+                }
+                double similarityAc = calculateSimilarityMax(promptToMax, promptUser);
+                if(similarityAc > maxSimilarity){
+                    maxSimilarity = similarityAc;
+                    mayorIndexGroup = i;
                 }
             }
+            if (maxSimilarity == 1.0) break;
+        }
+        if(mayorIndexGroup != -1 && maxSimilarity >= ACCEPTANCE_THRESHOLD){
+            JSONArray resp = this.maxBotPrompts.getJSONArray(mayorIndexGroup);
+            int elecRespon = new Random().nextInt(resp.getJSONArray(1).length());
+            return resp.getJSONArray(1).getString(elecRespon).replace("%UserName", this.UserName).replace("%BotName", "CreaPro Droid").replace("%emoji.avatar", "🤖");
         }
         return this.maxNoSeBotPrompts.getString(new Random().nextInt(this.maxNoSeBotPrompts.length())).replace("%UserName", this.UserName).replace("%BotName", "CreaPro Droid").replace("%emoji.avatar", "🤖");
       }catch (Exception e){
@@ -326,6 +342,32 @@ public class MaxIaManager{
             promp = promp.replace(acento[i], limpio[i]);
         }
         return promp;
+    }
+
+    private double calculateSimilarityMax(String str1, String str2) {
+        if (str1.equals(str2)) return 1.0;
+        if (str1.length() < 2 || str2.length() < 2) return 0.0;
+        ArrayList<String> s1 = new ArrayList<String>();
+        for (int i = 0; i < str1.length() - 1; i++) {
+             s1.add(str1.substring(i, i + 2));
+        }
+        ArrayList<String> s2 = new ArrayList<String>();
+        for (int i = 0; i < str2.length() - 1; i++) {
+             s2.add(str2.substring(i, i + 2));
+        }
+        int intersection = 0;
+        int totalS2 = s2.size();
+        for (int i = 0; i < s1.size(); i++) {
+            String bigram = s1.get(i);
+            for (int j = 0; j < s2.size(); j++) {
+                if (bigram.equals(s2.get(j))) {
+                    intersection++;
+                    s2.remove(j);
+                    break;
+                }
+            }
+        }
+        return (2.0 * intersection) / (s1.size() + totalS2);
     }
 
     public void clearChat(){
