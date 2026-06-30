@@ -14,7 +14,7 @@ if (!String.prototype.trim) {
     };
 }
 if(localStorage.getItem("apiKey") == null){
-    apiKey = prompt("Escribe tu API key:");
+    apiKey = encodeURIComponent(prompt("Escribe tu API key:"));
     if(apiKey == null || apiKey.trim() == ""){
         alert("No se puede continuar sin la API key.");
         Android.finish();
