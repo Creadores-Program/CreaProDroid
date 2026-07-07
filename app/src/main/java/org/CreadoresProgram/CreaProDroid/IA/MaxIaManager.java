@@ -4,6 +4,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.HttpUrl;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import android.content.Context;
@@ -42,11 +43,12 @@ public class MaxIaManager{
     }
     private String BaseDataIA = "";
     private String gamesIA = "";
-    private String url = "";
+    private HttpUrl url = null;
+    private static final String urlBaseGemini = "https://generativelanguage.googleapis.com/";
     private String[] urlKeys = {
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-latest:generateContent?key=",
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=",
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key="
+        "gemini-pro-latest:generateContent",
+        "gemini-flash-latest:generateContent",
+        "gemini-flash-lite-latest:generateContent"
     };
     private JSONArray history = new JSONArray();
     private String UserName = "Maxi";
@@ -163,7 +165,7 @@ public class MaxIaManager{
         return this.history.toString();
     }
     public void setModel(int model){
-        this.url = this.urlKeys[model];
+        this.url = HttpUrl.parse(urlBaseGemini).newBuilder().addPathSegment("v1beta").addPathSegment("models").addPathSegment(this.urlKeys[model]).build();
     }
     public void setPersonalityPrompt(String prompt){
         this.personalityPrompt = prompt;
@@ -275,7 +277,7 @@ public class MaxIaManager{
         //Enviar peticion
         String response = "";
         try{
-          response = fetch(this.url+key, promptJson.toString());
+          response = fetch(this.url.newBuilder().setQueryParameter("key", key).build(), promptJson.toString());
         }catch (Exception e){
             e.printStackTrace();
             if(prompt.equals("Este Es Un Test de ti porfavor responde un Saludo!")){
@@ -378,7 +380,7 @@ public class MaxIaManager{
         this.UserName = name;
     }
 
-    private String fetch(String url, String data) throws Exception{
+    private String fetch(HttpUrl url, String data) throws Exception{
         RequestBody body = RequestBody.create(JSONHt, data);
         Request request = new Request.Builder()
                 .url(url)
