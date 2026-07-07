@@ -44,7 +44,7 @@ public class MaxIaManager{
     private String BaseDataIA = "";
     private String gamesIA = "";
     private HttpUrl url = null;
-    private static final String urlBaseGemini = "https://generativelanguage.googleapis.com/";
+    private static final String urlBaseGemini = "https://generativelanguage.googleapis.com";
     private String[] urlKeys = {
         "gemini-pro-latest:generateContent",
         "gemini-flash-latest:generateContent",
