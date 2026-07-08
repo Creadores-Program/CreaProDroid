@@ -44,7 +44,7 @@ public class MaxIaManager{
     private String BaseDataIA = "";
     private String gamesIA = "";
     private HttpUrl url = null;
-    private static final String urlBaseGemini = "https://generativelanguage.googleapis.com";
+    private static final HttpUrl urlBaseGemini = HttpUrl.parse("https://generativelanguage.googleapis.com").newBuilder().addPathSegment("v1beta").addPathSegment("models").build();
     private String[] urlKeys = {
         "gemini-pro-latest:generateContent",
         "gemini-flash-latest:generateContent",
@@ -165,7 +165,7 @@ public class MaxIaManager{
         return this.history.toString();
     }
     public void setModel(int model){
-        this.url = HttpUrl.parse(urlBaseGemini).newBuilder().addPathSegment("v1beta").addPathSegment("models").addPathSegment(this.urlKeys[model]).build();
+        this.url = urlBaseGemini.newBuilder().addPathSegment(this.urlKeys[model]).build();
     }
     public void setPersonalityPrompt(String prompt){
         this.personalityPrompt = prompt;
