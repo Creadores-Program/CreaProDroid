@@ -5,6 +5,9 @@ body{
     color: #e0e0e0;
     font-family: Arial, sans-serif;
     font-size: 16px;
+    opacity: 0;
+    -webkit-transition: opacity 0.2s ease-in-out;
+    transition: opacity 0.2s ease-in-out;
 }
 *:not(.generedImg):not(.bubble){
     user-select: none;
@@ -321,4 +324,9 @@ pre code textarea:focus {
     line-height: 1.3;
     white-space: normal;
     word-break: break-word;
+}
+
+.about-section{
+    padding: 15px;
+    
 }

@@ -337,6 +337,7 @@ window.onload = function() {
             localStorage.setItem("pluginsIA", JSON.stringify(pluginsIA));
         }
     };
+    document.body.style.opacity = "1";
 };
 
 //setPlugins

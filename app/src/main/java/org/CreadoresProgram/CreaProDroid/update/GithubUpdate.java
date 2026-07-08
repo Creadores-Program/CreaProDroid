@@ -54,7 +54,7 @@ public class GithubUpdate{
                 for(int i = 0; i < assetsGithub.length(); i++){
                     JSONObject asset = assetsGithub.getJSONObject(i);
                     if(asset.getString("name").endsWith(".apk")){
-                        urlDownload = jsonObject.getString("html_url");
+                        urlDownload = jsonObject.getString("browser_download_url");
                         sizeApkDown = asset.getLong("size");
                         descriptionVer = jsonObject.getString("name")+"\n"+jsonObject.getString("body");
                     }
