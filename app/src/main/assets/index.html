@@ -24,6 +24,19 @@
             <button onclick="if(confirm('Quieres Borrar la conversacion?')){ Android.clearChat(); document.getElementById('Chat').innerHTML = ''; }" style="background: url('./resources/chat_error.png') 50% 50% no-repeat;"></button>
         </div>
     </div>
+    <div class="InterfaceH HideDef" id="ReqPerms">
+        <div id="reqPerms-header" style="position: -webkit-sticky; position: sticky; top: 0;">
+            <h1>Permisos</h1>
+        </div>
+        <div id="reqPermsDesq">
+            <p>Permisos Requeridos para el funcionamiento de la app:<br/>
+            • Almacenamiento: requerido para guardar imágenes generadas o subir archivos para la IA.<br/>
+            • Grabar Audio: requerido para grabar tu voz para hablar con la IA<br/>
+            • Contactos: requerido para que la IA pueda ver tus contactos para enviar mensajes, hacer llamadas y más (solo si el plugin está activo)<br/>
+            Además está app es totalmente de código abierto y puedes ver su código <button class="github-btn" onclick="Android.openUrl('https://github.com/Creadores-Program/CreaProDroid')">en Github</button></p><br/>
+            <button id="reqPermsBtn" onclick="Android.reqPerms(); if(!Android.hasPerms()){ alert('Porfavor acepta los permisos'); }else{ document.getElementById('ReqPerms').style.display = 'none'; document.getElementById('Home').style.display = 'block'; }">Aceptar Permisos</button>
+        </div>
+    </div>
     <div class="InterfaceH HideDef" id="OldsChats">
         <div id="oldChats-header" style="position: -webkit-sticky; position: sticky; top: 0;">
             <div id="backOlCBtn" style="width: 40px; height: 40px; background: url('./resources/close.png') 50% 50% no-repeat; background-size: contain;" onclick="document.getElementById('OldsChats').style.display = 'none'; document.getElementById('Home').style.display = 'block';"></div>
