@@ -143,7 +143,7 @@ function sendToHtml(msg){
     var chatIAd = document.createElement("div");
     chatIAd.className += "message bot clearfix";
     var IAavatar = document.createElement("img");
-    IAavatar.src = "./resources/AvatarIA.jpeg";
+    IAavatar.src = "file:///android_res/drawable/ic_launcher";
     IAavatar.className += "avatar";
     chatIAd.appendChild(IAavatar);
     var djdfiimtemBtn = document.createElement("button");
