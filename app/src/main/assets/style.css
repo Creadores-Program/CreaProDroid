@@ -118,9 +118,8 @@ body{
     left: 0%;
     width: 100%;
     height: 100%;
-    overflow: visible;
-    /*overflow: scroll;
-    -webkit-overflow-scrolling: touch;*/
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 .chat-header {
     position: -webkit-sticky;
@@ -194,7 +193,7 @@ body{
     transition: border-color 0.2s;
 }
 
-.input-container input:focus, #modelIA:focus, pre code textarea:focus {
+.input-container input:focus, #modelIA:focus, textarea:focus, button:focus {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
