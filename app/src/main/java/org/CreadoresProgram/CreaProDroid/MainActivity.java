@@ -23,7 +23,6 @@ import java.io.InputStream;
 import java.io.FileInputStream;
 import java.io.File;
 import java.security.Security;
-import java.security.Provider;
 import org.conscrypt.Conscrypt;
 
 public class MainActivity extends Activity {
