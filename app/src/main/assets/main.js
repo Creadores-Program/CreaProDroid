@@ -20,6 +20,10 @@ if(localStorage.getItem("apiKey") == null){
         Android.finish();
         throw new Error("No se puede continuar sin la API key.");
     }
+    if(localStorage.getItem("model") == null){
+        localStorage.setItem("model", "1");
+    }
+    Android.setModel(parseInt(localStorage.getItem("model")));
     try{
         if(Android.promptGemini("Este Es Un Test de ti porfavor responde un Saludo!", apiKey) == "{{KeyInvalidTest74284}}") throw new Error("Error Key Invalida!");
     }catch(e){
