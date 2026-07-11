@@ -34,7 +34,7 @@
             • Grabar Audio: requerido para grabar tu voz para hablar con la IA<br/>
             • Contactos: requerido para que la IA pueda ver tus contactos para enviar mensajes, hacer llamadas y más (solo si el plugin está activo)<br/>
             Además está app es totalmente de código abierto y puedes ver su código <button class="github-btn" onclick="Android.openUrl('https://github.com/Creadores-Program/CreaProDroid')">en Github</button></p><br/>
-            <button id="reqPermsBtn" onclick="Android.reqPerms(); if(!Android.hasPerms()){ alert('Porfavor acepta los permisos'); }else{ document.getElementById('ReqPerms').style.display = 'none'; document.getElementById('Home').style.display = 'block'; }">Aceptar Permisos</button>
+            <button id="reqPermsBtn" onclick="Android.reqPerms(); if(Android.hasPerms()){ document.getElementById('ReqPerms').style.display = 'none'; document.getElementById('Home').style.display = 'block'; }">Aceptar Permisos</button>
         </div>
     </div>
     <div class="InterfaceH HideDef" id="OldsChats">
