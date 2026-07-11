@@ -4,16 +4,11 @@ import okhttp3.OkHttpClient;
 import okhttp3.TlsVersion;
 import okhttp3.ConnectionSpec;
 
-import org.conscrypt.Conscrypt;
-
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
-import org.CreadoresProgram.CreaProDroid.MainActivity;
-
 public class OkClients{
     private OkHttpClient clientHt = new OkHttpClient.Builder()
-        .sslSocketFactory(Conscrypt.newServerSocketFactory(MainActivity.conscryptProv), Conscrypt.getDefaultX509TrustManager())
         .connectionSpecs(Arrays.asList(
             new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
                 .tlsVersions(TlsVersion.TLS_1_3, TlsVersion.TLS_1_2)
