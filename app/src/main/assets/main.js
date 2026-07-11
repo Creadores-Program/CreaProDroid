@@ -58,10 +58,6 @@ if(localStorage.getItem("historyChats") == null){
 }else{
     chatHistoryOld = JSON.parse(localStorage.getItem("historyChats"));
 }
-if(!Android.hasPerms()){
-    document.getElementById('Home').style.display = 'none'; 
-    document.getElementById('ReqPerms').style.display = 'block';
-}
 function saveChatHistory(){
     var timeCreatedCekj = new Date();
     chatHistoryOld.push({
@@ -346,6 +342,10 @@ window.onload = function() {
             localStorage.setItem("pluginsIA", JSON.stringify(pluginsIA));
         }
     };
+    if(!Android.hasPerms()){
+        document.getElementById('Home').style.display = 'none'; 
+        document.getElementById('ReqPerms').style.display = 'block';
+    }
     document.body.style.opacity = "1";
 };
 
