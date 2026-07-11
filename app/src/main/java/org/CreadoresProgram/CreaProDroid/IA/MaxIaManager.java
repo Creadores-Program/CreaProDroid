@@ -65,92 +65,78 @@ public class MaxIaManager{
     public MaxIaManager(Context context) {
         this.context = context;
         AssetManager assetManager = context.getAssets();
-        try{
-            String[] files = assetManager.list("IA/MaxIA");
-            if(files != null) {
-                for (String file : files) {
-                    InputStream inputStream = null;
-                    try{
-                        inputStream = assetManager.open("IA/MaxIA/" + file);
-                        byte[] buff = new byte[inputStream.available()];
-                        int bytesRea;
-                        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                        while ((bytesRea = inputStream.read(buff)) != -1) {
-                          outputStream.write(buff, 0, bytesRea);
-                        }
-                        byte[] fileBytes = outputStream.toByteArray();
-                        this.BaseDataIA += " . " + new String(fileBytes, dataCodeStr);
-                    }finally {
-                        if(inputStream != null) inputStream.close();
-                    }
-                }
+        try {
+            StringBuilder baseDataBuilder = new StringBuilder();
+            loadFolderData(assetManager, "IA/MaxIA", baseDataBuilder);
+            this.BaseDataIA = baseDataBuilder.toString();
+            StringBuilder gamesDataBuilder = new StringBuilder();
+            loadFolderData(assetManager, "IA/Games", gamesDataBuilder);
+            this.gamesIA = gamesDataBuilder.toString();
+            String botPromptsStr = readAssetAsString(assetManager, "IA/Data/MaxIA/BotPromptsv2.json");
+            if (botPromptsStr != null) {
+                this.maxBotPrompts = new JSONArray(botPromptsStr);
             }
-            String[] filesGames = assetManager.list("IA/Games");
-            if(filesGames != null) {
-                for (String file : filesGames) {
-                    InputStream inputStream = null;
-                    try{
-                        inputStream = assetManager.open("IA/Games/" + file);
-                        byte[] buff = new byte[inputStream.available()];
-                        int bytesRea;
-                        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                        while ((bytesRea = inputStream.read(buff)) != -1) {
-                          outputStream.write(buff, 0, bytesRea);
-                        }
-                        byte[] fileBytes = outputStream.toByteArray();
-                        this.gamesIA += " . " + new String(fileBytes, dataCodeStr);
-                    }finally {
-                        if(inputStream != null) inputStream.close();
-                    }
-                }
+            String noSeBotStr = readAssetAsString(assetManager, "IA/Data/MaxIA/NoseBotv2.json");
+            if (noSeBotStr != null) {
+                this.maxNoSeBotPrompts = new JSONArray(noSeBotStr);
             }
-            InputStream inputS = null;
-            InputStream inputS2 = null;
-            try{
-                inputS = assetManager.open("IA/Data/MaxIA/BotPromptsv2.json");
-                inputS2 = assetManager.open("IA/Data/MaxIA/NoseBotv2.json");
-                byte[] buff = new byte[inputS.available()];
-                int bytesRea;
-                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                while ((bytesRea = inputS.read(buff)) != -1) {
-                    outputStream.write(buff, 0, bytesRea);
-                }
-                byte[] fileBytes = outputStream.toByteArray();
-                this.maxBotPrompts = new JSONArray(new String(fileBytes, dataCodeStr));
-                byte[] buff2 = new byte[inputS2.available()];
-                int bytesRea2;
-                ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
-                while ((bytesRea2 = inputS2.read(buff2)) != -1) {
-                    outputStream2.write(buff2, 0, bytesRea2);
-                }
-                byte[] fileBytes2 = outputStream2.toByteArray();
-                this.maxNoSeBotPrompts = new JSONArray(new String(fileBytes2, dataCodeStr));
-            }finally {
-                if(inputS != null) inputS.close();
-                if(inputS2 != null) inputS2.close();
-            }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        //Cargar Apps para abrir
-        PackageManager pm = context.getPackageManager();
-        Intent intent = new Intent(Intent.ACTION_MAIN, null);
-        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-        List<ResolveInfo> activities = pm.queryIntentActivities(intent, 0);
-        for (ResolveInfo pkg : activities) {
-            ApplicationInfo appInfo;
+        PackageManager packageManager = context.getPackageManager();
+        Intent launcherIntent = new Intent(Intent.ACTION_MAIN, null);
+        launcherIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        List<ResolveInfo> launchableActivities = packageManager.queryIntentActivities(launcherIntent, 0);
+        for (ResolveInfo resolveInfo : launchableActivities) {
             try {
-                appInfo = pm.getApplicationInfo(pkg.activityInfo.packageName, 0);
-            } catch (PackageManager.NameNotFoundException e) {
+                ApplicationInfo appInfo = packageManager.getApplicationInfo(resolveInfo.activityInfo.packageName, 0);
+                CharSequence appLabel = packageManager.getApplicationLabel(appInfo);
+                JSONObject appJson = new JSONObject();
+                appJson.put("name", appLabel != null ? appLabel.toString() : "");
+                appJson.put("package", appInfo.packageName);
+                this.apps.put(appJson);
+            } catch (Exception e) {
                 continue;
             }
-            JSONObject jsonObj = new JSONObject();
-            try{
-              jsonObj.put("name", pm.getApplicationLabel(appInfo).toString());
-              jsonObj.put("package", appInfo.packageName);
-              this.apps.put(jsonObj);
-            }catch (Exception e){
-                continue;
+        }
+    }
+    private void loadFolderData(AssetManager assetManager, String folderPath, StringBuilder outputBuilder) {
+        try {
+            String[] files = assetManager.list(folderPath);
+            if (files != null) {
+                for (String fileName : files) {
+                    String fileContent = readAssetAsString(assetManager, folderPath + "/" + fileName);
+                    if (fileContent != null) {
+                        outputBuilder.append(" . ").append(fileContent);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String readAssetAsString(AssetManager assetManager, String filePath) {
+        InputStream inputStream = null;
+        ByteArrayOutputStream outputStream = null;
+        try {
+            inputStream = assetManager.open(filePath);
+            outputStream = new ByteArrayOutputStream();
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+            return new String(outputStream.toByteArray(), dataCodeStr);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (outputStream != null) {
+                try { outputStream.close(); } catch (IOException ignored) {}
+            }
+            if (inputStream != null) {
+                try { inputStream.close(); } catch (IOException ignored) {}
             }
         }
     }

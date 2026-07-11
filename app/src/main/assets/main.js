@@ -20,6 +20,10 @@ if(localStorage.getItem("apiKey") == null){
         Android.finish();
         throw new Error("No se puede continuar sin la API key.");
     }
+    if(localStorage.getItem("model") == null){
+        localStorage.setItem("model", "1");
+    }
+    Android.setModel(parseInt(localStorage.getItem("model")));
     try{
         if(Android.promptGemini("Este Es Un Test de ti porfavor responde un Saludo!", apiKey) == "{{KeyInvalidTest74284}}") throw new Error("Error Key Invalida!");
     }catch(e){
@@ -54,6 +58,10 @@ if(localStorage.getItem("historyChats") == null){
 }else{
     chatHistoryOld = JSON.parse(localStorage.getItem("historyChats"));
 }
+if(!Android.hasPerms()){
+    document.getElementById('Home').style.display = 'none'; 
+    document.getElementById('ReqPerms').style.display = 'block';
+}
 function saveChatHistory(){
     var timeCreatedCekj = new Date();
     chatHistoryOld.push({
@@ -70,6 +78,7 @@ function loadChatHistory(name){
     for(var i = 0; i < chatHistoryOld.length; i++){
         if(chatHistoryOld[i].name == name){
             chatHistoryloda = chatHistoryOld[i].history;
+            chatHistoryOld.splice(i, 1);
             break;
         }
     }
@@ -139,7 +148,7 @@ function sendToHtml(msg){
     var chatIAd = document.createElement("div");
     chatIAd.className += "message bot clearfix";
     var IAavatar = document.createElement("img");
-    IAavatar.src = "./resources/AvatarIA.jpeg";
+    IAavatar.src = "file:///android_res/drawable/ic_launcher";
     IAavatar.className += "avatar";
     chatIAd.appendChild(IAavatar);
     var djdfiimtemBtn = document.createElement("button");

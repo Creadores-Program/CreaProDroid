@@ -11,7 +11,7 @@ import android.webkit.WebView;
 import android.content.Intent;
 import android.net.Uri;
 import android.graphics.Color;
-import android.support.customtabs.CustomTabsIntent;
+import androidx.browser.customtabs.CustomTabsIntent;
 import java.io.File;
 import java.io.InputStream;
 import java.io.FileOutputStream;

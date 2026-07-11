@@ -3,6 +3,9 @@ import android.webkit.JavascriptInterface;
 import android.content.Context;
 import android.webkit.WebView;
 import android.net.Uri;
+import android.Manifest;
+import android.os.Build;
+import android.content.pm.PackageManager;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -23,7 +26,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Environment;
 import android.util.Base64;
-import android.support.customtabs.CustomTabsIntent;
+import androidx.browser.customtabs.CustomTabsIntent;
 import org.CreadoresProgram.CreaProDroid.MainActivity;
 import org.CreadoresProgram.CreaProDroid.update.GithubUpdate;
 import org.CreadoresProgram.CreaProDroid.okhttp.OkClients;
@@ -217,6 +220,44 @@ public class JSInterface{
     @JavascriptInterface
     public String getDescriptionVer(){
         return mGithubUpdate.getDescriptionVer();
+    }
+    @JavascriptInterface
+    public void reqPerms(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            ArrayList<String> perms = new ArrayList<>();
+             String[] permsReq = {
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.READ_CONTACTS
+            };
+            for (String perm : permsReq) {
+                if (mContext.checkSelfPermission(perm) != PackageManager.PERMISSION_GRANTED) {
+                    perms.add(perm);
+                }
+            }
+            if (!perms.isEmpty()) {
+               mContext.requestPermissions(perms.toArray(new String[0]), 102);
+            }
+        }
+    }
+    @JavascriptInterface
+    public boolean hasPerms(){
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
+            return true;
+        }
+        String[] permsReq = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.READ_CONTACTS
+        };
+        for (String perm : permsReq) {
+            if (mContext.checkSelfPermission(perm) != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
     }
     @JavascriptInterface
     public void saveImageGen(String base64data){
