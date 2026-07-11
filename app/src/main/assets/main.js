@@ -74,6 +74,7 @@ function loadChatHistory(name){
     for(var i = 0; i < chatHistoryOld.length; i++){
         if(chatHistoryOld[i].name == name){
             chatHistoryloda = chatHistoryOld[i].history;
+            chatHistoryOld.splice(i, 1);
             break;
         }
     }
