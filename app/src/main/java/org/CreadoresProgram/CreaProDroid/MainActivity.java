@@ -23,16 +23,19 @@ import java.io.InputStream;
 import java.io.FileInputStream;
 import java.io.File;
 import java.security.Security;
+import java.security.Provider;
 import org.conscrypt.Conscrypt;
 
 public class MainActivity extends Activity {
     public static final int FILE_UPLOAD_REQUEST_CODE = 1;
     public static final int RECOGNIZE_SPEECH_ACTIVITY = 282;
+    public static final Provider conscryptProv;
     private WebView webview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Security.insertProviderAt(Conscrypt.newProvider(), 1);
+        conscryptProv = Conscrypt.newProvider();
+        Security.insertProviderAt(conscryptProv, 1);
         setContentView(R.layout.layout_main);
         WebView webView = (WebView) findViewById(R.id.webview);
         webView.setWebViewClient(new WebViewClient(){
