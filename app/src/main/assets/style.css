@@ -44,10 +44,12 @@ body{
     -webkit-border-radius: 50%;
     border-radius: 50%;
     cursor: pointer;
+    -webkit-transition: transform 0.2s, background-color 0.2s;
     transition: transform 0.2s, background-color 0.2s;
     margin-left: 10px;
 }
 .message.bot button:hover{
+    -webkit-transform: scale(1.1);
     transform: scale(1.1);
     background-color: #444444;
 }
@@ -98,18 +100,28 @@ body{
     -webkit-border-radius: 10px;
     border-radius: 10px;
     cursor: pointer;
+    -webkit-transition: background-color 0.2s, -webkit-transform 0.2s;
+    -webkit-transition: background-color 0.2s, transform 0.2s;
     transition: background-color 0.2s, transform 0.2s;
     font-size: 16px;
+    display: -webkit-box;
+    display: -webkit-flex;
     display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
     align-items: center;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
     justify-content: space-between;
 }
 .oldChatItem:hover {
     background-color: #444444;
+    -webkit-transform: scale(1.05);
     transform: scale(1.05);
 }
 .oldChatItem:active {
     background-color: #6200ee;
+    -webkit-transform: scale(1);
     transform: scale(1);
 }
 .InterfaceH{
@@ -164,7 +176,6 @@ body{
 .input-container button {
     width: 10.5vw; 
     height: 10.5vw;
-    
     background-color: #2c2c2c;
     background-size: 55% !important;
     background-repeat: no-repeat;
@@ -173,6 +184,7 @@ body{
     -webkit-border-radius: 50%;
     border-radius: 50%;
     cursor: pointer;
+    -webkit-transition: transform 0.2s, background-color 0.2s;
     transition: transform 0.2s, background-color 0.2s;
     flex-shrink: 0; 
 }
@@ -186,63 +198,25 @@ body{
     border: 1px solid #444444;
     -webkit-border-radius: 5vw;
     border-radius: 5vw;
-    
     font-size: 3.8vw;
     outline: none;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    flex-shrink: 1; 
+    flex-shrink: 1;
+    -webkit-appearance: none;
+    appearance: none;          
+    background-clip: padding-box;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-transition: border-color 0.2s;
+    transition: border-color 0.2s;
 }
-/*.input-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    background-color: #1e1e1e;
-    border-top: 1px solid #333333;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5);
-    max-width: 100%;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    overflow: hidden;
-    position: -webkit-sticky;
-    position: sticky;
-    bottom: 0;
-}
-
-.input-container button {
-    width: 50px;
-    height: 50px;
-    background-color: #2c2c2c;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    border: none;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: transform 0.2s, background-color 0.2s;
-}*/
 
 .input-container button:hover {
+    -webkit-transform: scale(1.1);
     transform: scale(1.1);
     background-color: #444444;
 }
-/*
-.input-container input {
-    flex: 1;
-    margin: 0 10px;
-    padding: 10px 15px;
-    background-color: #2c2c2c;
-    color: #ffffff;
-    border: 1px solid #444444;
-    -webkit-border-radius: 25px;
-    border-radius: 25px;
-    font-size: 16px;
-    outline: none;
-    transition: border-color 0.2s;
-}
-*/
 .input-container input:focus, #modelIA:focus, textarea:focus, button:focus {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -281,8 +255,8 @@ body{
     font-size: 16px;
     margin-bottom: 15px;
     outline: none;
-    appearance: none;
     -webkit-appearance: none;
+    appearance: none;
 }
 pre code textarea{
     width: 100%;
@@ -300,6 +274,7 @@ pre code textarea{
     outline: none;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    -webkit-transition: border-color 0.2s, background-color 0.2s;
     transition: border-color 0.2s, background-color 0.2s;
 }
 pre code textarea:focus {
@@ -350,6 +325,7 @@ pre code textarea:focus {
     background-color: #e0e0e0;
     -webkit-border-radius: 50%;
     border-radius: 50%;
+    -webkit-transition: left 0.2s;
     transition: left 0.2s;
 }
 
@@ -438,6 +414,7 @@ pre code textarea:focus {
     font-size: 14px;
     vertical-align: middle;
     margin-left: 4px;
+    -webkit-transition: background-color 0.2s;
     transition: background-color 0.2s;
 }
 
@@ -458,6 +435,7 @@ pre code textarea:focus {
     border-radius: 8px;
     -webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    -webkit-transition: background-color 0.2s, transform 0.2s;
     transition: background-color 0.2s, transform 0.2s;
 }
 
