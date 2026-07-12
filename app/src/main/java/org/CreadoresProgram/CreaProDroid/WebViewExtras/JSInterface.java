@@ -30,6 +30,7 @@ import androidx.browser.customtabs.CustomTabsIntent;
 import org.CreadoresProgram.CreaProDroid.MainActivity;
 import org.CreadoresProgram.CreaProDroid.update.GithubUpdate;
 import org.CreadoresProgram.CreaProDroid.okhttp.OkClients;
+import org.CreadoresProgram.CreaProDroid.utils.Util;
 
 public class JSInterface{
     private MainActivity mContext;
@@ -258,6 +259,18 @@ public class JSInterface{
             }
         }
         return true;
+    }
+    @JavascriptInterface
+    public String getLangJson(){
+        String lang = Locale.getDefault().getLanguage().toLowerCase();
+        if(!lang.equals("es") && !lang.equals("en") && !lang.equals("it") && !lang.equals("pt") && !lang.equals("fr")){
+            lang = "es";
+        }
+        String langJson = Util.readAssetAsString(mContext.getAssets(), "lang/"+lang+".json");
+        if(langJson == null){
+            return "{}";
+        }
+        return langJson;
     }
     @JavascriptInterface
     public void saveImageGen(String base64data){

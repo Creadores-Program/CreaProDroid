@@ -2,6 +2,7 @@ var apiKey;
 var userName;
 var filesI = "";
 var chatHistoryOld = [];
+window.langPage = JSON.parse(Android.getLangJson());
 if (!String.prototype.startsWith) {
     String.prototype.startsWith = function(search, pos) {
         pos = pos || 0;
@@ -14,22 +15,22 @@ if (!String.prototype.trim) {
     };
 }
 if(localStorage.getItem("apiKey") == null){
-    apiKey = prompt("Escribe tu API key:");
+    apiKey = prompt(window.langPage.escribirApikey);
     if(apiKey == null || apiKey.trim() == ""){
-        alert("No se puede continuar sin la API key.");
+        alert(window.langPage.noContinuarSinApiKey);
         Android.finish();
-        throw new Error("No se puede continuar sin la API key.");
+        throw new Error(window.langPage.noContinuarSinApiKey);
     }
     if(localStorage.getItem("model") == null){
         localStorage.setItem("model", "1");
     }
     Android.setModel(parseInt(localStorage.getItem("model")));
     try{
-        if(Android.promptGemini("Este Es Un Test de ti porfavor responde un Saludo!", apiKey) == "{{KeyInvalidTest74284}}") throw new Error("Error Key Invalida!");
+        if(Android.promptGemini("Este Es Un Test de ti porfavor responde un Saludo!", apiKey) == "{{KeyInvalidTest74284}}") throw new Error(window.langPage.keyInvalida);
     }catch(e){
-        alert("Error Key Invalida!");
+        alert(window.langPage.keyInvalida);
         Android.finish();
-        throw new Error("Error Key Invalida!");
+        throw e;
     }
     Android.clearChat();
     localStorage.setItem("apiKey", apiKey);
@@ -37,11 +38,11 @@ if(localStorage.getItem("apiKey") == null){
     apiKey = localStorage.getItem("apiKey");
 }
 if(localStorage.getItem("userName") == null){
-    userName = prompt("Escribe tu nombre:");
+    userName = prompt(window.langPage.escribeNombre);
     if(userName == null || userName.trim() == ""){
-        alert("No se puede continuar sin el nombre.");
+        alert(window.langPage.noContinuarSinNombre);
         Android.finish();
-        throw new Error("No se puede continuar sin el nombre.");
+        throw new Error(window.langPage.noContinuarSinNombre);
     }else if(userName.length < 5 || userName.length > 20){
         alert("El nombre debe tener entre 5 y 20 caracteres.");
         Android.finish();
@@ -345,6 +346,17 @@ window.onload = function() {
     if(!Android.hasPerms()){
         document.getElementById('Home').style.display = 'none'; 
         document.getElementById('ReqPerms').style.display = 'block';
+    }
+    document.getElementById("inputChat").placeholder = window.langPage.inputChatPlaceholder;
+    var elementsQlang = document.querySelectorAll("[langId]");
+    for(var idod = 0; idod < elementsQlang.length; idod++){
+        var elementQlang = elementsQlang[idod];
+        var attrLang = elementQlang.getAttribute("langId");
+        if(window.langPage[attrLang]){
+            elementQlang.textContent = window.langPage[attrLang];
+        }else{
+            console.warn("Invalid key " + attrLang);
+        }
     }
     document.body.style.opacity = "1";
 };

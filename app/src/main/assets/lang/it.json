@@ -1,0 +1,9 @@
+{
+    "borrarConversacion": "Vuoi eliminare la conversazione?",
+    "inputChatPlaceholder": "Scrivi un messaggio...",
+    "escribirApikey": "Scrivi la tua chiave API:",
+    "noContinuarSinApiKey": "Non può continuare senza la chiave API.",
+    "keyInvalida": "Chiave di errore Invalidato!",
+    "escribeNombre": "Scrivi il tuo nome:",
+    "noContinuarSinNombre": "Non puoi andare avanti senza il nome."
+}

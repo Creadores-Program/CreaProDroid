@@ -17,30 +17,15 @@ import android.content.pm.ResolveInfo;
 import android.content.pm.ApplicationInfo;
 import android.os.Build;
 import java.util.List;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ByteArrayOutputStream;
-import java.nio.charset.StandardCharsets;
 import java.nio.charset.Charset;
 import java.util.Random;
 import java.util.ArrayList;
 import org.CreadoresProgram.CreaProDroid.IA.Plugins.*;
 import org.CreadoresProgram.CreaProDroid.okhttp.OkClients;
+import org.CreadoresProgram.CreaProDroid.utils.Util;
 
 public class MaxIaManager{
-    private static final Charset dataCodeStr;
-    static{
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            dataCodeStr = KitkatCharset.getUTF8();
-        }else{
-            dataCodeStr = Charset.forName("UTF-8");
-        }
-    }
-    private static class KitkatCharset{
-        static Charset getUTF8(){
-            return StandardCharsets.UTF_8;
-        }
-    }
+    private static final Charset dataCodeStr = Util.dataCodeStr;
     private String BaseDataIA = "";
     private String gamesIA = "";
     private HttpUrl url = null;
@@ -72,11 +57,11 @@ public class MaxIaManager{
             StringBuilder gamesDataBuilder = new StringBuilder();
             loadFolderData(assetManager, "IA/Games", gamesDataBuilder);
             this.gamesIA = gamesDataBuilder.toString();
-            String botPromptsStr = readAssetAsString(assetManager, "IA/Data/MaxIA/BotPromptsv2.json");
+            String botPromptsStr = Util.readAssetAsString(assetManager, "IA/Data/MaxIA/BotPromptsv2.json");
             if (botPromptsStr != null) {
                 this.maxBotPrompts = new JSONArray(botPromptsStr);
             }
-            String noSeBotStr = readAssetAsString(assetManager, "IA/Data/MaxIA/NoseBotv2.json");
+            String noSeBotStr = Util.readAssetAsString(assetManager, "IA/Data/MaxIA/NoseBotv2.json");
             if (noSeBotStr != null) {
                 this.maxNoSeBotPrompts = new JSONArray(noSeBotStr);
             }
@@ -105,7 +90,7 @@ public class MaxIaManager{
             String[] files = assetManager.list(folderPath);
             if (files != null) {
                 for (String fileName : files) {
-                    String fileContent = readAssetAsString(assetManager, folderPath + "/" + fileName);
+                    String fileContent = Util.readAssetAsString(assetManager, folderPath + "/" + fileName);
                     if (fileContent != null) {
                         outputBuilder.append(" . ").append(fileContent);
                     }
@@ -113,31 +98,6 @@ public class MaxIaManager{
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    private String readAssetAsString(AssetManager assetManager, String filePath) {
-        InputStream inputStream = null;
-        ByteArrayOutputStream outputStream = null;
-        try {
-            inputStream = assetManager.open(filePath);
-            outputStream = new ByteArrayOutputStream();
-            byte[] buffer = new byte[4096];
-            int bytesRead;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
-            }
-            return new String(outputStream.toByteArray(), dataCodeStr);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            if (outputStream != null) {
-                try { outputStream.close(); } catch (IOException ignored) {}
-            }
-            if (inputStream != null) {
-                try { inputStream.close(); } catch (IOException ignored) {}
-            }
         }
     }
     public void setHistory(String history){
