@@ -9,7 +9,7 @@ body{
     -webkit-transition: opacity 0.2s ease-in-out;
     transition: opacity 0.2s ease-in-out;
 }
-*:not(.generedImg):not(.bubble){
+*:not(.generedImg):not(.bubble):not(input):not(#customPrompt){
     -webkit-user-select: none;
     user-select: none;
 }
