@@ -78,7 +78,7 @@ public class ChromeExtra extends WebChromeClient {
     @Override
     public void onExceededDatabaseQuota(String url, String databaseIdentifier, long currentQuota, long estimatedSize, long totalUsedQuota, WebStorage.QuotaUpdater quotaUpdater) {
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2){
-            super.onExceededDatabaseQuota();
+            super.onExceededDatabaseQuota(url, databaseIdentifier, currentQuota, estimatedSize, totalUsesQuota, quotaUpdater);
             return;
         }
         quotaUpdater.updateQuota(estimatedSize * 2); 
