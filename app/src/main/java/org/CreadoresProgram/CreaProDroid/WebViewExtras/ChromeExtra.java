@@ -3,15 +3,20 @@ import android.content.Context;
 import android.webkit.WebView;
 import android.webkit.WebChromeClient;
 import android.webkit.JsResult;
+import android.webkit.WebStorage;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.widget.EditText;
 import android.webkit.JsPromptResult;
 import android.graphics.Color;
+import android.view.ContextThemeWrapper;
+
 public class ChromeExtra extends WebChromeClient {
     private Context context;
+    private ContextThemeWrapper themeInput;
     public ChromeExtra(Context context) {
         this.context = context;
+        this.themeInput = new ContextThemeWrapper(this.context, android.R.style.Theme_Holo_Light_Dialog);
     }
     @Override
     public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
@@ -48,9 +53,8 @@ public class ChromeExtra extends WebChromeClient {
     }
     @Override
     public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, JsPromptResult result) {
-        final EditText input = new EditText(context);
+        final EditText input = new EditText(themeInput);
         input.setText(defaultValue);
-        input.setTextColor(Color.BLACK);
         new AlertDialog.Builder(context, android.R.style.Theme_Holo_Light_Dialog)
             .setTitle("CreaProDroid")
             .setMessage(message)
@@ -68,5 +72,9 @@ public class ChromeExtra extends WebChromeClient {
             .setCancelable(false)
             .create().show();
         return true;
+    }
+    @Override
+    public void onExceededDatabaseQuota(String url, String databaseIdentifier, long currentQuota, long estimatedSize, long totalUsedQuota, WebStorage.QuotaUpdater quotaUpdater) {
+        quotaUpdater.updateQuota(estimatedSize * 2); 
     }
 }
