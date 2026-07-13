@@ -60,7 +60,7 @@ public class MainActivity extends Activity {
         webSettings.setAllowContentAccess(true);
         webSettings.setDatabaseEnabled(true);
         if(Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2){
-            webSettings.setDatabasePath(this.getApplicationContext().getDir("app_webview/LocalStorageOld", Context.MODE_PRIVATE).getPath());
+            webSettings.setDatabasePath(this.getApplicationContext().getDir("LocalStorageOld", Context.MODE_PRIVATE).getPath());
         }
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
         webSettings.setBuiltInZoomControls(false);
