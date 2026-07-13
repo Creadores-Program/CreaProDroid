@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.webkit.JsPromptResult;
 import android.graphics.Color;
 import android.view.ContextThemeWrapper;
+import android.os.Build;
 
 public class ChromeExtra extends WebChromeClient {
     private Context context;
@@ -73,8 +74,13 @@ public class ChromeExtra extends WebChromeClient {
             .create().show();
         return true;
     }
+    @SuppressWarnings("deprecation")
     @Override
     public void onExceededDatabaseQuota(String url, String databaseIdentifier, long currentQuota, long estimatedSize, long totalUsedQuota, WebStorage.QuotaUpdater quotaUpdater) {
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2){
+            super.onExceededDatabaseQuota();
+            return;
+        }
         quotaUpdater.updateQuota(estimatedSize * 2); 
     }
 }
