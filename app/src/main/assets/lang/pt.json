@@ -5,5 +5,10 @@
     "noContinuarSinApiKey": "Não pode continuar sem a chave da API.",
     "keyInvalida": "Erro Chave Invalidate!",
     "escribeNombre": "Escreva seu nome:",
-    "noContinuarSinNombre": "Você não pode continuar sem o nome."
+    "noContinuarSinNombre": "Você não pode continuar sem o nome.",
+    "nombreInvalido": "O nome deve ter entre 5 e 20 caracteres.",
+    "chatNoEncontrado": "Não consigo encontrar o histórico do chat.",
+    "errorGenImg": "Houve um erro na geração da imagem, por favor, tente novamente.",
+    "eliminarInstrucPersonalizada": "Quer remover a instrução personalizada atual?",
+    "instrucPersonalizadaEliminada": "Instruções personalizadas removidas."
 }

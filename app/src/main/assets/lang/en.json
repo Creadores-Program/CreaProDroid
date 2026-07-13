@@ -5,5 +5,10 @@
     "noContinuarSinApiKey": "Cannot continue without the API key.",
     "keyInvalida": "Error Key Invalidate!",
     "escribeNombre": "Write your name:",
-    "noContinuarSinNombre": "You can't go on without the name."
+    "noContinuarSinNombre": "You can't go on without the name.",
+    "nombreInvalido": "The name must be between 5 and 20 characters.",
+    "chatNoEncontrado": "I can't find the chat history.",
+    "errorGenImg": "There was an error in generating the image, please try again.",
+    "eliminarInstrucPersonalizada": "Want to remove the current custom instruction?",
+    "instrucPersonalizadaEliminada": "Customized instruction removed."
 }

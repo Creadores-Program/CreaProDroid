@@ -44,9 +44,9 @@ if(localStorage.getItem("userName") == null){
         Android.finish();
         throw new Error(window.langPage.noContinuarSinNombre);
     }else if(userName.length < 5 || userName.length > 20){
-        alert("El nombre debe tener entre 5 y 20 caracteres.");
+        alert(window.langPage.nombreInvalido);
         Android.finish();
-        throw new Error("El nombre debe tener entre 5 y 20 caracteres.");
+        throw new Error(window.langPage.nombreInvalido);
     }
     Android.setUserName(userName);
     localStorage.setItem("userName", userName);
@@ -80,7 +80,7 @@ function loadChatHistory(name){
         }
     }
     if(chatHistoryloda == null){
-        alert("No se encontro el historial de chat.");
+        alert(window.langPage.chatNoEncontrado);
         return;
     }
     if(JSON.parse(Android.getChat()).length > 0){
@@ -98,7 +98,7 @@ function loadChatHistory(name){
                     var genimghjkfr = "https://image.pollinations.ai/prompt/"+encodeURIComponent(subPrompIAJson.genImg);
                     responMSGIA += "<br/><button style='background: url(\"./resources/download.png\") 50% 50% no-repeat; background-size: contain;' onclick='var validimgD = this.parentNode.getElementsByTagName(\"img\")[0]; if(!validimgD || validimgD.naturalWidth === 0){ return; } Android.saveImageGen(\""+genimghjkfr+"\");'></button><img src='"+genimghjkfr+"' alt='Imagen Generada'/>";
                 }catch(e){
-                    responMSGIA += "<br/>Hubo un error al generar la imagen, por favor intenta de nuevo.";
+                    responMSGIA += "<br/>"+window.langPage.errorGenImg;
                 }
             }
             sendToHtml(responMSGIA);
@@ -126,10 +126,10 @@ function updateHistoryChatHtml(){
 function setCustomPrompt(){
     var customPrompt = document.getElementById("customPrompt").value;
     if((customPrompt == null || customPrompt.trim() == "") && localStorage.getItem("customPrompt")){
-        if(confirm("¿Quieres eliminar la instrucción personalizada actual?")){
+        if(confirm(window.langPage.eliminarInstrucPersonalizada)){
             localStorage.removeItem("customPrompt");
             Android.setCustomSistemPrompt("");
-            alert("Instrucción personalizada eliminada.");
+            alert(window.langPage.instrucPersonalizadaEliminada);
         }
         return;
     }

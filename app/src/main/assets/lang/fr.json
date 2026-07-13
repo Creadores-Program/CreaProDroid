@@ -5,5 +5,10 @@
     "noContinuarSinApiKey": "Impossible de continuer sans la clé API.",
     "keyInvalida": "Erreur Key Invalider!",
     "escribeNombre": "Écrivez votre nom:",
-    "noContinuarSinNombre": "Tu ne peux pas continuer sans le nom."
+    "noContinuarSinNombre": "Tu ne peux pas continuer sans le nom.",
+    "nombreInvalido": "Le nom doit être entre 5 et 20 caractères.",
+    "chatNoEncontrado": "Je ne trouve pas l'historique des chats.",
+    "errorGenImg": "Il y a eu une erreur dans la génération de l'image, s'il vous plaît réessayer.",
+    "eliminarInstrucPersonalizada": "Vous voulez supprimer l'instruction personnalisée actuelle?",
+    "instrucPersonalizadaEliminada": "Instruction personnalisée supprimée."
 }

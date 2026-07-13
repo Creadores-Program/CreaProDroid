@@ -5,5 +5,10 @@
     "noContinuarSinApiKey": "Non può continuare senza la chiave API.",
     "keyInvalida": "Chiave di errore Invalidato!",
     "escribeNombre": "Scrivi il tuo nome:",
-    "noContinuarSinNombre": "Non puoi andare avanti senza il nome."
+    "noContinuarSinNombre": "Non puoi andare avanti senza il nome.",
+    "nombreInvalido": "Il nome deve essere compreso tra 5 e 20 caratteri.",
+    "chatNoEncontrado": "Non riesco a trovare la cronologia delle chat.",
+    "errorGenImg": "C'è stato un errore nel generare l'immagine, riprova.",
+    "eliminarInstrucPersonalizada": "Vuoi rimuovere l'attuale istruzione personalizzata?",
+    "instrucPersonalizadaEliminada": "Istruzioni personalizzate rimosse."
 }
