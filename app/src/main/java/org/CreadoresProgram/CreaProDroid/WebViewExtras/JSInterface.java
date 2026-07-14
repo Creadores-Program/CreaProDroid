@@ -2,7 +2,6 @@ package org.CreadoresProgram.CreaProDroid.WebViewExtras;
 import android.webkit.JavascriptInterface;
 import android.content.Context;
 import android.webkit.WebView;
-import android.net.Uri;
 import android.Manifest;
 import android.os.Build;
 import android.content.pm.PackageManager;
@@ -23,10 +22,8 @@ import java.util.Locale;
 import android.os.Bundle;
 import java.util.ArrayList;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Environment;
 import android.util.Base64;
-import androidx.browser.customtabs.CustomTabsIntent;
 import org.CreadoresProgram.CreaProDroid.MainActivity;
 import org.CreadoresProgram.CreaProDroid.update.GithubUpdate;
 import org.CreadoresProgram.CreaProDroid.okhttp.OkClients;
@@ -152,14 +149,10 @@ public class JSInterface{
     }
     @JavascriptInterface
     public void openUrl(String url){
-        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-        builder.setShowTitle(true);
-        builder.setToolbarColor(Color.parseColor("#FF6200EE"));
-        CustomTabsIntent customTabsIntent = builder.build();
         if(url.startsWith("data:") || url.startsWith("intent:") || url.startsWith("package:")){
             url = "javascript:location.href=" + org.json.JSONObject.quote(url) + ";";
         }
-        customTabsIntent.launchUrl(mContext, Uri.parse(url));
+        Util.openUrl(url, mContext);
     }
     @JavascriptInterface
     public void openApp(String packageApp){
