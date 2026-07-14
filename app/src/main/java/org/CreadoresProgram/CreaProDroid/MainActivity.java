@@ -1,6 +1,7 @@
 package org.CreadoresProgram.CreaProDroid;
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Build;
 import android.webkit.WebView;
 import android.content.Intent;
 import android.net.Uri;
@@ -58,6 +59,9 @@ public class MainActivity extends Activity {
         webSettings.setAllowFileAccess(true);
         webSettings.setAllowContentAccess(true);
         webSettings.setDatabaseEnabled(true);
+        if(Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2){
+            webSettings.setDatabasePath(this.getApplicationContext().getDir("LocalStorageOld", Context.MODE_PRIVATE).getPath());
+        }
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
         webSettings.setBuiltInZoomControls(false);
         webSettings.setDisplayZoomControls(false);
