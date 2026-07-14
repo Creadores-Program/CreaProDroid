@@ -134,7 +134,7 @@ function setCustomPrompt(){
         return;
     }
     if(customPrompt == null || customPrompt.trim() == ""){
-        alert("No se puede guardar una instrucción vacía.");
+        alert(window.langPage.noGuardarInstrucVacia);
         return;
     }
     localStorage.setItem("customPrompt", customPrompt);
@@ -163,7 +163,7 @@ function sendToHtml(msg){
     copymsghkv.textChat = stripHtml(msg);
     copymsghkv.onclick = function() {
         Android.copyText(this.textChat);
-        alert("Texto copiado!");
+        alert(window.langPage.textoCopiado);
     }.bind(copymsghkv);
     chatIAd.appendChild(copymsghkv);
     var chatIAdText = document.createElement("div");

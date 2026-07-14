@@ -10,5 +10,7 @@
     "chatNoEncontrado": "Não consigo encontrar o histórico do chat.",
     "errorGenImg": "Houve um erro na geração da imagem, por favor, tente novamente.",
     "eliminarInstrucPersonalizada": "Quer remover a instrução personalizada atual?",
-    "instrucPersonalizadaEliminada": "Instruções personalizadas removidas."
+    "instrucPersonalizadaEliminada": "Instruções personalizadas removidas.",
+    "noGuardarInstrucVacia": "Uma instrução vazia não pode ser salva.",
+    "textoCopiado": "Texto copiado!"
 }

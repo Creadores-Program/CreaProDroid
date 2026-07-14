@@ -10,5 +10,7 @@
     "chatNoEncontrado": "Non riesco a trovare la cronologia delle chat.",
     "errorGenImg": "C'è stato un errore nel generare l'immagine, riprova.",
     "eliminarInstrucPersonalizada": "Vuoi rimuovere l'attuale istruzione personalizzata?",
-    "instrucPersonalizadaEliminada": "Istruzioni personalizzate rimosse."
+    "instrucPersonalizadaEliminada": "Istruzioni personalizzate rimosse.",
+    "noGuardarInstrucVacia": "Un'istruzione vuota non può essere salvata.",
+    "textoCopiado": "Testo copiato!"
 }

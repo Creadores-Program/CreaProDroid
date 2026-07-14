@@ -10,5 +10,7 @@
     "chatNoEncontrado": "I can't find the chat history.",
     "errorGenImg": "There was an error in generating the image, please try again.",
     "eliminarInstrucPersonalizada": "Want to remove the current custom instruction?",
-    "instrucPersonalizadaEliminada": "Customized instruction removed."
+    "instrucPersonalizadaEliminada": "Customized instruction removed.",
+    "noGuardarInstrucVacia": "An empty instruction cannot be saved.",
+    "textoCopiado": "Copied text!"
 }

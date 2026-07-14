@@ -10,5 +10,7 @@
     "chatNoEncontrado": "Je ne trouve pas l'historique des chats.",
     "errorGenImg": "Il y a eu une erreur dans la génération de l'image, s'il vous plaît réessayer.",
     "eliminarInstrucPersonalizada": "Vous voulez supprimer l'instruction personnalisée actuelle?",
-    "instrucPersonalizadaEliminada": "Instruction personnalisée supprimée."
+    "instrucPersonalizadaEliminada": "Instruction personnalisée supprimée.",
+    "noGuardarInstrucVacia": "Une instruction vide ne peut pas être sauvegardée.",
+    "textoCopiado": "Texte copié!"
 }
