@@ -29,7 +29,7 @@ public class GithubUpdate{
         }
     }
     public void downloadUpdate(Context context){
-        Util.openUrl(context, urlDownload);
+        Util.openUrl(urlDownload, context);
     }
     public boolean isLatestVersionByGithub(WebView view){
         Request request = new Request.Builder()
