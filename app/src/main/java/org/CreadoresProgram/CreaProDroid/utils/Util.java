@@ -52,7 +52,7 @@ public class Util{
             }
         }
     }
-    public void openUrl(String url, Context context){
+    public static void openUrl(String url, Context context){
         CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
         builder.setShowTitle(true);
         builder.setToolbarColor(Color.parseColor("#FF6200EE"));
