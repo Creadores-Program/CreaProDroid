@@ -200,7 +200,7 @@ function sendMessage(msg, isSpeak) {
         subPrompIAJson = JSON.parse(prompIAJson);
     }catch(e){
         if(prompIAJson.startsWith("{")){
-            sendToHtml("Hubo un error al procesar la respuesta de la IA, porfavor intenta de nuevo.");
+            sendToHtml(window.langPage.errorIA);
         }else{
             sendToHtml(prompIAJson);
         }
@@ -212,7 +212,7 @@ function sendMessage(msg, isSpeak) {
             var genimghjkfr = "https://image.pollinations.ai/prompt/"+encodeURIComponent(subPrompIAJson.genImg);
             responMSGIA += "<br/><button style='background: url(\"./resources/download.png\") 50% 50% no-repeat; background-size: contain;' onclick='var validimgD = this.parentNode.getElementsByTagName(\"img\")[0]; if(!validimgD || validimgD.naturalWidth === 0){ return; } Android.saveImageGen(\""+genimghjkfr+"\");'></button><img src='"+genimghjkfr+"' alt='Imagen Generada'/>";
         }catch(e){
-            responMSGIA += "<br/>Hubo un error al generar la imagen, por favor intenta de nuevo.";
+            responMSGIA += "<br/>"+window.langPage.errorGenImg;
         }
     }
     sendToHtml(responMSGIA);

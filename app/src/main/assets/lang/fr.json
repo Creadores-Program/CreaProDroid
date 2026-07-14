@@ -12,5 +12,6 @@
     "eliminarInstrucPersonalizada": "Vous voulez supprimer l'instruction personnalisée actuelle?",
     "instrucPersonalizadaEliminada": "Instruction personnalisée supprimée.",
     "noGuardarInstrucVacia": "Une instruction vide ne peut pas être sauvegardée.",
-    "textoCopiado": "Texte copié!"
+    "textoCopiado": "Texte copié!",
+    "errorIA": "Il y a eu une erreur dans le traitement de la réponse à l'IA, s'il vous plaît réessayer."
 }

@@ -12,5 +12,6 @@
     "eliminarInstrucPersonalizada": "Want to remove the current custom instruction?",
     "instrucPersonalizadaEliminada": "Customized instruction removed.",
     "noGuardarInstrucVacia": "An empty instruction cannot be saved.",
-    "textoCopiado": "Copied text!"
+    "textoCopiado": "Copied text!",
+    "errorIA": "There was an error in processing the AI response, please try again."
 }

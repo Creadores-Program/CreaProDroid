@@ -12,5 +12,6 @@
     "eliminarInstrucPersonalizada": "Vuoi rimuovere l'attuale istruzione personalizzata?",
     "instrucPersonalizadaEliminada": "Istruzioni personalizzate rimosse.",
     "noGuardarInstrucVacia": "Un'istruzione vuota non può essere salvata.",
-    "textoCopiado": "Testo copiato!"
+    "textoCopiado": "Testo copiato!",
+    "errorIA": "C'è stato un errore nell'elaborazione della risposta AI, riprova."
 }

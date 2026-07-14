@@ -12,5 +12,6 @@
     "eliminarInstrucPersonalizada": "¿Quieres eliminar la instrucción personalizada actual?",
     "instrucPersonalizadaEliminada": "Instrucción personalizada eliminada.",
     "noGuardarInstrucVacia": "No se puede guardar una instrucción vacía.",
-    "textoCopiado": "Texto copiado!"
+    "textoCopiado": "Texto copiado!",
+    "errorIA": "Hubo un error al procesar la respuesta de la IA, porfavor intenta de nuevo."
 }
