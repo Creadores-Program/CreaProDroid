@@ -1,7 +1,12 @@
 package org.CreadoresProgram.CreaProDroid.utils;
 
 import android.os.Build;
+import android.content.Context;
 import android.content.res.AssetManager;
+import android.content.Intent;
+import android.net.Uri;
+import android.graphics.Color;
+import androidx.browser.customtabs.CustomTabsIntent;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,5 +51,12 @@ public class Util{
                 try { inputStream.close(); } catch (IOException ignored) {}
             }
         }
+    }
+    public void openUrl(String url, Context context){
+        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+        builder.setShowTitle(true);
+        builder.setToolbarColor(Color.parseColor("#FF6200EE"));
+        CustomTabsIntent customTabsIntent = builder.build();
+        customTabsIntent.launchUrl(context, Uri.parse(url));
     }
 }
