@@ -13,5 +13,9 @@
     "instrucPersonalizadaEliminada": "Instruction personnalisée supprimée.",
     "noGuardarInstrucVacia": "Une instruction vide ne peut pas être sauvegardée.",
     "textoCopiado": "Texte copié!",
-    "errorIA": "Il y a eu une erreur dans le traitement de la réponse à l'IA, s'il vous plaît réessayer."
+    "errorIA": "Il y a eu une erreur dans le traitement de la réponse à l'IA, s'il vous plaît réessayer.",
+    "abrirApp": "Ouvrir l'application...",
+    "errorAbrirApp": "Erreur d'ouverture de l'application!",
+    "abrirAccion": "Voulez-vous ouvrir l'action que CreaProDroid fera?",
+    "accionAbierta": "Action de départ..."
 }

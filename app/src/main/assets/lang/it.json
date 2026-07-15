@@ -13,5 +13,9 @@
     "instrucPersonalizadaEliminada": "Istruzioni personalizzate rimosse.",
     "noGuardarInstrucVacia": "Un'istruzione vuota non può essere salvata.",
     "textoCopiado": "Testo copiato!",
-    "errorIA": "C'è stato un errore nell'elaborazione della risposta AI, riprova."
+    "errorIA": "C'è stato un errore nell'elaborazione della risposta AI, riprova.",
+    "abrirApp": "Aprire l'app...",
+    "errorAbrirApp": "Errore nell'apertura dell'app!",
+    "abrirAccion": "Vuoi aprire l'azione che farà CreaProDroid?",
+    "accionAbierta": "Azione di partenza..."
 }

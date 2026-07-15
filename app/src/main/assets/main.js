@@ -223,16 +223,16 @@ function sendMessage(msg, isSpeak) {
     if(subPrompIAJson.openApp != null && subPrompIAJson.openApp.trim() != "" && subPrompIAJson.openApp.toLowerCase() != "string"){
         try{
             Android.openApp(subPrompIAJson.openApp);
-            sendToHtml("Abriendo la app...");
+            sendToHtml(window.langPage.abrirApp);
         }catch(e){
-            sendToHtml("Error al abrir la app!");
+            sendToHtml(window.langPage.errorAbrirApp);
         }
     }
     if(subPrompIAJson.openUrl != null && subPrompIAJson.openUrl.trim() != "" && subPrompIAJson.openUrl.toLowerCase() != "string"){
         if(!subPrompIAJson.openUrl.startsWith("https://") && !subPrompIAJson.openUrl.startsWith("http://")){
-            if(confirm("Quieres abrir la accion que va a hacer CreaProDroid?")){
+            if(confirm(window.langPage.abrirAccion)){
                 Android.openUrl(subPrompIAJson.openUrl);
-                sendToHtml("Iniciando Accion...");
+                sendToHtml(window.langPage.accionAbierta);
             }
         }else{
             if(confirm("Quieres abrir la url "+subPrompIAJson.openUrl+"?")){

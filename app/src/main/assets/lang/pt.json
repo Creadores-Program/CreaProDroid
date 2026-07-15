@@ -13,5 +13,9 @@
     "instrucPersonalizadaEliminada": "Instruções personalizadas removidas.",
     "noGuardarInstrucVacia": "Uma instrução vazia não pode ser salva.",
     "textoCopiado": "Texto copiado!",
-    "errorIA": "Houve um erro no processamento da resposta de IA, por favor, tente novamente."
+    "errorIA": "Houve um erro no processamento da resposta de IA, por favor, tente novamente.",
+    "abrirApp": "Abrindo o aplicativo...",
+    "errorAbrirApp": "Erro ao abrir o aplicativo!",
+    "abrirAccion": "Você quer abrir a ação que o CreaProDroid vai fazer?",
+    "accionAbierta": "Iniciando Ação..."
 }
