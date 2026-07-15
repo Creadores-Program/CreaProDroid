@@ -17,5 +17,7 @@
     "abrirApp": "Ouvrir l'application...",
     "errorAbrirApp": "Erreur d'ouverture de l'application!",
     "abrirAccion": "Voulez-vous ouvrir l'action que CreaProDroid fera?",
-    "accionAbierta": "Action de départ..."
+    "accionAbierta": "Action de départ...",
+    "abrirUrl": "Vous souhaitez ouvrir l'URL ",
+    "urlAbierta": "Ouvrir l'URL..."
 }

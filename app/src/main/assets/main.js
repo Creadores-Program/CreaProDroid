@@ -235,9 +235,9 @@ function sendMessage(msg, isSpeak) {
                 sendToHtml(window.langPage.accionAbierta);
             }
         }else{
-            if(confirm("Quieres abrir la url "+subPrompIAJson.openUrl+"?")){
+            if(confirm(window.langPage.abrirUrl+subPrompIAJson.openUrl+"?")){
                 Android.openUrl(subPrompIAJson.openUrl);
-                sendToHtml("Abriendo la url...");
+                sendToHtml(window.langPage.urlAbierta);
             }
         }
     }
