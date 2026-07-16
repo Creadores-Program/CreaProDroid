@@ -247,21 +247,21 @@ function sendMessage(msg, isSpeak) {
     }
 }
 function handleFileChange(Str, name) {
-    alert("Procesando archivo...");
+    alert(window.langPage.procesarArchivo);
     filesI += "[File:"+name + "]\n"+Str + "\n[/File:"+name+"]\n";
-    alert("Archivo procesado, puedes enviar el mensaje ahora.");
+    alert(window.langPage.archivoProcesado);
 }
 function onSpeechResult(result) {
     sendMessage(result + filesI, true);
 }
 function onSpeechError(error) {
-    alert("Error en el reconocimiento de voz: "+ error);
+    alert(window.langPage.errorVoz + error);
 }
 function copyMDcode(button) {
     var codeBlockrgfgbf = button.parentElement;
     if(codeBlockrgfgbf != null){
         Android.copyText(codeBlockrgfgbf.textContent);
-        alert("Texto copiado!");
+        alert(window.langPage.textoCopiado);
     }
 }
 var pluginsIA;

@@ -19,5 +19,8 @@
     "abrirAccion": "Você quer abrir a ação que o CreaProDroid vai fazer?",
     "accionAbierta": "Iniciando Ação...",
     "abrirUrl": "Você deseja abrir a URL ",
-    "urlAbierta": "Abrindo a URL..."
+    "urlAbierta": "Abrindo a URL...",
+    "procesarArchivo": "Arquivo de processamento...",
+    "archivoProcesado": "Processado arquivo, você pode enviar a mensagem agora.",
+    "errorVoz": "Erro no reconhecimento de voz: "
 }
