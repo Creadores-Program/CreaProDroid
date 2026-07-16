@@ -57,7 +57,9 @@ public class JSInterface{
     @JavascriptInterface
     public void finish() {
         if(tts != null) {
-            tts.stop();
+            if(tts.isSpeaking()){
+                tts.stop();
+            }
             tts.shutdown();
         }
         mWebView.destroy();
@@ -175,7 +177,7 @@ public class JSInterface{
     }
     @JavascriptInterface
     public void stopSpeak(){
-        if(tts != null) {
+        if(tts != null && tts.isSpeaking()) {
             tts.stop();
         }
     }
@@ -192,7 +194,12 @@ public class JSInterface{
     }
     @JavascriptInterface
     public void clearCache(){
-        mWebView.clearCache(true);
+        mWebView.post(new Runnable() {
+            @Override
+            public void run() {
+                mWebView.clearCache(true);
+            }
+        });
     }
     @JavascriptInterface
     public boolean isLatestVersionByGithub(){
