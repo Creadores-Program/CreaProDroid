@@ -9,7 +9,8 @@ body{
     -webkit-transition: opacity 0.2s ease-in-out;
     transition: opacity 0.2s ease-in-out;
 }
-*:not(.generedImg):not(.bubble){
+*:not(.generedImg):not(.bubble):not(input):not(#customPrompt){
+    -webkit-user-select: none;
     user-select: none;
 }
 .chat-container{
@@ -44,6 +45,7 @@ body{
     -webkit-border-radius: 50%;
     border-radius: 50%;
     cursor: pointer;
+    -webkit-transition: -webkit-transform 0.2s, background-color 0.2s;
     -webkit-transition: transform 0.2s, background-color 0.2s;
     transition: transform 0.2s, background-color 0.2s;
     margin-left: 10px;
@@ -156,15 +158,18 @@ body{
     background-color: #444444;
 }
 .input-container {
+    display: -webkit-box;
+    display: -webkit-flex;
     display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
     align-items: center;
     justify-content: center;
     padding: 2vh 1.5vw;
     background-color: #1e1e1e;
     border-top: 1px solid #333333;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5);
-    width: 100vw;
-    max-width: 100%;
+    width: 100%;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     overflow: hidden;
@@ -176,6 +181,8 @@ body{
 .input-container button {
     width: 10.5vw; 
     height: 10.5vw;
+    min-width: 35px; 
+    min-height: 35px;
     background-color: #2c2c2c;
     background-size: 55% !important;
     background-repeat: no-repeat;
@@ -186,10 +193,13 @@ body{
     cursor: pointer;
     -webkit-transition: transform 0.2s, background-color 0.2s;
     transition: transform 0.2s, background-color 0.2s;
+    -webkit-flex-shrink: 0;
     flex-shrink: 0; 
 }
 
 .input-container input {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
     flex: 1;
     margin: 0 1.8vw;
     padding: 1.2vh 3vw;
@@ -202,6 +212,7 @@ body{
     outline: none;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    -webkit-flex-shrink: 1;
     flex-shrink: 1;
     -webkit-appearance: none;
     appearance: none;          
@@ -282,14 +293,23 @@ pre code textarea:focus {
 }
 
 .plugin-switch-container {
+    display: -webkit-box;
+    display: -webkit-flex;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
     flex-direction: column;
     margin-bottom: 15px;
     margin: 20px 0;
 }
 
 .plugin-switch {
+    display: -webkit-box;
+    display: -webkit-flex;
     display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
     align-items: center;
     font-size: 16px;
     min-height: 40px;
@@ -343,8 +363,15 @@ pre code textarea:focus {
     color: #e0e0e0;
     font-weight: 500;
     letter-spacing: 0.5px;
+    display: -webkit-box;
+    display: -webkit-flex;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
     flex-direction: column;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 0%;
     flex: 1 1 0%;
     min-width: 0;
     word-break: break-word;
@@ -414,7 +441,7 @@ pre code textarea:focus {
     font-size: 14px;
     vertical-align: middle;
     margin-left: 4px;
-    -webkit-transition: background-color 0.2s;
+    -webkit-transition: -webkit-background-color 0.2s, background-color 0.2s;
     transition: background-color 0.2s;
 }
 
@@ -435,6 +462,7 @@ pre code textarea:focus {
     border-radius: 8px;
     -webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    -webkit-transition: -webkit-background-color 0.2s, -webkit-transform 0.2s;
     -webkit-transition: background-color 0.2s, transform 0.2s;
     transition: background-color 0.2s, transform 0.2s;
 }
