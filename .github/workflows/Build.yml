@@ -34,7 +34,7 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
       - name: Test App
-        uses: Reactive-Circus/android-emulator-runner@v2.38.0
+        uses: ReactiveCircus/android-emulator-runner@v2.38.0
         with:
           api-level: 16
           target: default
