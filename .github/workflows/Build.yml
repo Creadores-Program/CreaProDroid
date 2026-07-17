@@ -41,6 +41,11 @@ jobs:
           arch: x86
           profile: Nexus 4
           script: |
+            cleanup() {
+              adb emu kill || true
+              adb kill-server || true
+            }
+            trap cleanup EXIT
             adb install "app/build/outputs/apk/debug/app-debug.apk"
             chmod +x ./tests/test-app.sh
             ./tests/test-app.sh
