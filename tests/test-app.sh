@@ -3,7 +3,7 @@ set -e
 PACKAGE="org.CreadoresProgram.CreaProDroid"
 ACTIVITY="org.CreadoresProgram.CreaProDroid.MainActivity"
 echo "Loading Logs..."
-adb logcat | grep "CreaProDroid" &
+adb logcat | grep --line-buffered "CreaProDroid" &
 LOGCAT_PID=$!
 echo "===Open App==="
 adb shell am start -n "$PACKAGE/$ACTIVITY"
