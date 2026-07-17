@@ -45,10 +45,6 @@ jobs:
             adb install "app/build/outputs/apk/debug/app-debug.apk"
             chmod +x ./tests/test-app.sh
             ./tests/test-app.sh
-            echo "===Close Emulator"
-            adb -s emulator-5554 shell reboot -p || true
-            adb kill-server || true
-            exit 0
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v7
