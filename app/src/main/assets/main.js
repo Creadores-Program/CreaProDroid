@@ -370,26 +370,29 @@ if(localStorage.getItem("pluginsIA") != null){
 }
 
 //update
+function promptUpdate(){
+    if(!Android.isLatestVersionByGithub() && confirm("Nueva Actualizacion Disponible!\nPesa: "+(Android.getSizeApkUpdate() / (1024 * 1024))+"mb\nPlataforma de donde se Descarga: Github.com\n"+Android.getDescriptionVer()+"\n¿Quieres Actualizar?")){
+        Android.downloadUpdate();
+        return true;
+    }
+    return false;
+}
 function verifyUpdate(alertNoUp){
     if(alertNoUp){
-        if(!Android.isLatestVersionByGithub() && confirm("Nueva Actualizacion Disponible!\nPesa: "+(Android.getSizeApkUpdate() / (1024 * 1024))+"mb\nPlataforma de donde se Descarga: Github.com\n"+Android.getDescriptionVer()+"\n¿Quieres Actualizar?")){
-            Android.downloadUpdate();
-        }else{
-            if(window.errrorVerifyVersion){
-                alert("Ocurrio un error Desconocido al verificar actualizaciones!");
-                return;
-            }
+        var boolUpdateSucc = promptUpdate();
+        if(window.errrorVerifyVersion){
+            alert("Ocurrio un error Desconocido al verificar actualizaciones!");
+            return;
+        }
+        if(!boolUpdateSucc){
             alert("No hay actualizaciones disponibles.\nO cancelaste la descarga.");
         }
     }else{
-        var nowdatesdcnjd = new Date();
-        if(localStorage.getItem("update") != nowdatesdcnjd.getDay()){
-            localStorage.setItem("update", nowdatesdcnjd.getDay());
-            if(!Android.isLatestVersionByGithub() && confirm("Nueva Actualizacion Disponible!\nPesa: "+(Android.getSizeApkUpdate() / (1024 * 1024))+"mb\nPlataforma de donde se Descarga: Github.com\n"+Android.getDescriptionVer()+"\n¿Quieres Actualizar?")){
-                Android.downloadUpdate();
-            }
+        var nowdatesdcnjd = new Date().getDay().toString();
+        if(localStorage.getItem("update") !== nowdatesdcnjd){
+            localStorage.setItem("update", nowdatesdcnjd);
+            promptUpdate();
         }
     }
 }
 verifyUpdate();
-
