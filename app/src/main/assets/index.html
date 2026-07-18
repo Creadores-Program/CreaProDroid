@@ -26,21 +26,17 @@
     </div>
     <div class="InterfaceH HideDef" id="ReqPerms">
         <div id="reqPerms-header" style="position: -webkit-sticky; position: sticky; top: 0;">
-            <h1>Permisos</h1>
+            <h1 langId="permisos"></h1>
         </div>
         <div id="reqPermsDesq">
-            <p>Permisos Requeridos para el funcionamiento de la app:<br/>
-            • Almacenamiento: requerido para guardar imágenes generadas o subir archivos para la IA.<br/>
-            • Grabar Audio: requerido para grabar tu voz para hablar con la IA<br/>
-            • Contactos: requerido para que la IA pueda ver tus contactos para enviar mensajes, hacer llamadas y más (solo si el plugin está activo)<br/>
-            Además está app es totalmente de código abierto y puedes ver su código <button class="github-btn" onclick="Android.openUrl('https://github.com/Creadores-Program/CreaProDroid')">en Github</button></p><br/>
-            <button id="reqPermsBtn" onclick="Android.reqPerms(); if(Android.hasPerms()){ document.getElementById('ReqPerms').style.display = 'none'; document.getElementById('Home').style.display = 'block'; }">Aceptar Permisos</button>
+            <p langId="permisosDesq"></p><button langId="verGithub" class="github-btn" onclick="Android.openUrl('https://github.com/Creadores-Program/CreaProDroid')"></button><br/>
+            <button langId="aceptarPermisos" id="reqPermsBtn" onclick="Android.reqPerms(); if(Android.hasPerms()){ document.getElementById('ReqPerms').style.display = 'none'; document.getElementById('Home').style.display = 'block'; }"></button>
         </div>
     </div>
     <div class="InterfaceH HideDef" id="OldsChats">
         <div id="oldChats-header" style="position: -webkit-sticky; position: sticky; top: 0;">
             <div id="backOlCBtn" style="width: 40px; height: 40px; background: url('./resources/close.png') 50% 50% no-repeat; background-size: contain;" onclick="document.getElementById('OldsChats').style.display = 'none'; document.getElementById('Home').style.display = 'block';"></div>
-            <h1>Chats Anteriores</h1>
+            <h1 langId="chatsAnterior"></h1>
         </div>
         <div id="oldChats-container"></div>
     </div>
@@ -50,8 +46,8 @@
             <h1>Configuración</h1>
         </div>
         <div id="config-container">
-            <button onclick="subApiKey = prompt('Escribe tu API key:'); if(subApiKey == null || subApiKey.trim() == ''){ alert('No se puede continuar sin la API key.'); throw new Error('No se puede continuar sin la API key.'); } try{ if(Android.promptGemini('Este Es Un Test de ti porfavor responde un Saludo!', subApiKey) == '{{KeyInvalidTest74284}}') throw new Error('Error Key Invalida!'); }catch(e){ alert('Error Key Invalida!'); throw new Error('Error Key Invalida!'); } Android.clearChat(); localStorage.setItem('apiKey', subApiKey); apiKey = subApiKey; delete subApiKey;">Actualizar API Key de Gemini</button><br/>
-            <button onclick="var subUserName = prompt('Escribe tu nombre:'); if(subUserName == null || subUserName.trim() == ''){ alert('No se puede continuar sin el nombre.'); throw new Error('No se puede continuar sin el nombre.'); }else if(subUserName.length < 5 || subUserName.length > 20){ alert('El nombre debe tener entre 5 y 20 caracteres.'); throw new Error('El nombre debe tener entre 5 y 20 caracteres.'); } Android.setUserName(subUserName); localStorage.setItem('userName', userName); userName = subUserName; delete subUserName;">Actualizar Nombre</button><br/>
+            <button onclick="subApiKey = prompt(window.langPage.escribirApikey); if(subApiKey == null || subApiKey.trim() == ''){ alert(window.langPage.noContinuarSinApiKey); throw new Error(window.langPage.noContinuarSinApiKey); } try{ if(Android.promptGemini('Este Es Un Test de ti porfavor responde un Saludo!', subApiKey) == '{{KeyInvalidTest74284}}') throw new Error(window.langPage.keyInvalida); }catch(e){ alert(window.langPage.keyInvalida); throw e; } Android.clearChat(); localStorage.setItem('apiKey', subApiKey); apiKey = subApiKey; delete subApiKey;">Actualizar API Key de Gemini</button><br/>
+            <button onclick="var subUserName = prompt(window.langPage.escribeNombre); if(subUserName == null || subUserName.trim() == ''){ alert(window.langPage.noContinuarSinNombre); throw new Error(window.langPage.noContinuarSinNombre); }else if(subUserName.length < 5 || subUserName.length > 20){ alert(window.langPage.nombreInvalido); throw new Error(window.langPage.nombreInvalido); } Android.setUserName(subUserName); localStorage.setItem('userName', userName); userName = subUserName; delete subUserName;">Actualizar Nombre</button><br/>
             <label id="modelIA-label" for="modelIA"></label>
             <select id="modelIA">
                 <option value="0">Gemini Pro</option>
@@ -104,7 +100,7 @@
             <div class="about-section">
                 <h3>CreaProDroid</h3>
                 <p>Desarrollado por Creadores Program para dispositivos android!</p>
-                <button class="github-btn" onclick="Android.openUrl('https://github.com/Creadores-Program/CreaProDroid')">Ver en Github</button>
+                <button langId="verGithub" class="github-btn" onclick="Android.openUrl('https://github.com/Creadores-Program/CreaProDroid')"></button>
             </div>
         </div>
     </div>

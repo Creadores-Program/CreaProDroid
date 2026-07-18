@@ -22,5 +22,15 @@
     "urlAbierta": "Opening the URL...",
     "procesarArchivo": "Processing file...",
     "archivoProcesado": "Processed file, you can send the message now.",
-    "errorVoz": "Error in voice recognition: "
+    "errorVoz": "Error in voice recognition: ",
+    "errorActualiz": "An unknown error occurred when checking updates!",
+    "noActualiz": "No updates available.\nOr you canceled the download.",
+    "nuevaActualizP1": "New Update Available!\nWeighs: ",
+    "nuevaActualizP2": "mb\nPlatform from where it is downloaded: Github.com\n",
+    "nuevaActualizP3": "\nDo you want to update?",
+    "permisos": "Permissions",
+    "permisosDesq": "Permissions Required for the operation of the app:\n• Storage: required to save generated images or upload files for AI.\n• Record Audio: required to record your voice to speak with the AI\n• Contacts: required for AI to view your contacts to send messages, make calls and more (only if the plugin is active)\nIn addition is fully open source and you can see its code ",
+    "verGithub": "See in Github",
+    "aceptarPermisos": "Accept Permissions",
+    "chatsAnterior": "Previous Chats"
 }

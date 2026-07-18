@@ -22,5 +22,15 @@
     "urlAbierta": "Abrindo a URL...",
     "procesarArchivo": "Arquivo de processamento...",
     "archivoProcesado": "Processado arquivo, você pode enviar a mensagem agora.",
-    "errorVoz": "Erro no reconhecimento de voz: "
+    "errorVoz": "Erro no reconhecimento de voz: ",
+    "errorActualiz": "Um erro desconhecido ocorreu ao verificar atualizações!",
+    "noActualiz": "Sem atualizações disponíveis.\nOu você cancelou o download.",
+    "nuevaActualizP1": "Nova atualização disponível!\nPesa: ",
+    "nuevaActualizP2": "mb\nPlatform de onde é baixado: Github.com\n",
+    "nuevaActualizP3": "\nVocê quer atualizar?",
+    "permisos": "Permissões",
+    "permisosDesq": "Permissões Necessárias para a operação do aplicativo:\n• Armazenamento: necessário para salvar imagens geradas ou fazer upload de arquivos para AI.\n• Áudio de gravação: necessário para gravar sua voz para falar com o AI\n• Contatos: necessário para a IA visualizar seus contatos para enviar mensagens, fazer chamadas e muito mais (apenas se o plugin estiver ativo)\nAlém disso é totalmente de código aberto e você pode ver seu código",
+    "verGithub": "Ver em Github",
+    "aceptarPermisos": "Aceitar Permissões",
+    "chatsAnterior": "Chats Anteriores"
 }

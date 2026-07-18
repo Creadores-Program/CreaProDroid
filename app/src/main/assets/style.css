@@ -9,6 +9,9 @@ body{
     -webkit-transition: opacity 0.2s ease-in-out;
     transition: opacity 0.2s ease-in-out;
 }
+p {
+    white-space: pre-line;
+}
 *:not(.generedImg):not(.bubble):not(input):not(#customPrompt){
     -webkit-user-select: none;
     user-select: none;

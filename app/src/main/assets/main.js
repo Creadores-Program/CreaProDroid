@@ -371,7 +371,7 @@ if(localStorage.getItem("pluginsIA") != null){
 
 //update
 function promptUpdate(){
-    if(!Android.isLatestVersionByGithub() && confirm("Nueva Actualizacion Disponible!\nPesa: "+(Android.getSizeApkUpdate() / (1024 * 1024))+"mb\nPlataforma de donde se Descarga: Github.com\n"+Android.getDescriptionVer()+"\n¿Quieres Actualizar?")){
+    if(!Android.isLatestVersionByGithub() && confirm(window.langPage.nuevaActualizP1+(Android.getSizeApkUpdate() / (1024 * 1024))+window.langPage.nuevaActualizP2+Android.getDescriptionVer()+window.langPage.nuevaActualizP3)){
         Android.downloadUpdate();
         return true;
     }
@@ -381,11 +381,11 @@ function verifyUpdate(alertNoUp){
     if(alertNoUp){
         var boolUpdateSucc = promptUpdate();
         if(window.errrorVerifyVersion){
-            alert("Ocurrio un error Desconocido al verificar actualizaciones!");
+            alert(window.langPage.errorActualiz);
             return;
         }
         if(!boolUpdateSucc){
-            alert("No hay actualizaciones disponibles.\nO cancelaste la descarga.");
+            alert(window.langPage.noActualiz);
         }
     }else{
         var nowdatesdcnjd = new Date().getDay().toString();
