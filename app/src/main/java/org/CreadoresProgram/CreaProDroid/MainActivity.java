@@ -43,8 +43,8 @@ public class MainActivity extends Activity {
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 return handleUrlLoading(view, request.getUrl().toString());
             }
-            @Override
             @SuppressWarnings("deprecation")
+            @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 return handleUrlLoading(view, url);
             }
