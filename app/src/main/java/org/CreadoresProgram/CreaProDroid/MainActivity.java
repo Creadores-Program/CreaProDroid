@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.webkit.WebViewClient;
 import android.webkit.WebSettings;
+import android.webkit.WebResourceResponse;
+import android.webkit.WebResourceRequest;
+import android.webkit.MimeTypeMap;
 import org.CreadoresProgram.CreaProDroid.WebViewExtras.ChromeExtra;
 import org.CreadoresProgram.CreaProDroid.WebViewExtras.JSInterface;
 import android.database.Cursor;
@@ -16,8 +19,7 @@ import android.speech.RecognizerIntent;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.view.KeyEvent;
-import java.util.Locale;
-import java.util.ArrayList;
+import java.util.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.InputStream;
@@ -38,8 +40,16 @@ public class MainActivity extends Activity {
         WebView webView = (WebView) findViewById(R.id.webview);
         webView.setWebViewClient(new WebViewClient(){
             @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                return handleUrlLoading(view, request.getUrl().toString());
+            }
+            @Override
+            @SuppressWarnings("deprecation")
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (url.startsWith("file:///android_asset/") || url.startsWith("javascript:")) {
+                return handleUrlLoading(view, url);
+            }
+            private boolean handleUrlLoading(WebView view, String url){
+                if (url.startsWith("file:///android_asset/") || url.startsWith("file:///android_res/") || url.startsWith("javascript:")) {
                     return false;
                 }else{
                     view.post(new Runnable(){
@@ -51,6 +61,42 @@ public class MainActivity extends Activity {
                     return true;
                 }
             }
+            @SuppressWarnings("deprecation")
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+                if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR2 && url != null && url.startsWith("file:///android_res/")){
+                    try{
+                        Uri uri = Uri.parse(url);
+                        List<String> pathSegments = uri.getPathSegments();
+                        if (pathSegments.size() >= 3) {
+                            String defType = pathSegments.get(pathSegments.size() - 2);
+                            String fileNameWithExt = pathSegments.get(pathSegments.size() - 1);
+                            String resName = fileNameWithExt;
+                            String extension = "";
+                            int dotIndex = fileNameWithExt.lastIndexOf('.');
+                            if (dotIndex > 0) {
+                                resName = fileNameWithExt.substring(0, dotIndex);
+                                extension = fileNameWithExt.substring(dotIndex + 1);
+                            }
+                            int resId = getResources().getIdentifier(resName, defType, getPackageName());
+                            if (resId != 0) {
+                                InputStream stream = getResources().openRawResource(resId);
+                                String mimeType = "image/png";
+                                if (!extension.isEmpty()) {
+                                    String detectedMime = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.toLowerCase());
+                                    if (detectedMime != null) {
+                                        mimeType = detectedMime;
+                                    }
+                                }
+                                return new WebResourceResponse(mimeType, "UTF-8", stream);
+                            }
+                        }
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
+                }
+                return super.shouldInterceptRequest(view, url);
+            }
         });
         webView.setWebChromeClient(new ChromeExtra(this));
         WebSettings webSettings = webView.getSettings();
@@ -61,7 +107,6 @@ public class MainActivity extends Activity {
         webSettings.setDatabaseEnabled(true);
         if(Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2){
             webSettings.setDatabasePath(this.getApplicationContext().getDir("LocalStorageOld", Context.MODE_PRIVATE).getPath());
-            webSettings.setAllowFileAccessFromFileURLs(true);
         }
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
         webSettings.setBuiltInZoomControls(false);
