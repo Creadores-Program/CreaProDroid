@@ -43,23 +43,23 @@
     <div id="Config" class="InterfaceH HideDef">
         <div id="config-header" style="position: -webkit-sticky; position: sticky; top: 0;">
             <div id="backConfBtn" style="width: 40px; height: 40px; background: url('./resources/close.png') 50% 50% no-repeat; background-size: contain;" onclick="document.getElementById('Config').style.display = 'none'; document.getElementById('Home').style.display = 'block';"></div>
-            <h1>Configuración</h1>
+            <h1 langId="config"></h1>
         </div>
         <div id="config-container">
-            <button onclick="subApiKey = prompt(window.langPage.escribirApikey); if(subApiKey == null || subApiKey.trim() == ''){ alert(window.langPage.noContinuarSinApiKey); throw new Error(window.langPage.noContinuarSinApiKey); } try{ if(Android.promptGemini('Este Es Un Test de ti porfavor responde un Saludo!', subApiKey) == '{{KeyInvalidTest74284}}') throw new Error(window.langPage.keyInvalida); }catch(e){ alert(window.langPage.keyInvalida); throw e; } Android.clearChat(); localStorage.setItem('apiKey', subApiKey); apiKey = subApiKey; delete subApiKey;">Actualizar API Key de Gemini</button><br/>
-            <button onclick="var subUserName = prompt(window.langPage.escribeNombre); if(subUserName == null || subUserName.trim() == ''){ alert(window.langPage.noContinuarSinNombre); throw new Error(window.langPage.noContinuarSinNombre); }else if(subUserName.length < 5 || subUserName.length > 20){ alert(window.langPage.nombreInvalido); throw new Error(window.langPage.nombreInvalido); } Android.setUserName(subUserName); localStorage.setItem('userName', userName); userName = subUserName; delete subUserName;">Actualizar Nombre</button><br/>
-            <label id="modelIA-label" for="modelIA"></label>
+            <button langId="actualizApiKey" onclick="subApiKey = prompt(window.langPage.escribirApikey); if(subApiKey == null || subApiKey.trim() == ''){ alert(window.langPage.noContinuarSinApiKey); throw new Error(window.langPage.noContinuarSinApiKey); } try{ if(Android.promptGemini('Este Es Un Test de ti porfavor responde un Saludo!', subApiKey) == '{{KeyInvalidTest74284}}') throw new Error(window.langPage.keyInvalida); }catch(e){ alert(window.langPage.keyInvalida); throw e; } Android.clearChat(); localStorage.setItem('apiKey', subApiKey); apiKey = subApiKey; delete subApiKey;"></button><br/>
+            <button langId="actualizNombre" onclick="var subUserName = prompt(window.langPage.escribeNombre); if(subUserName == null || subUserName.trim() == ''){ alert(window.langPage.noContinuarSinNombre); throw new Error(window.langPage.noContinuarSinNombre); }else if(subUserName.length < 5 || subUserName.length > 20){ alert(window.langPage.nombreInvalido); throw new Error(window.langPage.nombreInvalido); } Android.setUserName(subUserName); localStorage.setItem('userName', userName); userName = subUserName; delete subUserName;"></button><br/>
+            <label langId="selecModeloIa" id="modelIA-label" for="modelIA"></label>
             <select id="modelIA">
                 <option value="0">Gemini Pro</option>
                 <option value="1" selected=selected>Gemini Flash</option>
                 <option value="2">Gemini Flash Lite</option>
             </select><br/>
-            <button onclick="Android.clearCache(); alert('Cache Borrada!');">Borrar Cache</button>
-            <button onclick="verifyUpdate(true);">Buscar Actualizaciones</button><br/>
+            <button langId="borrarCache" onclick="Android.clearCache(); alert(window.langPage.cacheBorrada);"></button>
+            <button langId="buscarActualiz" onclick="verifyUpdate(true);"></button><br/>
             <div class="custom-prompt-container">
-                <label for="customPrompt" style="font-weight: bold;color: #e0e0e0;">Instrucción personalizada para la IA:</label>
+                <label langId="instrucPerson" for="customPrompt" style="font-weight: bold;color: #e0e0e0;"></label>
                 <textarea id="customPrompt" rows="3" style="width: 80%;margin: 8px;background: #2c2c2c;color: #fff;border-radius: 8px;padding: 10px;font-size: 15px;"></textarea>
-                <button onclick="setCustomPrompt()">Guardar</button>
+                <button langId="guardar" onclick="setCustomPrompt()"></button>
             </div><br/>
             <h2>Plugins:</h2><br/>
             <div class="plugin-switch-container">
@@ -68,7 +68,7 @@
                     <span class="slider"></span>
                     <span class="plugin-label">
                         Contacts
-                        <span class="plugin-desc">Accede a tus contactos y muestra nombres, teléfonos y correos.</span>
+                        <span langId="contactosPluginDesq" class="plugin-desc"></span>
                     </span>
                 </label>
                 <label class="plugin-switch">

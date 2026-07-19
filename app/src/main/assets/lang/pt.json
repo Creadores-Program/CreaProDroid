@@ -32,5 +32,15 @@
     "permisosDesq": "Permissões Necessárias para a operação do aplicativo:\n• Armazenamento: necessário para salvar imagens geradas ou fazer upload de arquivos para AI.\n• Áudio de gravação: necessário para gravar sua voz para falar com o AI\n• Contatos: necessário para a IA visualizar seus contatos para enviar mensagens, fazer chamadas e muito mais (apenas se o plugin estiver ativo)\nAlém disso é totalmente de código aberto e você pode ver seu código",
     "verGithub": "Ver em Github",
     "aceptarPermisos": "Aceitar Permissões",
-    "chatsAnterior": "Chats Anteriores"
+    "chatsAnterior": "Chats Anteriores",
+    "config": "Configuração",
+    "actualizApiKey": "Atualizar a chave da API Gemini",
+    "actualizNombre": "Nome da atualização",
+    "borrarCache": "Cache Claro",
+    "cacheBorrada": "Cache apagado!",
+    "buscarActualiz": "Pesquisa Atualizações",
+    "instrucPerson": "Instrução personalizada para IA:",
+    "guardar": "Salvar",
+    "selecModeloIa": "Selecione o modelo de IA",
+    "contactosPluginDesq": "Acesse seus contatos e exibir nomes, telefones e e-mails."
 }

@@ -32,5 +32,15 @@
     "permisosDesq": "Permissions Required for the operation of the app:\n• Storage: required to save generated images or upload files for AI.\n• Record Audio: required to record your voice to speak with the AI\n• Contacts: required for AI to view your contacts to send messages, make calls and more (only if the plugin is active)\nIn addition is fully open source and you can see its code ",
     "verGithub": "See in Github",
     "aceptarPermisos": "Accept Permissions",
-    "chatsAnterior": "Previous Chats"
+    "chatsAnterior": "Previous Chats",
+    "config": "Configuration",
+    "actualizApiKey": "Update Gemini API Key",
+    "actualizNombre": "Update Name",
+    "borrarCache": "Clear Cache",
+    "cacheBorrada": "Cache Erased!",
+    "buscarActualiz": "Search Updates",
+    "instrucPerson": "Customized Instruction for AI:",
+    "guardar": "Save",
+    "selecModeloIa": "Select AI Model",
+    "contactosPluginDesq": "Access your contacts and display names, phones, and emails."
 }

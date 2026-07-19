@@ -251,7 +251,7 @@ p {
     float: right;
 }
 #modelIA-label:before {
-    content: "Seleccionar Modelo de IA";
+    content: attr(langId);
     display: block;
     font-size: 16px;
     color: #e0e0e0;
