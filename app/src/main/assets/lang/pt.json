@@ -42,5 +42,10 @@
     "instrucPerson": "Instrução personalizada para IA:",
     "guardar": "Salvar",
     "selecModeloIa": "Selecione o modelo de IA",
-    "contactosPluginDesq": "Acesse seus contatos e exibir nomes, telefones e e-mails."
+    "contactosPluginDesq": "Acesse seus contatos e exibir nomes, telefones e e-mails.",
+    "dispositivoPluginDesq": "Recebe informações do dispositivo.",
+    "personalidadPluginDesq": "Permite que a IA tenha sua própria personalidade de acordo com os bate-papos.",
+    "accionesPluginDesq": "Permite executar ações avançadas e comandos especiais.",
+    "acercaDe": "Sobre",
+    "acercaDeDesq": "Desenvolvido por Creadores Program para dispositivos Android!"
 }

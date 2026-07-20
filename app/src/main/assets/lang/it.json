@@ -42,5 +42,10 @@
     "instrucPerson": "Istruzioni personalizzate per l'IA:",
     "guardar": "Salva",
     "selecModeloIa": "Selezionare il modello AI",
-    "contactosPluginDesq": "Accedi ai tuoi contatti e visualizza nomi, telefoni ed e-mail."
+    "contactosPluginDesq": "Accedi ai tuoi contatti e visualizza nomi, telefoni ed e-mail.",
+    "dispositivoPluginDesq": "Ottiene le informazioni sul dispositivo.",
+    "personalidadPluginDesq": "Permette all IA di avere la propria personalità secondo le chat.",
+    "accionesPluginDesq": "Consente di eseguire azioni avanzate e comandi speciali.",
+    "acercaDe": "A proposito di",
+    "acercaDeDesq": "Sviluppato da Creadores Program per dispositivi Android!"
 }

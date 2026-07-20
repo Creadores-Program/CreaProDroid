@@ -42,5 +42,10 @@
     "instrucPerson": "Customized Instruction for AI:",
     "guardar": "Save",
     "selecModeloIa": "Select AI Model",
-    "contactosPluginDesq": "Access your contacts and display names, phones, and emails."
+    "contactosPluginDesq": "Access your contacts and display names, phones, and emails.",
+    "dispositivoPluginDesq": "Gets device information.",
+    "personalidadPluginDesq": "It allows AI to have its own personality according to chats.",
+    "accionesPluginDesq": "Allows you to execute advanced actions and special commands.",
+    "acercaDe": "About",
+    "acercaDeDesq": "Developed by Creadores Program for Android devices!"
 }
