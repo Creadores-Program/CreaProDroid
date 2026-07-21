@@ -84,7 +84,7 @@ var
         {
             // <p>
             // Paragraph
-            pattern: /^(?!<\/?\w+>|\s?\*|\s?[0-9]+|>|\&gt;|-{3,})([^\n]+)$/gm,
+            pattern: /^(?!<\/?(?:w+|pre|code|textarea)[^>]*>|\s?\*|\s?[0-9]+|>|\&gt;|-{3,}|[\s\S]*?<\/pre>)(.+)$/gm,
             replace: "<p>$1</p>",
             type: BLOCK,
         },
