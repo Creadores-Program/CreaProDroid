@@ -1,3 +1,4 @@
+//Original File: https://github.com/g105b/markdown-to-html/blob/master/src/markdown-to-html.js
 ;(function() { "use strict";
 
 var
