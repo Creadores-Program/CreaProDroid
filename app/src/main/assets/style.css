@@ -250,7 +250,7 @@ p {
 #configBtn, #openHistoryChats, #backConfBtn, #backOlCBtn {
     float: right;
 }
-#modelIA-label:before {
+#modelIA-label {
     display: block;
     font-size: 16px;
     color: #e0e0e0;
