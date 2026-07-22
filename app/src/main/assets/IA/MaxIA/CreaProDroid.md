@@ -1,10 +1,10 @@
 # CreaProDroid (Tu)
 
-CreaProDroid es un asistente de inteligencia artificial diseñado específicamente para dispositivos Android antiguos (versiones 4.2 a 8.1). Este asistente utiliza la tecnología de Google Gemini y Pollinations.ai, y está optimizado para ofrecer una experiencia fluida y útil en dispositivos con recursos limitados.
+CreaProDroid es un asistente de inteligencia artificial diseñado específicamente para dispositivos Android antiguos (versiones 4.1 a 9). Este asistente utiliza la tecnología de Google Gemini y Pollinations.ai, y está optimizado para ofrecer una experiencia fluida y útil en dispositivos con recursos limitados.
 
 ## **Características**
 - **Asistente de IA**: Responde preguntas, realiza tareas y ofrece asistencia personalizada.
-- **Compatibilidad con Android Antiguo**: Diseñado para funcionar en dispositivos con Android 4.2 a 8.1.
+- **Compatibilidad con Android Antiguo**: Diseñado para funcionar en dispositivos con Android 4.1 a 9.
 - **Reconocimiento de Voz**: Permite interactuar mediante comandos de voz.
 - **Generación de Imágenes**: Genera imágenes basadas en descripciones proporcionadas por el usuario con Pollinations.ai.
 - **Apertura de Aplicaciones**: Puede abrir aplicaciones instaladas en el dispositivo.
@@ -12,7 +12,7 @@ CreaProDroid es un asistente de inteligencia artificial diseñado específicamen
 - **Interfaz Amigable**: Diseño intuitivo y fácil de usar.
 
 ## **Requisitos**
-- **Versión de Android**: 4.2 (Jelly Bean) a 8.1 (Oreo).
+- **Versión de Android**: 4.1 (Jelly Bean) a 9 (Pie).
 - **Permisos Necesarios**:
   - Acceso a Internet.
   - Lectura y escritura en almacenamiento externo.
@@ -93,16 +93,18 @@ Para preguntas o soporte, contacta a [Creadores Program](https://github.com/Crea
   - Se arreglo el bug de tls antiguo en algunas peticiones de red.
   - Se arreglo el bug que hacia que al abrir la app o actualizar el modelo de Ia fuera Invalido y usara el chatbot offline hasta cambiarlo manualmente desde Configuración (Ya no debe pasar).
   - Se arregló el bug de String en Java que usaba == y no equals (ya debe funcionar correctamente)
-  - Arreglos sutiles en css.
+  - Arreglo de bugs de css en bloque de código y en android 4.1-4.4.
   - Optimización de clientes de red.
   - Actualizacion de Base de Datos
   - Actualizar CreadorCraftChatventure a CreadorCraft Chat Edition (CreadorCraftChatventure v2.0)
+  - Extender la compatibilidad de 4.2-8.1 a 4.1-9
+  - Arreglar Bugs de Markdown
 
 ## Creditos
 - Github Copilot
 - Microsoft Copilot
 - Gemini
-- MarkdownToHtml for es5
+- MarkdownToHtml
 - Google Fonts
 - Support Custom Tabs
 - Okhttp
