@@ -99,6 +99,8 @@ Para preguntas o soporte, contacta a [Creadores Program](https://github.com/Crea
   - Actualizar CreadorCraftChatventure a CreadorCraft Chat Edition (CreadorCraftChatventure v2.0)
   - Extender la compatibilidad de 4.2-8.1 a 4.1-9
   - Arreglar Bugs de Markdown
+  - Añadir traducciones de inglés, francés, italiano y portugués.
+  - Mejorar chatbot Offline en algoritmo de reconocimiento de preguntas.
 
 ## Creditos
 - Github Copilot
