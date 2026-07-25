@@ -4,6 +4,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.HttpUrl;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import android.content.Context;
@@ -16,37 +17,23 @@ import android.content.pm.ResolveInfo;
 import android.content.pm.ApplicationInfo;
 import android.os.Build;
 import java.util.List;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ByteArrayOutputStream;
-import java.nio.charset.StandardCharsets;
 import java.nio.charset.Charset;
 import java.util.Random;
 import java.util.ArrayList;
 import org.CreadoresProgram.CreaProDroid.IA.Plugins.*;
 import org.CreadoresProgram.CreaProDroid.okhttp.OkClients;
+import org.CreadoresProgram.CreaProDroid.utils.Util;
 
 public class MaxIaManager{
-    private static final Charset dataCodeStr;
-    static{
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            dataCodeStr = KitkatCharset.getUTF8();
-        }else{
-            dataCodeStr = Charset.forName("UTF-8");
-        }
-    }
-    private static class KitkatCharset{
-        static Charset getUTF8(){
-            return StandardCharsets.UTF_8;
-        }
-    }
+    private static final Charset dataCodeStr = Util.dataCodeStr;
     private String BaseDataIA = "";
     private String gamesIA = "";
-    private String url = "";
+    private HttpUrl url = null;
+    private static final HttpUrl urlBaseGemini = HttpUrl.parse("https://generativelanguage.googleapis.com").newBuilder().addPathSegment("v1beta").addPathSegment("models").build();
     private String[] urlKeys = {
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-latest:generateContent?key=",
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=",
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key="
+        "gemini-pro-latest:generateContent",
+        "gemini-flash-latest:generateContent",
+        "gemini-flash-lite-latest:generateContent"
     };
     private JSONArray history = new JSONArray();
     private String UserName = "Maxi";
@@ -63,93 +50,54 @@ public class MaxIaManager{
     public MaxIaManager(Context context) {
         this.context = context;
         AssetManager assetManager = context.getAssets();
-        try{
-            String[] files = assetManager.list("IA/MaxIA");
-            if(files != null) {
-                for (String file : files) {
-                    InputStream inputStream = null;
-                    try{
-                        inputStream = assetManager.open("IA/MaxIA/" + file);
-                        byte[] buff = new byte[inputStream.available()];
-                        int bytesRea;
-                        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                        while ((bytesRea = inputStream.read(buff)) != -1) {
-                          outputStream.write(buff, 0, bytesRea);
-                        }
-                        byte[] fileBytes = outputStream.toByteArray();
-                        this.BaseDataIA += " . " + new String(fileBytes, dataCodeStr);
-                    }finally {
-                        if(inputStream != null) inputStream.close();
-                    }
-                }
+        try {
+            StringBuilder baseDataBuilder = new StringBuilder();
+            loadFolderData(assetManager, "IA/MaxIA", baseDataBuilder);
+            this.BaseDataIA = baseDataBuilder.toString();
+            StringBuilder gamesDataBuilder = new StringBuilder();
+            loadFolderData(assetManager, "IA/Games", gamesDataBuilder);
+            this.gamesIA = gamesDataBuilder.toString();
+            String botPromptsStr = Util.readAssetAsString(assetManager, "IA/Data/MaxIA/BotPromptsv2.json");
+            if (botPromptsStr != null) {
+                this.maxBotPrompts = new JSONArray(botPromptsStr);
             }
-            String[] filesGames = assetManager.list("IA/Games");
-            if(filesGames != null) {
-                for (String file : filesGames) {
-                    InputStream inputStream = null;
-                    try{
-                        inputStream = assetManager.open("IA/Games/" + file);
-                        byte[] buff = new byte[inputStream.available()];
-                        int bytesRea;
-                        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                        while ((bytesRea = inputStream.read(buff)) != -1) {
-                          outputStream.write(buff, 0, bytesRea);
-                        }
-                        byte[] fileBytes = outputStream.toByteArray();
-                        this.gamesIA += " . " + new String(fileBytes, dataCodeStr);
-                    }finally {
-                        if(inputStream != null) inputStream.close();
-                    }
-                }
+            String noSeBotStr = Util.readAssetAsString(assetManager, "IA/Data/MaxIA/NoseBotv2.json");
+            if (noSeBotStr != null) {
+                this.maxNoSeBotPrompts = new JSONArray(noSeBotStr);
             }
-            InputStream inputS = null;
-            InputStream inputS2 = null;
-            try{
-                inputS = assetManager.open("IA/Data/MaxIA/BotPromptsv2.json");
-                inputS2 = assetManager.open("IA/Data/MaxIA/NoseBotv2.json");
-                byte[] buff = new byte[inputS.available()];
-                int bytesRea;
-                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                while ((bytesRea = inputS.read(buff)) != -1) {
-                    outputStream.write(buff, 0, bytesRea);
-                }
-                byte[] fileBytes = outputStream.toByteArray();
-                this.maxBotPrompts = new JSONArray(new String(fileBytes, dataCodeStr));
-                byte[] buff2 = new byte[inputS2.available()];
-                int bytesRea2;
-                ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
-                while ((bytesRea2 = inputS2.read(buff2)) != -1) {
-                    outputStream2.write(buff2, 0, bytesRea2);
-                }
-                byte[] fileBytes2 = outputStream2.toByteArray();
-                this.maxNoSeBotPrompts = new JSONArray(new String(fileBytes2, dataCodeStr));
-            }finally {
-                if(inputS != null) inputS.close();
-                if(inputS2 != null) inputS2.close();
-            }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        //Cargar Apps para abrir
-        PackageManager pm = context.getPackageManager();
-        Intent intent = new Intent(Intent.ACTION_MAIN, null);
-        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-        List<ResolveInfo> activities = pm.queryIntentActivities(intent, 0);
-        for (ResolveInfo pkg : activities) {
-            ApplicationInfo appInfo;
+        PackageManager packageManager = context.getPackageManager();
+        Intent launcherIntent = new Intent(Intent.ACTION_MAIN, null);
+        launcherIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        List<ResolveInfo> launchableActivities = packageManager.queryIntentActivities(launcherIntent, 0);
+        for (ResolveInfo resolveInfo : launchableActivities) {
             try {
-                appInfo = pm.getApplicationInfo(pkg.activityInfo.packageName, 0);
-            } catch (PackageManager.NameNotFoundException e) {
+                ApplicationInfo appInfo = packageManager.getApplicationInfo(resolveInfo.activityInfo.packageName, 0);
+                CharSequence appLabel = packageManager.getApplicationLabel(appInfo);
+                JSONObject appJson = new JSONObject();
+                appJson.put("name", appLabel != null ? appLabel.toString() : "");
+                appJson.put("package", appInfo.packageName);
+                this.apps.put(appJson);
+            } catch (Exception e) {
                 continue;
             }
-            JSONObject jsonObj = new JSONObject();
-            try{
-              jsonObj.put("name", pm.getApplicationLabel(appInfo).toString());
-              jsonObj.put("package", appInfo.packageName);
-              this.apps.put(jsonObj);
-            }catch (Exception e){
-                continue;
+        }
+    }
+    private void loadFolderData(AssetManager assetManager, String folderPath, StringBuilder outputBuilder) {
+        try {
+            String[] files = assetManager.list(folderPath);
+            if (files != null) {
+                for (String fileName : files) {
+                    String fileContent = Util.readAssetAsString(assetManager, folderPath + "/" + fileName);
+                    if (fileContent != null) {
+                        outputBuilder.append(" . ").append(fileContent);
+                    }
+                }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     public void setHistory(String history){
@@ -163,7 +111,7 @@ public class MaxIaManager{
         return this.history.toString();
     }
     public void setModel(int model){
-        this.url = this.urlKeys[model];
+        this.url = urlBaseGemini.newBuilder().addPathSegment(this.urlKeys[model]).build();
     }
     public void setPersonalityPrompt(String prompt){
         this.personalityPrompt = prompt;
@@ -275,7 +223,7 @@ public class MaxIaManager{
         //Enviar peticion
         String response = "";
         try{
-          response = fetch(this.url+key, promptJson.toString());
+          response = fetch(this.url.newBuilder().setQueryParameter("key", key).build(), promptJson.toString());
         }catch (Exception e){
             e.printStackTrace();
             if(prompt.equals("Este Es Un Test de ti porfavor responde un Saludo!")){
@@ -378,7 +326,7 @@ public class MaxIaManager{
         this.UserName = name;
     }
 
-    private String fetch(String url, String data) throws Exception{
+    private String fetch(HttpUrl url, String data) throws Exception{
         RequestBody body = RequestBody.create(JSONHt, data);
         Request request = new Request.Builder()
                 .url(url)

@@ -6,13 +6,17 @@ import okhttp3.ConnectionSpec;
 
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
+
 public class OkClients{
     private OkHttpClient clientHt = new OkHttpClient.Builder()
         .connectionSpecs(Arrays.asList(
             new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
                 .tlsVersions(TlsVersion.TLS_1_3, TlsVersion.TLS_1_2)
+                .supportsTlsExtensions(true)
                 .build(),
-            ConnectionSpec.COMPATIBLE_TLS
+            new ConnectionSpec.Builder(ConnectionSpec.COMPATIBLE_TLS)
+                .supportsTlsExtensions(true)
+                .build()
         ))
         .build();
     private OkHttpClient clientHtIa = clientHt.newBuilder()

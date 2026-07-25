@@ -8,14 +8,11 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.webkit.WebView;
-import android.content.Intent;
-import android.net.Uri;
-import android.graphics.Color;
-import android.support.customtabs.CustomTabsIntent;
 import java.io.File;
 import java.io.InputStream;
 import java.io.FileOutputStream;
 import org.CreadoresProgram.CreaProDroid.okhttp.OkClients;
+import org.CreadoresProgram.CreaProDroid.utils.Util;
 
 public class GithubUpdate{
     private String repoUrl = "https://api.github.com/repos/Creadores-Program/CreaProDroid/releases/latest";
@@ -32,11 +29,7 @@ public class GithubUpdate{
         }
     }
     public void downloadUpdate(Context context){
-        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-        builder.setShowTitle(true);
-        builder.setToolbarColor(Color.parseColor("#FF6200EE"));
-        CustomTabsIntent customTabsIntent = builder.build();
-        customTabsIntent.launchUrl(context, Uri.parse(urlDownload));
+        Util.openUrl(urlDownload, context);
     }
     public boolean isLatestVersionByGithub(WebView view){
         Request request = new Request.Builder()
@@ -54,7 +47,7 @@ public class GithubUpdate{
                 for(int i = 0; i < assetsGithub.length(); i++){
                     JSONObject asset = assetsGithub.getJSONObject(i);
                     if(asset.getString("name").endsWith(".apk")){
-                        urlDownload = jsonObject.getString("html_url");
+                        urlDownload = jsonObject.getString("browser_download_url");
                         sizeApkDown = asset.getLong("size");
                         descriptionVer = jsonObject.getString("name")+"\n"+jsonObject.getString("body");
                     }

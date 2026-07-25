@@ -2,6 +2,7 @@ var apiKey;
 var userName;
 var filesI = "";
 var chatHistoryOld = [];
+window.langPage = JSON.parse(Android.getLangJson());
 if (!String.prototype.startsWith) {
     String.prototype.startsWith = function(search, pos) {
         pos = pos || 0;
@@ -14,18 +15,22 @@ if (!String.prototype.trim) {
     };
 }
 if(localStorage.getItem("apiKey") == null){
-    apiKey = encodeURIComponent(prompt("Escribe tu API key:"));
+    apiKey = prompt(window.langPage.escribirApikey);
     if(apiKey == null || apiKey.trim() == ""){
-        alert("No se puede continuar sin la API key.");
+        alert(window.langPage.noContinuarSinApiKey);
         Android.finish();
-        throw new Error("No se puede continuar sin la API key.");
+        throw new Error(window.langPage.noContinuarSinApiKey);
     }
+    if(localStorage.getItem("model") == null){
+        localStorage.setItem("model", "1");
+    }
+    Android.setModel(parseInt(localStorage.getItem("model")));
     try{
-        if(Android.promptGemini("Este Es Un Test de ti porfavor responde un Saludo!", apiKey) == "{{KeyInvalidTest74284}}") throw new Error("Error Key Invalida!");
+        if(Android.promptGemini("Este Es Un Test de ti porfavor responde un Saludo!", apiKey) == "{{KeyInvalidTest74284}}") throw new Error(window.langPage.keyInvalida);
     }catch(e){
-        alert("Error Key Invalida!");
+        alert(window.langPage.keyInvalida);
         Android.finish();
-        throw new Error("Error Key Invalida!");
+        throw e;
     }
     Android.clearChat();
     localStorage.setItem("apiKey", apiKey);
@@ -33,15 +38,15 @@ if(localStorage.getItem("apiKey") == null){
     apiKey = localStorage.getItem("apiKey");
 }
 if(localStorage.getItem("userName") == null){
-    userName = prompt("Escribe tu nombre:");
+    userName = prompt(window.langPage.escribeNombre);
     if(userName == null || userName.trim() == ""){
-        alert("No se puede continuar sin el nombre.");
+        alert(window.langPage.noContinuarSinNombre);
         Android.finish();
-        throw new Error("No se puede continuar sin el nombre.");
+        throw new Error(window.langPage.noContinuarSinNombre);
     }else if(userName.length < 5 || userName.length > 20){
-        alert("El nombre debe tener entre 5 y 20 caracteres.");
+        alert(window.langPage.nombreInvalido);
         Android.finish();
-        throw new Error("El nombre debe tener entre 5 y 20 caracteres.");
+        throw new Error(window.langPage.nombreInvalido);
     }
     Android.setUserName(userName);
     localStorage.setItem("userName", userName);
@@ -70,11 +75,12 @@ function loadChatHistory(name){
     for(var i = 0; i < chatHistoryOld.length; i++){
         if(chatHistoryOld[i].name == name){
             chatHistoryloda = chatHistoryOld[i].history;
+            chatHistoryOld.splice(i, 1);
             break;
         }
     }
     if(chatHistoryloda == null){
-        alert("No se encontro el historial de chat.");
+        alert(window.langPage.chatNoEncontrado);
         return;
     }
     if(JSON.parse(Android.getChat()).length > 0){
@@ -92,7 +98,7 @@ function loadChatHistory(name){
                     var genimghjkfr = "https://image.pollinations.ai/prompt/"+encodeURIComponent(subPrompIAJson.genImg);
                     responMSGIA += "<br/><button style='background: url(\"./resources/download.png\") 50% 50% no-repeat; background-size: contain;' onclick='var validimgD = this.parentNode.getElementsByTagName(\"img\")[0]; if(!validimgD || validimgD.naturalWidth === 0){ return; } Android.saveImageGen(\""+genimghjkfr+"\");'></button><img src='"+genimghjkfr+"' alt='Imagen Generada'/>";
                 }catch(e){
-                    responMSGIA += "<br/>Hubo un error al generar la imagen, por favor intenta de nuevo.";
+                    responMSGIA += "<br/>"+window.langPage.errorGenImg;
                 }
             }
             sendToHtml(responMSGIA);
@@ -120,15 +126,15 @@ function updateHistoryChatHtml(){
 function setCustomPrompt(){
     var customPrompt = document.getElementById("customPrompt").value;
     if((customPrompt == null || customPrompt.trim() == "") && localStorage.getItem("customPrompt")){
-        if(confirm("¿Quieres eliminar la instrucción personalizada actual?")){
+        if(confirm(window.langPage.eliminarInstrucPersonalizada)){
             localStorage.removeItem("customPrompt");
             Android.setCustomSistemPrompt("");
-            alert("Instrucción personalizada eliminada.");
+            alert(window.langPage.instrucPersonalizadaEliminada);
         }
         return;
     }
     if(customPrompt == null || customPrompt.trim() == ""){
-        alert("No se puede guardar una instrucción vacía.");
+        alert(window.langPage.noGuardarInstrucVacia);
         return;
     }
     localStorage.setItem("customPrompt", customPrompt);
@@ -139,7 +145,7 @@ function sendToHtml(msg){
     var chatIAd = document.createElement("div");
     chatIAd.className += "message bot clearfix";
     var IAavatar = document.createElement("img");
-    IAavatar.src = "./resources/AvatarIA.jpeg";
+    IAavatar.src = "file:///android_res/drawable/ic_launcher";
     IAavatar.className += "avatar";
     chatIAd.appendChild(IAavatar);
     var djdfiimtemBtn = document.createElement("button");
@@ -157,7 +163,7 @@ function sendToHtml(msg){
     copymsghkv.textChat = stripHtml(msg);
     copymsghkv.onclick = function() {
         Android.copyText(this.textChat);
-        alert("Texto copiado!");
+        alert(window.langPage.textoCopiado);
     }.bind(copymsghkv);
     chatIAd.appendChild(copymsghkv);
     var chatIAdText = document.createElement("div");
@@ -194,7 +200,7 @@ function sendMessage(msg, isSpeak) {
         subPrompIAJson = JSON.parse(prompIAJson);
     }catch(e){
         if(prompIAJson.startsWith("{")){
-            sendToHtml("Hubo un error al procesar la respuesta de la IA, porfavor intenta de nuevo.");
+            sendToHtml(window.langPage.errorIA);
         }else{
             sendToHtml(prompIAJson);
         }
@@ -206,7 +212,7 @@ function sendMessage(msg, isSpeak) {
             var genimghjkfr = "https://image.pollinations.ai/prompt/"+encodeURIComponent(subPrompIAJson.genImg);
             responMSGIA += "<br/><button style='background: url(\"./resources/download.png\") 50% 50% no-repeat; background-size: contain;' onclick='var validimgD = this.parentNode.getElementsByTagName(\"img\")[0]; if(!validimgD || validimgD.naturalWidth === 0){ return; } Android.saveImageGen(\""+genimghjkfr+"\");'></button><img src='"+genimghjkfr+"' alt='Imagen Generada'/>";
         }catch(e){
-            responMSGIA += "<br/>Hubo un error al generar la imagen, por favor intenta de nuevo.";
+            responMSGIA += "<br/>"+window.langPage.errorGenImg;
         }
     }
     sendToHtml(responMSGIA);
@@ -217,21 +223,21 @@ function sendMessage(msg, isSpeak) {
     if(subPrompIAJson.openApp != null && subPrompIAJson.openApp.trim() != "" && subPrompIAJson.openApp.toLowerCase() != "string"){
         try{
             Android.openApp(subPrompIAJson.openApp);
-            sendToHtml("Abriendo la app...");
+            sendToHtml(window.langPage.abrirApp);
         }catch(e){
-            sendToHtml("Error al abrir la app!");
+            sendToHtml(window.langPage.errorAbrirApp);
         }
     }
     if(subPrompIAJson.openUrl != null && subPrompIAJson.openUrl.trim() != "" && subPrompIAJson.openUrl.toLowerCase() != "string"){
         if(!subPrompIAJson.openUrl.startsWith("https://") && !subPrompIAJson.openUrl.startsWith("http://")){
-            if(confirm("Quieres abrir la accion que va a hacer CreaProDroid?")){
+            if(confirm(window.langPage.abrirAccion)){
                 Android.openUrl(subPrompIAJson.openUrl);
-                sendToHtml("Iniciando Accion...");
+                sendToHtml(window.langPage.accionAbierta);
             }
         }else{
-            if(confirm("Quieres abrir la url "+subPrompIAJson.openUrl+"?")){
+            if(confirm(window.langPage.abrirUrl+subPrompIAJson.openUrl+"?")){
                 Android.openUrl(subPrompIAJson.openUrl);
-                sendToHtml("Abriendo la url...");
+                sendToHtml(window.langPage.urlAbierta);
             }
         }
     }
@@ -241,21 +247,21 @@ function sendMessage(msg, isSpeak) {
     }
 }
 function handleFileChange(Str, name) {
-    alert("Procesando archivo...");
+    alert(window.langPage.procesarArchivo);
     filesI += "[File:"+name + "]\n"+Str + "\n[/File:"+name+"]\n";
-    alert("Archivo procesado, puedes enviar el mensaje ahora.");
+    alert(window.langPage.archivoProcesado);
 }
 function onSpeechResult(result) {
     sendMessage(result + filesI, true);
 }
 function onSpeechError(error) {
-    alert("Error en el reconocimiento de voz: "+ error);
+    alert(window.langPage.errorVoz + error);
 }
 function copyMDcode(button) {
     var codeBlockrgfgbf = button.parentElement;
     if(codeBlockrgfgbf != null){
         Android.copyText(codeBlockrgfgbf.textContent);
-        alert("Texto copiado!");
+        alert(window.langPage.textoCopiado);
     }
 }
 var pluginsIA;
@@ -337,6 +343,22 @@ window.onload = function() {
             localStorage.setItem("pluginsIA", JSON.stringify(pluginsIA));
         }
     };
+    if(!Android.hasPerms()){
+        document.getElementById('Home').style.display = 'none'; 
+        document.getElementById('ReqPerms').style.display = 'block';
+    }
+    document.getElementById("inputChat").placeholder = window.langPage.inputChatPlaceholder;
+    var elementsQlang = document.querySelectorAll("[langId]");
+    for(var idod = 0; idod < elementsQlang.length; idod++){
+        var elementQlang = elementsQlang[idod];
+        var attrLang = elementQlang.getAttribute("langId");
+        if(window.langPage[attrLang]){
+            elementQlang.textContent = window.langPage[attrLang];
+        }else{
+            console.warn("Invalid key " + attrLang);
+        }
+    }
+    document.body.style.opacity = "1";
 };
 
 //setPlugins
@@ -348,26 +370,29 @@ if(localStorage.getItem("pluginsIA") != null){
 }
 
 //update
+function promptUpdate(){
+    if(!Android.isLatestVersionByGithub() && confirm(window.langPage.nuevaActualizP1+(Android.getSizeApkUpdate() / (1024 * 1024))+window.langPage.nuevaActualizP2+Android.getDescriptionVer()+window.langPage.nuevaActualizP3)){
+        Android.downloadUpdate();
+        return true;
+    }
+    return false;
+}
 function verifyUpdate(alertNoUp){
     if(alertNoUp){
-        if(!Android.isLatestVersionByGithub() && confirm("Nueva Actualizacion Disponible!\nPesa: "+(Android.getSizeApkUpdate() / (1024 * 1024))+"mb\nPlataforma de donde se Descarga: Github.com\n"+Android.getDescriptionVer()+"\n¿Quieres Actualizar?")){
-            Android.downloadUpdate();
-        }else{
-            if(window.errrorVerifyVersion){
-                alert("Ocurrio un error Desconocido al verificar actualizaciones!");
-                return;
-            }
-            alert("No hay actualizaciones disponibles.\nO cancelaste la descarga.");
+        var boolUpdateSucc = promptUpdate();
+        if(window.errrorVerifyVersion){
+            alert(window.langPage.errorActualiz);
+            return;
+        }
+        if(!boolUpdateSucc){
+            alert(window.langPage.noActualiz);
         }
     }else{
-        var nowdatesdcnjd = new Date();
-        if(localStorage.getItem("update") != nowdatesdcnjd.getDay()){
-            localStorage.setItem("update", nowdatesdcnjd.getDay());
-            if(!Android.isLatestVersionByGithub() && confirm("Nueva Actualizacion Disponible!\nPesa: "+(Android.getSizeApkUpdate() / (1024 * 1024))+"mb\nPlataforma de donde se Descarga: Github.com\n"+Android.getDescriptionVer()+"\n¿Quieres Actualizar?")){
-                Android.downloadUpdate();
-            }
+        var nowdatesdcnjd = new Date().getDay().toString();
+        if(localStorage.getItem("update") !== nowdatesdcnjd){
+            localStorage.setItem("update", nowdatesdcnjd);
+            promptUpdate();
         }
     }
 }
 verifyUpdate();
-

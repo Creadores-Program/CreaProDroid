@@ -2,7 +2,9 @@ package org.CreadoresProgram.CreaProDroid.WebViewExtras;
 import android.webkit.JavascriptInterface;
 import android.content.Context;
 import android.webkit.WebView;
-import android.net.Uri;
+import android.Manifest;
+import android.os.Build;
+import android.content.pm.PackageManager;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -20,13 +22,12 @@ import java.util.Locale;
 import android.os.Bundle;
 import java.util.ArrayList;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Environment;
 import android.util.Base64;
-import android.support.customtabs.CustomTabsIntent;
 import org.CreadoresProgram.CreaProDroid.MainActivity;
 import org.CreadoresProgram.CreaProDroid.update.GithubUpdate;
 import org.CreadoresProgram.CreaProDroid.okhttp.OkClients;
+import org.CreadoresProgram.CreaProDroid.utils.Util;
 
 public class JSInterface{
     private MainActivity mContext;
@@ -56,7 +57,9 @@ public class JSInterface{
     @JavascriptInterface
     public void finish() {
         if(tts != null) {
-            tts.stop();
+            if(tts.isSpeaking()){
+                tts.stop();
+            }
             tts.shutdown();
         }
         mWebView.destroy();
@@ -148,14 +151,10 @@ public class JSInterface{
     }
     @JavascriptInterface
     public void openUrl(String url){
-        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-        builder.setShowTitle(true);
-        builder.setToolbarColor(Color.parseColor("#FF6200EE"));
-        CustomTabsIntent customTabsIntent = builder.build();
         if(url.startsWith("data:") || url.startsWith("intent:") || url.startsWith("package:")){
             url = "javascript:location.href=" + org.json.JSONObject.quote(url) + ";";
         }
-        customTabsIntent.launchUrl(mContext, Uri.parse(url));
+        Util.openUrl(url, mContext);
     }
     @JavascriptInterface
     public void openApp(String packageApp){
@@ -178,7 +177,7 @@ public class JSInterface{
     }
     @JavascriptInterface
     public void stopSpeak(){
-        if(tts != null) {
+        if(tts != null && tts.isSpeaking()) {
             tts.stop();
         }
     }
@@ -195,7 +194,12 @@ public class JSInterface{
     }
     @JavascriptInterface
     public void clearCache(){
-        mWebView.clearCache(true);
+        mWebView.post(new Runnable() {
+            @Override
+            public void run() {
+                mWebView.clearCache(true);
+            }
+        });
     }
     @JavascriptInterface
     public boolean isLatestVersionByGithub(){
@@ -217,6 +221,56 @@ public class JSInterface{
     @JavascriptInterface
     public String getDescriptionVer(){
         return mGithubUpdate.getDescriptionVer();
+    }
+    @JavascriptInterface
+    public void reqPerms(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            ArrayList<String> perms = new ArrayList<>();
+             String[] permsReq = {
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.READ_CONTACTS
+            };
+            for (String perm : permsReq) {
+                if (mContext.checkSelfPermission(perm) != PackageManager.PERMISSION_GRANTED) {
+                    perms.add(perm);
+                }
+            }
+            if (!perms.isEmpty()) {
+               mContext.requestPermissions(perms.toArray(new String[0]), 102);
+            }
+        }
+    }
+    @JavascriptInterface
+    public boolean hasPerms(){
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
+            return true;
+        }
+        String[] permsReq = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.READ_CONTACTS
+        };
+        for (String perm : permsReq) {
+            if (mContext.checkSelfPermission(perm) != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
+    }
+    @JavascriptInterface
+    public String getLangJson(){
+        String lang = Locale.getDefault().getLanguage().toLowerCase();
+        if(!lang.equals("es") && !lang.equals("en") && !lang.equals("it") && !lang.equals("pt") && !lang.equals("fr")){
+            lang = "es";
+        }
+        String langJson = Util.readAssetAsString(mContext.getAssets(), "lang/"+lang+".json");
+        if(langJson == null){
+            return "{}";
+        }
+        return langJson;
     }
     @JavascriptInterface
     public void saveImageGen(String base64data){
