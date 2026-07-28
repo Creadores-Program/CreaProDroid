@@ -127,21 +127,11 @@ public class MainActivity extends Activity {
         if (requestCode == FILE_UPLOAD_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             Uri resultUri = data.getData();
             String jsCallback = "handleFileChange("+org.json.JSONObject.quote(readFile(resultUri.toString(), this))+", "+org.json.JSONObject.quote(getFileName(resultUri))+");";
-            webview.post(new Runnable(){
-                @Override
-                public void run(){
-                    webview.loadUrl("javascript:"+jsCallback);
-                }
-            });
+            Util.evaluateJS(webview, jsCallback);
         }else if(requestCode == RECOGNIZE_SPEECH_ACTIVITY && resultCode == RESULT_OK && data != null) {
             ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             if(result != null && !result.isEmpty()) {
-                webview.post(new Runnable(){
-                    @Override
-                    public void run(){
-                        webview.loadUrl("javascript:onSpeechResult("+org.json.JSONObject.quote(result.get(0))+");");
-                    }
-                });
+                Util.evaluateJS(webview, "onSpeechResult("+org.json.JSONObject.quote(result.get(0))+");");
             }
         }
     }
@@ -166,6 +156,7 @@ public class MainActivity extends Activity {
         webview.post(new Runnable(){
             @Override
             public void run(){
+                Util.evaluateJS();
                 webview.loadUrl("javascript:if(JSON.parse(Android.getChat()).length > 0){ saveChatHistory(); } Android.finish();");
             }
         });
