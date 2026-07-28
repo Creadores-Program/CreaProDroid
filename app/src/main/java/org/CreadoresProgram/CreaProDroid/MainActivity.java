@@ -12,6 +12,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.MimeTypeMap;
 import org.CreadoresProgram.CreaProDroid.WebViewExtras.ChromeExtra;
 import org.CreadoresProgram.CreaProDroid.WebViewExtras.JSInterface;
+import org.CreadoresProgram.CreaProDroid.utils.Util;
 import android.database.Cursor;
 import android.provider.OpenableColumns;
 import android.graphics.Color;
@@ -52,12 +53,7 @@ public class MainActivity extends Activity {
                 if (url.startsWith("file:///android_asset/") || url.startsWith("file:///android_res/") || url.startsWith("javascript:")) {
                     return false;
                 }else{
-                    view.post(new Runnable(){
-                        @Override
-                        public void run(){
-                            view.loadUrl("javascript:Android.openUrl("+org.json.JSONObject.quote(url)+");");
-                        }
-                    });
+                    Util.evaluateJS(webview, "Android.openUrl("+org.json.JSONObject.quote(url)+");");
                     return true;
                 }
             }
@@ -127,21 +123,11 @@ public class MainActivity extends Activity {
         if (requestCode == FILE_UPLOAD_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             Uri resultUri = data.getData();
             String jsCallback = "handleFileChange("+org.json.JSONObject.quote(readFile(resultUri.toString(), this))+", "+org.json.JSONObject.quote(getFileName(resultUri))+");";
-            webview.post(new Runnable(){
-                @Override
-                public void run(){
-                    webview.loadUrl("javascript:"+jsCallback);
-                }
-            });
+            Util.evaluateJS(webview, jsCallback);
         }else if(requestCode == RECOGNIZE_SPEECH_ACTIVITY && resultCode == RESULT_OK && data != null) {
             ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             if(result != null && !result.isEmpty()) {
-                webview.post(new Runnable(){
-                    @Override
-                    public void run(){
-                        webview.loadUrl("javascript:onSpeechResult("+org.json.JSONObject.quote(result.get(0))+");");
-                    }
-                });
+                Util.evaluateJS(webview, "onSpeechResult("+org.json.JSONObject.quote(result.get(0))+");");
             }
         }
     }
@@ -163,12 +149,7 @@ public class MainActivity extends Activity {
     }
     @Override
     protected void onDestroy() {
-        webview.post(new Runnable(){
-            @Override
-            public void run(){
-                webview.loadUrl("javascript:if(JSON.parse(Android.getChat()).length > 0){ saveChatHistory(); } Android.finish();");
-            }
-        });
+        Util.evaluateJS(webview, "if(JSON.parse(Android.getChat()).length > 0){ saveChatHistory(); } Android.finish();");
         super.onDestroy();
     }
     @Override
@@ -210,12 +191,7 @@ public class MainActivity extends Activity {
             startActivityForResult(intent, RECOGNIZE_SPEECH_ACTIVITY);
         }catch(ActivityNotFoundException e) {
             e.printStackTrace();
-            webview.post(new Runnable(){
-                @Override
-                public void run(){
-                    webview.loadUrl("javascript:onSpeechError('Tu dispositivo no soporta el reconocimiento por voz!');");
-                }
-            });
+            Util.evaluateJS(webview, "onSpeechError('Tu dispositivo no soporta el reconocimiento por voz!');");
         }
     }
     private String readFile(String filePath, Context mContext) {

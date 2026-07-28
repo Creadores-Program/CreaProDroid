@@ -53,24 +53,14 @@ public class GithubUpdate{
                     }
                 }
                 String latestVersion = jsonObject.getString("tag_name");
-                view.post(new Runnable(){
-                    @Override
-                    public void run(){
-                        view.loadUrl("javascript:window.errrorVerifyVersion = false;");
-                    }
-                });
+                Util.evaluateJS(view, "window.errrorVerifyVersion = false;");
                 return latestVersion.equals(currentVersion);
             }else{
                 throw new RuntimeException("Error al verificar versión");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            view.post(new Runnable(){
-                @Override
-                public void run(){
-                    view.loadUrl("javascript:window.errrorVerifyVersion = true;");
-                }
-            });
+            Util.evaluateJS(view, "window.errrorVerifyVersion = true;");
             return true;
         }finally{
             try{

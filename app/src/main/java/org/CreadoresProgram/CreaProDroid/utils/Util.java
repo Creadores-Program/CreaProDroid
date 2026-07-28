@@ -6,6 +6,7 @@ import android.content.res.AssetManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.graphics.Color;
+import android.webkit.WebView;
 import androidx.browser.customtabs.CustomTabsIntent;
 
 import java.io.IOException;
@@ -18,14 +19,17 @@ public class Util{
     public static final Charset dataCodeStr;
     static{
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            dataCodeStr = KitkatCharset.getUTF8();
+            dataCodeStr = KitkatHelper.getUTF8();
         }else{
             dataCodeStr = Charset.forName("UTF-8");
         }
     }
-    private static class KitkatCharset{
+    private static class KitkatHelper{
         static Charset getUTF8(){
             return StandardCharsets.UTF_8;
+        }
+        static void evaluateJS(WebView webview, String code){
+            webview.evaluateJavascript(code, null);
         }
     }
     public static String readAssetAsString(AssetManager assetManager, String filePath) {
@@ -58,5 +62,17 @@ public class Util{
         builder.setToolbarColor(Color.parseColor("#FF6200EE"));
         CustomTabsIntent customTabsIntent = builder.build();
         customTabsIntent.launchUrl(context, Uri.parse(url));
+    }
+    public static void evaluateJS(final WebView webview, final String code){
+        webview.post(new Runnable(){
+            @Override
+            public void run(){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    KitkatHelper.evaluateJS(webview, code);
+                }else{
+                    webview.loadUrl("javascript:" + code);
+                }
+            }
+        });
     }
 }
