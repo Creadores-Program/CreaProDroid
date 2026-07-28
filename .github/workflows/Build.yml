@@ -1,6 +1,14 @@
 name: Build CI
 
-on: [push, pull_request]
+on:
+  push:
+    paths-ignore:
+      - 'README.md'
+      - 'GithubResources/**'
+  pull_request:
+    paths-ignore:
+      - 'README.md'
+      - 'GithubResources/**'
 
 jobs:
   build:
