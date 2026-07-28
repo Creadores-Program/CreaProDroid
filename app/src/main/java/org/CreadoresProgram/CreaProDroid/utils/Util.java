@@ -68,7 +68,7 @@ public class Util{
             @Override
             public void run(){
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    KitKatHelper.evaluateJS(webview, code);
+                    KitkatHelper.evaluateJS(webview, code);
                 }else{
                     webview.loadUrl("javascript:" + code);
                 }
