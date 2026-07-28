@@ -52,12 +52,7 @@ public class MainActivity extends Activity {
                 if (url.startsWith("file:///android_asset/") || url.startsWith("file:///android_res/") || url.startsWith("javascript:")) {
                     return false;
                 }else{
-                    view.post(new Runnable(){
-                        @Override
-                        public void run(){
-                            view.loadUrl("javascript:Android.openUrl("+org.json.JSONObject.quote(url)+");");
-                        }
-                    });
+                    Util.evaluateJS(webview, "Android.openUrl("+org.json.JSONObject.quote(url)+");");
                     return true;
                 }
             }
@@ -153,13 +148,7 @@ public class MainActivity extends Activity {
     }
     @Override
     protected void onDestroy() {
-        webview.post(new Runnable(){
-            @Override
-            public void run(){
-                Util.evaluateJS();
-                webview.loadUrl("javascript:if(JSON.parse(Android.getChat()).length > 0){ saveChatHistory(); } Android.finish();");
-            }
-        });
+        Util.evaluateJS(webview, "if(JSON.parse(Android.getChat()).length > 0){ saveChatHistory(); } Android.finish();");
         super.onDestroy();
     }
     @Override
@@ -201,12 +190,7 @@ public class MainActivity extends Activity {
             startActivityForResult(intent, RECOGNIZE_SPEECH_ACTIVITY);
         }catch(ActivityNotFoundException e) {
             e.printStackTrace();
-            webview.post(new Runnable(){
-                @Override
-                public void run(){
-                    webview.loadUrl("javascript:onSpeechError('Tu dispositivo no soporta el reconocimiento por voz!');");
-                }
-            });
+            Util.evaluateJS(webview, "onSpeechError('Tu dispositivo no soporta el reconocimiento por voz!');");
         }
     }
     private String readFile(String filePath, Context mContext) {
