@@ -12,6 +12,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.MimeTypeMap;
 import org.CreadoresProgram.CreaProDroid.WebViewExtras.ChromeExtra;
 import org.CreadoresProgram.CreaProDroid.WebViewExtras.JSInterface;
+import org.CreadoresProgram.CreaProDroid.utils.Util;
 import android.database.Cursor;
 import android.provider.OpenableColumns;
 import android.graphics.Color;
