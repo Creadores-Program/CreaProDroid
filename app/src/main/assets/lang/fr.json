@@ -47,5 +47,8 @@
     "personalidadPluginDesq": "Il permet à l'IA d'avoir sa propre personnalité selon les chats.",
     "accionesPluginDesq": "Vous permet d'exécuter des actions avancées et des commandes spéciales.",
     "acercaDe": "À propos",
-    "acercaDeDesq": "Développé par Creadores Program pour les appareils Android!"
+    "acercaDeDesq": "Développé par Creadores Program pour les appareils Android!",
+    "vozNoCompat": "Votre appareil ne supporte pas la reconnaissance vocale!",
+    "imagenGuardada": "Image enregistrée dans: ",
+    "errorImagenGuardar": "Erreur lors de l'enregistrement de l'image: "
 }

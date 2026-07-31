@@ -47,5 +47,8 @@
     "personalidadPluginDesq": "Permite que a IA tenha sua própria personalidade de acordo com os bate-papos.",
     "accionesPluginDesq": "Permite executar ações avançadas e comandos especiais.",
     "acercaDe": "Sobre",
-    "acercaDeDesq": "Desenvolvido por Creadores Program para dispositivos Android!"
+    "acercaDeDesq": "Desenvolvido por Creadores Program para dispositivos Android!",
+    "vozNoCompat": "Seu dispositivo não suporta reconhecimento de voz!",
+    "imagenGuardada": "Imagem salva em: ",
+    "errorImagenGuardar": "Erro ao salvar a imagem:"
 }

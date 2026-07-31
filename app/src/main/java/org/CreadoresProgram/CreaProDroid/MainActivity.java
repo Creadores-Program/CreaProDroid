@@ -188,7 +188,7 @@ public class MainActivity extends Activity {
             startActivityForResult(intent, RECOGNIZE_SPEECH_ACTIVITY);
         }catch(ActivityNotFoundException e) {
             e.printStackTrace();
-            Util.evaluateJS(webview, "onSpeechError('Tu dispositivo no soporta el reconocimiento por voz!');");
+            Util.evaluateJS(webview, "onSpeechError(window.langPage.vozNoCompat);");
         }
     }
     private String readFile(String filePath, Context mContext) {

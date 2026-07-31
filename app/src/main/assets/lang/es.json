@@ -47,5 +47,8 @@
     "personalidadPluginDesq": "Permite que la IA tenga su propia personalidad segun los chats.",
     "accionesPluginDesq": "Permite ejecutar acciones avanzadas y comandos especiales.",
     "acercaDe": "Acerca de",
-    "acercaDeDesq": "Desarrollado por Creadores Program para dispositivos android!"
+    "acercaDeDesq": "Desarrollado por Creadores Program para dispositivos android!",
+    "vozNoCompat": "Tu dispositivo no soporta el reconocimiento por voz!",
+    "imagenGuardada": "Imagen guardada en: ",
+    "errorImagenGuardar": "Error al guardar la imagen: "
 }
