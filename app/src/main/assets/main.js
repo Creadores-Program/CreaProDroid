@@ -298,6 +298,9 @@ window.onload = function() {
                 Android.setPersonalityPrompt(localStorage.getItem("personalityPrompt"));
             }
         }
+        if(pluginsIA.indexOf(4) != -1){
+            document.getElementById("pluginCreaLink").checked = true;
+        }
     }
     document.getElementById("pluginDeviceInfo").onchange = function(){
         if(this.checked){
@@ -328,6 +331,17 @@ window.onload = function() {
             localStorage.setItem("pluginsIA", JSON.stringify(pluginsIA));
         }else{
             pluginsIA.splice(pluginsIA.indexOf(2), 1);
+            Android.setPlugins(JSON.stringify(pluginsIA));
+            localStorage.setItem("pluginsIA", JSON.stringify(pluginsIA));
+        }
+    };
+    document.getElementById("pluginCreaLink").onchange = function(){
+        if(this.checked){
+            pluginsIA.push(4);
+            Android.setPlugins(JSON.stringify(pluginsIA));
+            localStorage.setItem("pluginsIA", JSON.stringify(pluginIA));
+        }else{
+            pluginsIA.splice(pluginsIA.indexOf(4), 1);
             Android.setPlugins(JSON.stringify(pluginsIA));
             localStorage.setItem("pluginsIA", JSON.stringify(pluginsIA));
         }
