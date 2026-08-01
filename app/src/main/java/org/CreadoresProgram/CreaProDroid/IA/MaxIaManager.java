@@ -136,6 +136,8 @@ public class MaxIaManager{
                     this.plugins[i] = new Personality(context).getInfo();
                     this.isUsingPersonality = true;
                 break;
+                case 4:
+                    this.plugins[i] = new CreaLink(context).getInfo();
             }
         }
     }
