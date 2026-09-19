@@ -50,8 +50,6 @@ jobs:
           sudo udevadm trigger --name-match=kvm
       - name: Test App
         uses: ReactiveCircus/android-emulator-runner@v2.38.0
-        env:
-          EVENT_NAME: ${{ github.event_name }}
         with:
           api-level: 16
           target: default
@@ -59,11 +57,7 @@ jobs:
           profile: Nexus 4
           script: |
             adb wait-for-device
-            if [ "$EVENT_NAME" = "release" ]; then
-              adb install "app/build/outputs/apk/release/app-release.apk"
-            else
-              adb install "app/build/outputs/apk/debug/app-debug.apk"
-            fi
+            if [ "${{ github.event_name }}" = "release" ]; then adb install "app/build/outputs/apk/release/app-release.apk"; else adb install "app/build/outputs/apk/debug/app-debug.apk"; fi
             chmod +x ./tests/test-app.sh
             ./tests/test-app.sh
 
