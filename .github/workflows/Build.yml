@@ -9,6 +9,8 @@ on:
     paths-ignore:
       - 'README.md'
       - 'GithubResources/**'
+  release:
+    types: [published]
 
 jobs:
   build:
@@ -35,7 +37,12 @@ jobs:
       - name: Build App
         env:
           CREAPRODROIDKEYCONTREAPP: ${{ secrets.CREAPRODROIDKEYCONTREAPP }}
-        run: ./gradlew :app:assembleDebug --no-daemon
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            ./gradlew :app:assembleRelease --no-daemon
+          else
+            ./gradlew :app:assembleDebug --no-daemon
+          fi
       - name: Enable KVM group perms
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
@@ -50,12 +57,22 @@ jobs:
           profile: Nexus 4
           script: |
             adb wait-for-device
-            adb install "app/build/outputs/apk/debug/app-debug.apk"
+            if [ "${{ github.event_name }}" = "release" ]; then
+              adb install "app/build/outputs/apk/release/app-release.apk"
+            else
+              adb install "app/build/outputs/apk/debug/app-debug.apk"
+            fi
             chmod +x ./tests/test-app.sh
             ./tests/test-app.sh
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v7
         with:
-          name: CreaProDroidApp
-          path: app/build/outputs/apk/debug/*.apk
+          name: ${{ github.event_name == 'release' && 'CreaProDroidApp-Release' || 'CreaProDroidApp-Debug' }}
+          path: ${{ github.event_name == 'release' && 'app/build/outputs/apk/release/*.apk' || 'app/build/outputs/apk/debug/*.apk' }}
+
+      - name: Attach APK to GitHub Release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v3
+        with:
+          files: app/build/outputs/apk/release/*.apk
