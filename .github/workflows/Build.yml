@@ -83,3 +83,4 @@ jobs:
           token: ${{ secrets.FDROID_SYNC }}
           repository: Creadores-Program/CreaProFDR
           event-type: app_updated
+          client-payload: '{"app_name": "${{ github.event.repository.name }}"}'
