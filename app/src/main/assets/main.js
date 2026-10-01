@@ -2,7 +2,6 @@ var apiKey;
 var userName;
 var filesI = "";
 var chatHistoryOld = [];
-window.langPage = JSON.parse(Android.getLangJson());
 if (!String.prototype.startsWith) {
     String.prototype.startsWith = function(search, pos) {
         pos = pos || 0;
@@ -15,20 +14,20 @@ if (!String.prototype.trim) {
     };
 }
 if(localStorage.getItem("apiKey") == null){
-    apiKey = prompt(window.langPage.escribirApikey);
+    apiKey = prompt(Android.getLang("escribirApikey"));
     if(apiKey == null || apiKey.trim() == ""){
-        alert(window.langPage.noContinuarSinApiKey);
+        alert(Android.getLang("noContinuarSinApiKey"));
         Android.finish();
-        throw new Error(window.langPage.noContinuarSinApiKey);
+        throw new Error(Android.getLang("noContinuarSinApiKey"));
     }
     if(localStorage.getItem("model") == null){
         localStorage.setItem("model", "1");
     }
     Android.setModel(parseInt(localStorage.getItem("model")));
     try{
-        if(Android.promptGemini("Este Es Un Test de ti porfavor responde un Saludo!", apiKey) == "{{KeyInvalidTest74284}}") throw new Error(window.langPage.keyInvalida);
+        if(Android.promptGemini("Este Es Un Test de ti porfavor responde un Saludo!", apiKey) == "{{KeyInvalidTest74284}}") throw new Error(Android.getLang("keyInvalida"));
     }catch(e){
-        alert(window.langPage.keyInvalida);
+        alert(Android.getLang("keyInvalida"));
         Android.finish();
         throw e;
     }
@@ -38,15 +37,15 @@ if(localStorage.getItem("apiKey") == null){
     apiKey = localStorage.getItem("apiKey");
 }
 if(localStorage.getItem("userName") == null){
-    userName = prompt(window.langPage.escribeNombre);
+    userName = prompt(Android.getLang("escribeNombre"));
     if(userName == null || userName.trim() == ""){
-        alert(window.langPage.noContinuarSinNombre);
+        alert(Android.getLang("noContinuarSinNombre"));
         Android.finish();
-        throw new Error(window.langPage.noContinuarSinNombre);
+        throw new Error(Android.getLang("noContinuarSinNombre"));
     }else if(userName.length < 5 || userName.length > 20){
-        alert(window.langPage.nombreInvalido);
+        alert(Android.getLang("nombreInvalido"));
         Android.finish();
-        throw new Error(window.langPage.nombreInvalido);
+        throw new Error(Android.getLang("nombreInvalido"));
     }
     Android.setUserName(userName);
     localStorage.setItem("userName", userName);
@@ -80,7 +79,7 @@ function loadChatHistory(name){
         }
     }
     if(chatHistoryloda == null){
-        alert(window.langPage.chatNoEncontrado);
+        alert(Android.getLang("chatNoEncontrado"));
         return;
     }
     if(JSON.parse(Android.getChat()).length > 0){
@@ -98,7 +97,7 @@ function loadChatHistory(name){
                     var genimghjkfr = "https://image.pollinations.ai/prompt/"+encodeURIComponent(subPrompIAJson.genImg);
                     responMSGIA += "<br/><button style='background: url(\"./resources/download.png\") 50% 50% no-repeat; background-size: contain;' onclick='var validimgD = this.parentNode.getElementsByTagName(\"img\")[0]; if(!validimgD || validimgD.naturalWidth === 0){ return; } Android.saveImageGen(\""+genimghjkfr+"\");'></button><img src='"+genimghjkfr+"' alt='Imagen Generada'/>";
                 }catch(e){
-                    responMSGIA += "<br/>"+window.langPage.errorGenImg;
+                    responMSGIA += "<br/>"+Android.getLang("errorGenImg");
                 }
             }
             sendToHtml(responMSGIA);
@@ -126,15 +125,15 @@ function updateHistoryChatHtml(){
 function setCustomPrompt(){
     var customPrompt = document.getElementById("customPrompt").value;
     if((customPrompt == null || customPrompt.trim() == "") && localStorage.getItem("customPrompt")){
-        if(confirm(window.langPage.eliminarInstrucPersonalizada)){
+        if(confirm(Android.getLang("eliminarInstrucPersonalizada"))){
             localStorage.removeItem("customPrompt");
             Android.setCustomSistemPrompt("");
-            alert(window.langPage.instrucPersonalizadaEliminada);
+            alert(Android.getLang("instrucPersonalizadaEliminada"));
         }
         return;
     }
     if(customPrompt == null || customPrompt.trim() == ""){
-        alert(window.langPage.noGuardarInstrucVacia);
+        alert(Android.getLang("noGuardarInstrucVacia"));
         return;
     }
     localStorage.setItem("customPrompt", customPrompt);
@@ -163,7 +162,7 @@ function sendToHtml(msg){
     copymsghkv.textChat = stripHtml(msg);
     copymsghkv.onclick = function() {
         Android.copyText(this.textChat);
-        alert(window.langPage.textoCopiado);
+        alert(Android.getLang("textoCopiado"));
     }.bind(copymsghkv);
     chatIAd.appendChild(copymsghkv);
     var chatIAdText = document.createElement("div");
@@ -200,7 +199,7 @@ function sendMessage(msg, isSpeak) {
         subPrompIAJson = JSON.parse(prompIAJson);
     }catch(e){
         if(prompIAJson.startsWith("{")){
-            sendToHtml(window.langPage.errorIA);
+            sendToHtml(Android.getLang("errorIA"));
         }else{
             sendToHtml(prompIAJson);
         }
@@ -212,7 +211,7 @@ function sendMessage(msg, isSpeak) {
             var genimghjkfr = "https://image.pollinations.ai/prompt/"+encodeURIComponent(subPrompIAJson.genImg);
             responMSGIA += "<br/><button style='background: url(\"./resources/download.png\") 50% 50% no-repeat; background-size: contain;' onclick='var validimgD = this.parentNode.getElementsByTagName(\"img\")[0]; if(!validimgD || validimgD.naturalWidth === 0){ return; } Android.saveImageGen(\""+genimghjkfr+"\");'></button><img src='"+genimghjkfr+"' alt='Imagen Generada'/>";
         }catch(e){
-            responMSGIA += "<br/>"+window.langPage.errorGenImg;
+            responMSGIA += "<br/>"+Android.getLang("errorGenImg");
         }
     }
     sendToHtml(responMSGIA);
@@ -223,21 +222,21 @@ function sendMessage(msg, isSpeak) {
     if(subPrompIAJson.openApp != null && subPrompIAJson.openApp.trim() != "" && subPrompIAJson.openApp.toLowerCase() != "string"){
         try{
             Android.openApp(subPrompIAJson.openApp);
-            sendToHtml(window.langPage.abrirApp);
+            sendToHtml(Android.getLang("abrirApp"));
         }catch(e){
-            sendToHtml(window.langPage.errorAbrirApp);
+            sendToHtml(Android.getLang("errorAbrirApp"));
         }
     }
     if(subPrompIAJson.openUrl != null && subPrompIAJson.openUrl.trim() != "" && subPrompIAJson.openUrl.toLowerCase() != "string"){
         if(!subPrompIAJson.openUrl.startsWith("https://") && !subPrompIAJson.openUrl.startsWith("http://")){
-            if(confirm(window.langPage.abrirAccion)){
+            if(confirm(Android.getLang("abrirAccion"))){
                 Android.openUrl(subPrompIAJson.openUrl);
-                sendToHtml(window.langPage.accionAbierta);
+                sendToHtml(Android.getLang("accionAbierta"));
             }
         }else{
-            if(confirm(window.langPage.abrirUrl+subPrompIAJson.openUrl+"?")){
+            if(confirm(Android.getLang("abrirUrl")+subPrompIAJson.openUrl+"?")){
                 Android.openUrl(subPrompIAJson.openUrl);
-                sendToHtml(window.langPage.urlAbierta);
+                sendToHtml(Android.getLang("urlAbierta"));
             }
         }
     }
@@ -247,21 +246,21 @@ function sendMessage(msg, isSpeak) {
     }
 }
 function handleFileChange(Str, name) {
-    alert(window.langPage.procesarArchivo);
+    alert(Android.getLang("procesarArchivo"));
     filesI += "[File:"+name + "]\n"+Str + "\n[/File:"+name+"]\n";
-    alert(window.langPage.archivoProcesado);
+    alert(Android.getLang("archivoProcesado"));
 }
 function onSpeechResult(result) {
     sendMessage(result + filesI, true);
 }
 function onSpeechError(error) {
-    alert(window.langPage.errorVoz + error);
+    alert(Android.getLang("errorVoz") + error);
 }
 function copyMDcode(button) {
     var codeBlockrgfgbf = button.parentElement;
     if(codeBlockrgfgbf != null){
         Android.copyText(codeBlockrgfgbf.textContent);
-        alert(window.langPage.textoCopiado);
+        alert(Android.getLang("textoCopiado"));
     }
 }
 var pluginsIA;
@@ -347,13 +346,14 @@ window.onload = function() {
         document.getElementById('Home').style.display = 'none'; 
         document.getElementById('ReqPerms').style.display = 'block';
     }
-    document.getElementById("inputChat").placeholder = window.langPage.inputChatPlaceholder;
+    document.getElementById("inputChat").placeholder = Android.getLang("inputChatPlaceholder");
     var elementsQlang = document.querySelectorAll("[langId]");
     for(var idod = 0; idod < elementsQlang.length; idod++){
         var elementQlang = elementsQlang[idod];
         var attrLang = elementQlang.getAttribute("langId");
-        if(window.langPage[attrLang]){
-            elementQlang.textContent = window.langPage[attrLang];
+        var langval = Android.getLang(attrLang);
+        if(langval){
+            elementQlang.textContent = langval;
         }else{
             console.warn("Invalid key " + attrLang);
         }
@@ -370,7 +370,7 @@ if(localStorage.getItem("pluginsIA") != null){
 }
 
 //update
-function promptUpdate(){
+/*function promptUpdate(){
     if(!Android.isLatestVersionByGithub() && confirm(window.langPage.nuevaActualizP1+(Android.getSizeApkUpdate() / (1024 * 1024))+window.langPage.nuevaActualizP2+Android.getDescriptionVer()+window.langPage.nuevaActualizP3)){
         Android.downloadUpdate();
         return true;
@@ -395,4 +395,4 @@ function verifyUpdate(alertNoUp){
         }
     }
 }
-verifyUpdate();
+verifyUpdate();*/

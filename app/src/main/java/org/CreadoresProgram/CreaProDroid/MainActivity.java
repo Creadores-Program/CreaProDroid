@@ -188,7 +188,7 @@ public class MainActivity extends Activity {
             startActivityForResult(intent, RECOGNIZE_SPEECH_ACTIVITY);
         }catch(ActivityNotFoundException e) {
             e.printStackTrace();
-            Util.evaluateJS(webview, "onSpeechError(window.langPage.vozNoCompat);");
+            Util.evaluateJS(webview, "onSpeechError(Android.getLang('vozNoCompat'));");
         }
     }
     private String readFile(String filePath, Context mContext) {
