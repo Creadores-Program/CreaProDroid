@@ -101,6 +101,13 @@ Para preguntas o soporte, contacta a [Creadores Program](https://github.com/Crea
   - Arreglar Bugs de Markdown
   - Añadir traducciones de inglés, francés, italiano y portugués.
   - Mejorar chatbot Offline en algoritmo de reconocimiento de preguntas.
+- 1.4.4-beta
+  # Mejoras de bugs y mas
+  - Cambiar la ruta de icono a mipmap
+  - cambio de idiomas de json a xml
+  - añadir mas datos
+  - añadir repo F-Droid a la app en Configuración->Repo F-Droid
+  - arreglo de bugs
 
 ## Creditos
 - Github Copilot

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, user-scalable=no minimum-scale=1.0, maximum-scale=1.0">
-    <title>CreaProDroid</title>
+    <title langId="app_name"></title>
     <link rel="stylesheet" href="./style.css"/>
     <script src="./libsJs/markdown-to-html-cpd-edition.js"></script>
     <script src="./main.js"></script>
@@ -11,7 +11,7 @@
 <body>
     <div id="Home" class="InterfaceH">
         <div class="chat-header">
-            <h1>CreaProDroid</h1>
+            <h1 langId="app_name"></h1>
             <div id="openHistoryChats" style="width: 40px; height: 40px; background: url('./resources/chat_paste_go.png') 50% 50% no-repeat; background-size: contain;" onclick="document.getElementById('Home').style.display = 'none'; document.getElementById('OldsChats').style.display = 'block'; updateHistoryChatHtml();"></div>
             <div id="configBtn" style="width: 40px; height: 40px; background: url('./resources/settings.png') 50% 50% no-repeat; background-size: contain;" onclick="document.getElementById('Home').style.display = 'none'; document.getElementById('Config').style.display = 'block';"></div>
         </div>
@@ -21,7 +21,7 @@
             <input type="text" id="inputChat" onkeydown="if(event.keyCode == 13){ if(document.getElementById('inputChat').value != null && document.getElementById('inputChat').value.trim() != ''){ sendMessage(document.getElementById('inputChat').value +filesI, false); document.getElementById('inputChat').value = ''; filesI = ''; } }" />
             <button id="sendBtn" style="background: url('./resources/send.png') 50% 50% no-repeat; background-size: contain;" onclick="if(document.getElementById('inputChat').value != null && document.getElementById('inputChat').value.trim() != ''){ sendMessage(document.getElementById('inputChat').value +filesI, false); document.getElementById('inputChat').value = ''; filesI = ''; }"></button>
             <button onclick="Android.stopSpeak(); Android.startSpeechRecognition();" style="background: url('./resources/mic.png') 50% 50% no-repeat; background-size: contain;"></button>
-            <button onclick="if(confirm(window.langPage.borrarConversacion)){ Android.clearChat(); document.getElementById('Chat').innerHTML = ''; }" style="background: url('./resources/chat_error.png') 50% 50% no-repeat;"></button>
+            <button onclick="if(confirm(Android.getLang('borrarConversacion'))){ Android.clearChat(); document.getElementById('Chat').innerHTML = ''; }" style="background: url('./resources/chat_error.png') 50% 50% no-repeat;"></button>
         </div>
     </div>
     <div class="InterfaceH HideDef" id="ReqPerms">
@@ -46,16 +46,16 @@
             <h1 langId="config"></h1>
         </div>
         <div id="config-container">
-            <button langId="actualizApiKey" onclick="subApiKey = prompt(window.langPage.escribirApikey); if(subApiKey == null || subApiKey.trim() == ''){ alert(window.langPage.noContinuarSinApiKey); throw new Error(window.langPage.noContinuarSinApiKey); } try{ if(Android.promptGemini('Este Es Un Test de ti porfavor responde un Saludo!', subApiKey) == '{{KeyInvalidTest74284}}') throw new Error(window.langPage.keyInvalida); }catch(e){ alert(window.langPage.keyInvalida); throw e; } Android.clearChat(); localStorage.setItem('apiKey', subApiKey); apiKey = subApiKey; delete subApiKey;"></button><br/>
-            <button langId="actualizNombre" onclick="var subUserName = prompt(window.langPage.escribeNombre); if(subUserName == null || subUserName.trim() == ''){ alert(window.langPage.noContinuarSinNombre); throw new Error(window.langPage.noContinuarSinNombre); }else if(subUserName.length < 5 || subUserName.length > 20){ alert(window.langPage.nombreInvalido); throw new Error(window.langPage.nombreInvalido); } Android.setUserName(subUserName); localStorage.setItem('userName', userName); userName = subUserName; delete subUserName;"></button><br/>
+            <button langId="actualizApiKey" onclick="subApiKey = prompt(Android.getLang('escribirApikey')); if(subApiKey == null || subApiKey.trim() == ''){ alert(Android.getLang('noContinuarSinApiKey')); throw new Error(Android.getLang('noContinuarSinApiKey')); } try{ if(Android.promptGemini('Este Es Un Test de ti porfavor responde un Saludo!', subApiKey) == '{{KeyInvalidTest74284}}') throw new Error(Android.getLang('keyInvalida')); }catch(e){ alert(Android.getLang('keyInvalida')); throw e; } Android.clearChat(); localStorage.setItem('apiKey', subApiKey); apiKey = subApiKey;"></button><br/>
+            <button langId="actualizNombre" onclick="var subUserName = prompt(Android.getLang('escribeNombre')); if(subUserName == null || subUserName.trim() == ''){ alert(Android.getLang('noContinuarSinNombre')); throw new Error(Android.getLang('noContinuarSinNombre')); }else if(subUserName.length < 5 || subUserName.length > 20){ alert(Android.getLang('nombreInvalido')); throw new Error(Android.getLang('nombreInvalido')); } Android.setUserName(subUserName); localStorage.setItem('userName', userName); userName = subUserName;"></button><br/>
             <label langId="selecModeloIa" id="modelIA-label" for="modelIA"></label>
             <select id="modelIA">
                 <option value="0">Gemini Pro</option>
                 <option value="1" selected=selected>Gemini Flash</option>
                 <option value="2">Gemini Flash Lite</option>
             </select><br/>
-            <button langId="borrarCache" onclick="Android.clearCache(); alert(window.langPage.cacheBorrada);"></button>
-            <button langId="buscarActualiz" onclick="verifyUpdate(true);"></button><br/>
+            <button langId="borrarCache" onclick="Android.clearCache(); alert(Android.getLang('cacheBorrada'));"></button>
+            <button langId="repofd" onclick="Android.openUrl('https://creadores-program.github.io/CreaProFDR/repo');"></button><br/>
             <div class="custom-prompt-container">
                 <label langId="instrucPerson" for="customPrompt" style="font-weight: bold;color: #e0e0e0;"></label>
                 <textarea id="customPrompt" rows="3" style="width: 80%;margin: 8px;background: #2c2c2c;color: #fff;border-radius: 8px;padding: 10px;font-size: 15px;"></textarea>
@@ -98,7 +98,7 @@
             </div><br/>
             <h2 langId="acercaDe"></h2><br/>
             <div class="about-section">
-                <h3>CreaProDroid</h3>
+                <h3 langId="app_name"></h3>
                 <p langId="acercaDeDesq"></p>
                 <button langId="verGithub" class="github-btn" onclick="Android.openUrl('https://github.com/Creadores-Program/CreaProDroid')"></button>
             </div>

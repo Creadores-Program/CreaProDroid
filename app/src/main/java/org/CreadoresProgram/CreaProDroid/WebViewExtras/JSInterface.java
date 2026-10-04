@@ -24,8 +24,8 @@ import java.util.ArrayList;
 import android.content.Intent;
 import android.os.Environment;
 import android.util.Base64;
+import org.json.JSONArray;
 import org.CreadoresProgram.CreaProDroid.MainActivity;
-import org.CreadoresProgram.CreaProDroid.update.GithubUpdate;
 import org.CreadoresProgram.CreaProDroid.okhttp.OkClients;
 import org.CreadoresProgram.CreaProDroid.utils.Util;
 
@@ -34,14 +34,12 @@ public class JSInterface{
     private MaxIaManager mMaxIaManager;
     private TextToSpeech tts;
     private WebView mWebView;
-    private GithubUpdate mGithubUpdate;
     private OkHttpClient clientHt = OkClients.getInstance().getClient();
     private static final MediaType JSONHt = MediaType.parse("application/json; charset=utf-8");
     public JSInterface(MainActivity c, WebView webView) {
         mContext = c;
         mWebView = webView;
         mMaxIaManager = new MaxIaManager((Context) c);
-        mGithubUpdate = new GithubUpdate((Context) c);
         tts = new TextToSpeech(c, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -63,7 +61,9 @@ public class JSInterface{
             tts.shutdown();
         }
         mWebView.destroy();
-        mContext.finish();
+        if(!mContext.isFinishing() || !(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && mContext.isDestroyed())){
+            mContext.finish();
+        }
     }
     @JavascriptInterface
     public String fetch(String url, String method, String data) {
@@ -127,7 +127,7 @@ public class JSInterface{
     @JavascriptInterface
     public void setPlugins(String arrayjs){
         try{
-            org.json.JSONArray jsonArrJS = new org.json.JSONArray(arrayjs);
+            JSONArray jsonArrJS = new JSONArray(arrayjs);
             int[] arr = new int[jsonArrJS.length()];
             for(int i = 0; i < jsonArrJS.length(); i++){
                 arr[i] = jsonArrJS.optInt(i);
@@ -202,27 +202,6 @@ public class JSInterface{
         });
     }
     @JavascriptInterface
-    public boolean isLatestVersionByGithub(){
-        return mGithubUpdate.isLatestVersionByGithub(mWebView);
-    }
-    @JavascriptInterface
-    public void downloadUpdate(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                mGithubUpdate.downloadUpdate(mContext);
-            }
-        }).start();
-    }
-    @JavascriptInterface
-    public long getSizeApkUpdate(){
-        return mGithubUpdate.getSizeApk();
-    }
-    @JavascriptInterface
-    public String getDescriptionVer(){
-        return mGithubUpdate.getDescriptionVer();
-    }
-    @JavascriptInterface
     public void reqPerms(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             ArrayList<String> perms = new ArrayList<>();
@@ -261,16 +240,12 @@ public class JSInterface{
         return true;
     }
     @JavascriptInterface
-    public String getLangJson(){
-        String lang = Locale.getDefault().getLanguage().toLowerCase();
-        if(!lang.equals("es") && !lang.equals("en") && !lang.equals("it") && !lang.equals("pt") && !lang.equals("fr")){
-            lang = "es";
+    public String getLang(String key){
+        int resId = mContext.getResources().getIdentifier(key, "string", mContext.getPackageName());
+        if (resId != 0) {
+            return mContext.getString(resId);
         }
-        String langJson = Util.readAssetAsString(mContext.getAssets(), "lang/"+lang+".json");
-        if(langJson == null){
-            return "{}";
-        }
-        return langJson;
+        return "";
     }
     @JavascriptInterface
     public void saveImageGen(String base64data){
@@ -297,10 +272,10 @@ public class JSInterface{
             java.io.FileOutputStream fos = new java.io.FileOutputStream(file);
             fos.write(decodedBytes);
             fos.close();
-            Util.evaluateJS(mWebView, "alert(window.langPage.imagenGuardada+" + org.json.JSONObject.quote(file.getAbsolutePath()) + ");");
+            Util.evaluateJS(mWebView, "alert(Android.getLang('imagenGuardada')+" + org.json.JSONObject.quote(file.getAbsolutePath()) + ");");
         }catch(Exception e){
             e.printStackTrace();
-            Util.evaluateJS(mWebView, "alert(window.langPage.errorImagenGuardar+" + org.json.JSONObject.quote(e.getMessage()) + ");");
+            Util.evaluateJS(mWebView, "alert(Android.getLang('errorImagenGuardar')+" + org.json.JSONObject.quote(e.getMessage()) + ");");
         }
     }
 }
