@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name" translatable="false">CreaProDroid</string>
+    <string name="repofd" translatable="false">Repo F-Droid</string>
+</resources>

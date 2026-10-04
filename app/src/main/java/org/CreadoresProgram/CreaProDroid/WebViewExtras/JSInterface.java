@@ -61,7 +61,9 @@ public class JSInterface{
             tts.shutdown();
         }
         mWebView.destroy();
-        mContext.finish();
+        if(!mContext.isFinishing() || !(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && mContext.isDestroyed())){
+            mContext.finish();
+        }
     }
     @JavascriptInterface
     public String fetch(String url, String method, String data) {
@@ -125,7 +127,7 @@ public class JSInterface{
     @JavascriptInterface
     public void setPlugins(String arrayjs){
         try{
-            org.json.JSONArray jsonArrJS = new org.json.JSONArray(arrayjs);
+            JSONArray jsonArrJS = new JSONArray(arrayjs);
             int[] arr = new int[jsonArrJS.length()];
             for(int i = 0; i < jsonArrJS.length(); i++){
                 arr[i] = jsonArrJS.optInt(i);
@@ -244,35 +246,6 @@ public class JSInterface{
             return mContext.getString(resId);
         }
         return "";
-    }
-    @JavascriptInterface
-    public String getLang(String key, String jargs){
-        try{
-            int resId = mContext.getResources().getIdentifier(key, "string", mContext.getPackageName());
-            if (resId == 0) {
-                return "";
-            }
-            JSONArray jsonArray = new JSONArray(jargs);
-            Object[] args = new Object[jsonArray.length()];
-            for (int i = 0; i < jsonArray.length(); i++) {
-                args[i] = jsonArray.get(i);
-            }
-            return mContext.getString(resId, args);
-        }catch(Exception e){
-            e.printStackTrace();
-            return "";
-        }
-    }
-    public String getLangJson(){
-        String lang = Locale.getDefault().getLanguage().toLowerCase();
-        if(!lang.equals("es") && !lang.equals("en") && !lang.equals("it") && !lang.equals("pt") && !lang.equals("fr")){
-            lang = "es";
-        }
-        String langJson = Util.readAssetAsString(mContext.getAssets(), "lang/"+lang+".json");
-        if(langJson == null){
-            return "{}";
-        }
-        return langJson;
     }
     @JavascriptInterface
     public void saveImageGen(String base64data){

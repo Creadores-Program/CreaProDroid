@@ -144,7 +144,7 @@ function sendToHtml(msg){
     var chatIAd = document.createElement("div");
     chatIAd.className += "message bot clearfix";
     var IAavatar = document.createElement("img");
-    IAavatar.src = "file:///android_res/drawable/ic_launcher";
+    IAavatar.src = "file:///android_res/mipmap/ic_launcher";
     IAavatar.className += "avatar";
     chatIAd.appendChild(IAavatar);
     var djdfiimtemBtn = document.createElement("button");
@@ -359,6 +359,11 @@ window.onload = function() {
         }
     }
     document.body.style.opacity = "1";
+    //no update
+    if(!localStorage.getItem("noUpdate")){
+        localStorage.setItem("noUpdate", "true");
+        alert(Android.getLang("noActualiz"));
+    }
 };
 
 //setPlugins
@@ -368,31 +373,3 @@ if(localStorage.getItem("pluginsIA") != null){
 }else{
     pluginsIA = [];
 }
-
-//update
-/*function promptUpdate(){
-    if(!Android.isLatestVersionByGithub() && confirm(window.langPage.nuevaActualizP1+(Android.getSizeApkUpdate() / (1024 * 1024))+window.langPage.nuevaActualizP2+Android.getDescriptionVer()+window.langPage.nuevaActualizP3)){
-        Android.downloadUpdate();
-        return true;
-    }
-    return false;
-}
-function verifyUpdate(alertNoUp){
-    if(alertNoUp){
-        var boolUpdateSucc = promptUpdate();
-        if(window.errrorVerifyVersion){
-            alert(window.langPage.errorActualiz);
-            return;
-        }
-        if(!boolUpdateSucc){
-            alert(window.langPage.noActualiz);
-        }
-    }else{
-        var nowdatesdcnjd = new Date().getDay().toString();
-        if(localStorage.getItem("update") !== nowdatesdcnjd){
-            localStorage.setItem("update", nowdatesdcnjd);
-            promptUpdate();
-        }
-    }
-}
-verifyUpdate();*/
