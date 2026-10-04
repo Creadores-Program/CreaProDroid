@@ -46,5 +46,5 @@
     <string name="vozNoCompat">Votre appareil ne supporte pas la reconnaissance vocale!</string>
     <string name="imagenGuardada">Image enregistrée dans: </string>
     <string name="errorImagenGuardar">Erreur lors de l\'enregistrement de l\'image: </string>
-    <string name="noActualiz">Quoi de neuf: maintenant CreaProDroid ne cherche plus de mises à jour! Maintenant, vous ajoutez simplement le dépôt F-Droid sur votre client F-Droid et obtenez les dernières mises à jour! En plus des autres applications Creadores Program!, il suffit d'aller dans Paramètres - Repo F-Droid</string>
+    <string name="noActualiz">Quoi de neuf: maintenant CreaProDroid ne cherche plus de mises à jour! Maintenant, vous ajoutez simplement le dépôt F-Droid sur votre client F-Droid et obtenez les dernières mises à jour! En plus des autres applications Creadores Program!, il suffit d\'aller dans Paramètres - Repo F-Droid</string>
 </resources>
